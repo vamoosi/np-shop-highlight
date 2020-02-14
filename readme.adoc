@@ -1,0 +1,5 @@
+= NP Shop Highlighter
+
+A simple chrome extension that adds highlighting to items added to NP shops by
+mini stocks.
+
