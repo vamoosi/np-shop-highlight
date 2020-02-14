@@ -41,7 +41,6 @@ export interface ObjectHandler {
 
 
 function defaultHandler() {
-  console.log("DEFAULT OBJECT")
   // Do nothing if we don't know the object type.
 }
 
@@ -54,7 +53,6 @@ function parseObjectUrl(): ObjectParams {
 }
 
 export function objectHandler() {
-  console.log("OBJECT HANDLER");
   const params = parseObjectUrl();
 
   (objectHandlers[params.type] || defaultHandler)(params);

@@ -6,6 +6,4 @@ const recognizedPaths: HandlerMap = {
   "/objects.phtml": objectHandler
 };
 
-console.log("LOAD");
-
 (recognizedPaths[window.location.pathname] || defaultHandler)();

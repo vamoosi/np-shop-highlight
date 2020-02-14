@@ -111,8 +111,6 @@ class ShopHandler {
     const dead   = this.snapshot.stale;
     const stale  = this.snapshot.fresh;
 
-    console.log(stale);
-
     // Remove the snapshot stale data from further processing
     for (let i = 0; i < dead.length; i++)
       curMap.delete(dead[i].itemInfoId);
@@ -208,9 +206,6 @@ export async function shopHandler(params: ObjectParams) {
   // If the last snapshot is empty or too old, don't apply
   // highlighting, just store the current state.
   if (load.fresh.length == 0 || now - load.time > timeout) {
-    console.log("Storing initial state:");
-    console.log(load);
-    console.log(now - load.time);
 
     Store.save(key, {
       time: new Date().getTime(),
