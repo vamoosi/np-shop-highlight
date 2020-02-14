@@ -1,0 +1,16 @@
+{
+  "name": "np-shop-highlight",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/chrome": "0.0.95",
+    "typescript": "3.7.5",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "compile": "rm -rf build; ./node_modules/.bin/tsc",
+    "pack": "rm -rf dist; ./node_modules/.bin/webpack --config webpack.config.js --mode production",
+    "prod": "npm run compile && npm run pack",
+    "dist": "rm -rf bin; npm run prod && mkdir bin && zip bin/np-shop-highlight-`jq -r .version manifest.json`.zip dist/* manifest.json res && rm -rf build dist"
+  }
+}
