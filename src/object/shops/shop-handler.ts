@@ -8,9 +8,26 @@ import { ShopId }       from "./shop-list";
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+/**
+ * Shop item link document query.
+ *
+ * Used to locate links that may be relevant as shop items.
+ */
 const anchorQuery = "a[onclick]";
+
+/**
+ * Anchor URL Param Stock ID key.
+ */
 const stockIdKey  = "stock_id";
+
+/**
+ * Anchor URL Param Object Info ID key.
+ */
 const objInfoId   = "obj_info_id";
+
+/**
+ * Location URL Param object type value for shops.
+ */
 const shopTypeKey = "shop";
 
 /**
@@ -19,6 +36,10 @@ const shopTypeKey = "shop";
  */
 const timeout = 20 * 60 * 1000;
 
+/**
+ * Empty shop data struct for use as a default when actual
+ * shop data cannot be constructed or is not available.
+ */
 const defaultPage: ShopData = {
   fresh: [],
   stale: [],
@@ -124,9 +145,8 @@ class ShopHandler {
     }
 
     // Highlight fresh items
-    for (const key of curMap.keys()) {
+    for (const key of curMap.keys())
       highlightFresh(curMap.get(key).tag);
-    }
 
     return {
       time: new Date().getTime(),
@@ -222,6 +242,7 @@ function buildPageData(data: ElementDataList): PageData {
     out.items.push(data[i].val);
     out.elems.set(data[i].val.itemInfoId, data[i]);
   }
+
   return out;
 }
 
@@ -238,7 +259,7 @@ export async function shopHandler(params: ObjectParams) {
   // highlighting, just store the current state.
   if (load.fresh.length == 0 || now - load.time > timeout) {
 
-    Store.save(key, {
+    await Store.save(key, {
       time: new Date().getTime(),
       fresh: page.items,
       stale: page.items
@@ -246,5 +267,5 @@ export async function shopHandler(params: ObjectParams) {
     return
   }
 
-  Store.save(key, new ShopHandler(load, page).apply());
+  await Store.save(key, new ShopHandler(load, page).apply());
 }
