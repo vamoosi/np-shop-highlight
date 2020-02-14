@@ -142,28 +142,59 @@ class ShopHandler {
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+/**
+ * Applies any mutations to dom required to highlight a
+ * stale shop item.
+ *
+ * @param a anchor tag representing the shop item in the
+ *          page
+ */
 function highlightStale(a: HTMLAnchorElement) {
   a.parentElement.style.backgroundColor = staleColor;
 }
 
+/**
+ * Applies any mutations to dom required to highlight a
+ * new shop item.
+ *
+ * @param a anchor tag representing the shop item in the
+ *          page
+ */
 function highlightFresh(a: HTMLAnchorElement) {
   a.parentElement.style.backgroundColor = freshColor;
 }
 
+/**
+ * Generate a distinct key for a specific shop to avoid
+ * collisions with other object types in the browser store.
+ *
+ * @param id shop id
+ */
 function genKey(id: ShopId): string {
   return shopTypeKey + id;
 }
 
+/**
+ * Retrieve a list of relevant nodes for processing the shop
+ * items.
+ */
 function getLinks(): NodeList {
   return document.querySelectorAll(anchorQuery);
 }
 
+/**
+ * Process the given dom nodes to parse out required data
+ * for keeping track of the shop state.
+ *
+ * @param anchors shop item links
+ */
 function linkData(anchors: NodeList): ElementDataList {
   const out: ElementDataList = [];
 
   for (let i = 0; i < anchors.length; i++) {
     const tag = <HTMLAnchorElement> anchors.item(i);
     const ref = tag.href.split("?");
+
     if (ref.length < 2)
       continue;
 
