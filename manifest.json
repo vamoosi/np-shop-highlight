@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Neopets Shop Highlighter",
   "description": "Highlights items in Neopets shops that appear on page refresh",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "author": {
     "name": "Elizabeth Harper",
