@@ -1,16 +1,18 @@
 {
   "name": "np-shop-highlight",
   "version": "1.0.2",
-  "devDependencies": {
-    "@types/chrome": "0.0.95",
-    "typescript": "3.7.5",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11"
+  "homepage": "https://github.com/Foxcapades/np-shop-highlight",
+  "author": {
+    "name": "Elizabeth Harper",
+    "url": "https://github.com/Foxcapades"
   },
-  "scripts": {
-    "compile": "rm -rf build; ./node_modules/.bin/tsc",
-    "pack": "rm -rf dist; ./node_modules/.bin/webpack --config webpack.config.js --mode production",
-    "prod": "npm run compile && npm run pack && cp -r -t dist manifest.json res",
-    "dist": "rm -rf bin; npm run prod && mkdir bin && cd dist && zip -r ../bin/np-shop-highlight-`jq -r .version manifest.json`.zip *"
+  "devDependencies": {
+    "css-loader": "^3.4.2",
+    "mini-css-extract-plugin": "^0.9.0",
+    "svelte": "^3.18.2",
+    "svelte-loader": "^2.13.6",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }

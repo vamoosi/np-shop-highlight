@@ -1,5 +1,4 @@
 import {shopHandler} from "./shops/shop-handler";
-import {ShopId} from "./shops/shop-list";
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -7,31 +6,16 @@ import {ShopId} from "./shops/shop-list";
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-const objectHandlers: ObjectHandlerMap = {
-  "shop": shopHandler
+/**
+ * @type {ObjectHandlerMap}
+ */
+const objectHandlers = {
+  "shop": shopHandler,
 };
 
 const typeString = "type";
 const objectString = "obj_type";
 
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//
-// Types
-//
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-export interface ObjectHandlerMap {
-  [ ket: string ]: ObjectHandler
-}
-
-export interface ObjectParams {
-  type: string
-  objectType: ShopId
-}
-
-export interface ObjectHandler {
-  (params: ObjectParams): void;
-}
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -44,7 +28,10 @@ function defaultHandler() {
   // Do nothing if we don't know the object type.
 }
 
-function parseObjectUrl(): ObjectParams {
+/**
+ * @returns {ObjectParams}
+ */
+function parseObjectUrl() {
   const url = new URLSearchParams(window.location.search);
   return {
     type: url.has(typeString) ? url.get(typeString) : "",
@@ -57,3 +44,21 @@ export function objectHandler() {
 
   (objectHandlers[params.type] || defaultHandler)(params);
 }
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//
+// Types
+//
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+/**
+ * @typedef {{string, ObjectHandler}} ObjectHandlerMap
+ */
+/**
+ * @typedef {object} ObjectParams
+ * @property {string} type
+ * @property {number} objectType
+ */
+/**
+ * @typedef {function(ObjectParams):void} ObjectHandler
+ */

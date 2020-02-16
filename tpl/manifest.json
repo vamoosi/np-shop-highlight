@@ -2,12 +2,7 @@
   "manifest_version": 2,
   "name": "Neopets Shop Highlighter",
   "description": "Highlights items in Neopets shops that appear on page refresh",
-  "version": "1.0.2",
-
-  "author": {
-    "name": "Elizabeth Harper",
-    "url": "https://github.com/Foxcapades"
-  },
+  "version": "666",
 
   "permissions": [
     "storage",
@@ -17,10 +12,10 @@
   "content_scripts": [
     {
       "matches": ["*://*.neopets.com/*"],
-      "js": ["app.js"]
+      "js": ["active-tab.js"]
     }
   ],
-
+  "options_page": "settings.html",
   "icons": {
     "16": "res/icon-16.png",
     "48": "res/icon-48.png",

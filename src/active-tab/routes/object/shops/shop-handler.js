@@ -1,6 +1,4 @@
-import { ObjectParams } from "../object-handler";
-import { Store }        from "../../storage";
-import { ShopId }       from "./shop-list";
+import * as Store from "../../../../lib/store";
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -39,8 +37,10 @@ const timeout = 20 * 60 * 1000;
 /**
  * Empty shop data struct for use as a default when actual
  * shop data cannot be constructed or is not available.
+ *
+ * @type {ShopData}
  */
-const defaultPage: ShopData = {
+const defaultPage = {
   fresh: [],
   stale: [],
   time: 0
@@ -56,78 +56,62 @@ const freshColor = "#58ff89";
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 /**
- * Newtype for an array of item details
+ * Container for parsed item link details.
+ *
+ * @typedef {object} ItemDetails
+ *
+ * @property {number} stockId
+ * @property {number} itemInfoId
  */
-type ItemDetailList = Array<ItemDetails>;
 
 /**
- * Newtype for an array of element data
+ * @typedef {object} ShopData
+ *     Container for the current and previous snapshots of
+ *     an item shop's available merchandise.
+ * @property {[ItemDetails]} fresh
+ * @property {[ItemDetails]} stale
+ * @property {number} time
  */
-type ElementDataList = Array<ElementData>;
-
-/**
- * Container for parsed item link details
- */
-interface ItemDetails {
-  stockId: number;
-  itemInfoId: number;
-}
-
-/**
- * Container for the current and previous snapshots of an
- * item shop's available merchandise.
- */
-interface ShopData {
-  /**
-   * Most recent available item snapshot.
-   */
-  fresh: ItemDetailList;
-
-  /**
-   * Previous available item snapshot.
-   */
-  stale: ItemDetailList;
-
-  /**
-   * Timestamp for the most recent item snapshot.
-   */
-  time: number;
-}
 
 /**
  * Convenience/efficiency container for processed page link
  * data.
+ *
+ * @typedef {object} PageData
+ *
+ * @property {Array<ItemDetails>} items
+ *     Collection of all parsed item details from the item
+ *     links currently in the dom.
+ *
+ * @property {Map<number, ElementData>} elems
+ *     Map of item id number to element data for every item
+ *     link currently in the page.
  */
-interface PageData {
+/**
+ * @typedef {object} ElementData
+ * @property {HTMLAnchorElement} tag
+ * @property {ItemDetails} val
+ */
 
-  /**
-   * Collection of all parsed item details from the item
-   * links currently in the dom.
-   */
-  items: ItemDetailList;
-
-  /**
-   * Map of item id number to element data for every item
-   * link currently in the page.
-   */
-  elems: Map<number, ElementData>;
-}
-
-interface ElementData {
-  tag: HTMLAnchorElement;
-  val: ItemDetails;
-}
-
+/**
+ * @property {ShopData} snapshot
+ * @property {PageData} current
+ */
 class ShopHandler {
-  private snapshot: ShopData;
-  private current: PageData;
 
-  constructor(snap: ShopData, cur: PageData) {
+  /**
+   * @param {ShopData} snap
+   * @param {PageData} cur
+   */
+  constructor(snap, cur) {
     this.snapshot = snap;
     this.current = cur;
   }
 
-  apply(): ShopData {
+  /**
+   * @return {ShopData}
+   */
+  apply() {
     const curMap = this.current.elems;
     const dead   = this.snapshot.stale;
     const stale  = this.snapshot.fresh;
@@ -166,10 +150,10 @@ class ShopHandler {
  * Applies any mutations to dom required to highlight a
  * stale shop item.
  *
- * @param a anchor tag representing the shop item in the
- *          page
+ * @param {HTMLAnchorElement} a
+ *     anchor tag representing the shop item in the page
  */
-function highlightStale(a: HTMLAnchorElement) {
+function highlightStale(a) {
   a.parentElement.style.backgroundColor = staleColor;
 }
 
@@ -177,10 +161,10 @@ function highlightStale(a: HTMLAnchorElement) {
  * Applies any mutations to dom required to highlight a
  * new shop item.
  *
- * @param a anchor tag representing the shop item in the
- *          page
+ * @param {HTMLAnchorElement} a
+ *     anchor tag representing the shop item in the page
  */
-function highlightFresh(a: HTMLAnchorElement) {
+function highlightFresh(a) {
   a.parentElement.style.backgroundColor = freshColor;
 }
 
@@ -188,17 +172,21 @@ function highlightFresh(a: HTMLAnchorElement) {
  * Generate a distinct key for a specific shop to avoid
  * collisions with other object types in the browser store.
  *
- * @param id shop id
+ * @param {number} id shop id
+ *
+ * @return {string}
  */
-function genKey(id: ShopId): string {
+function genKey(id) {
   return shopTypeKey + id;
 }
 
 /**
  * Retrieve a list of relevant nodes for processing the shop
  * items.
+ *
+ * @return {NodeList}
  */
-function getLinks(): NodeList {
+function getLinks() {
   return document.querySelectorAll(anchorQuery);
 }
 
@@ -206,13 +194,15 @@ function getLinks(): NodeList {
  * Process the given dom nodes to parse out required data
  * for keeping track of the shop state.
  *
- * @param anchors shop item links
+ * @param {NodeList} anchors shop item links
+ *
+ * @return {Array<ElementData>}
  */
-function linkData(anchors: NodeList): ElementDataList {
-  const out: ElementDataList = [];
+function linkData(anchors) {
+  const out = [];
 
   for (let i = 0; i < anchors.length; i++) {
-    const tag = <HTMLAnchorElement> anchors.item(i);
+    const tag = anchors.item(i);
     const ref = tag.href.split("?");
 
     if (ref.length < 2)
@@ -235,8 +225,12 @@ function linkData(anchors: NodeList): ElementDataList {
   return out;
 }
 
-function buildPageData(data: ElementDataList): PageData {
-  const out: PageData = { items: [], elems: new Map<number, ElementData>() };
+/**
+ * @param {Array<ElementData>} data
+ * @return {PageData}
+ */
+function buildPageData(data) {
+  const out = { items: [], elems: new Map() };
 
   for (let i = 0; i < data.length; i++) {
     out.items.push(data[i].val);
@@ -246,18 +240,23 @@ function buildPageData(data: ElementDataList): PageData {
   return out;
 }
 
-export async function shopHandler(params: ObjectParams) {
+/**
+ * @param {ObjectParams} params
+ *
+ * @return void
+ */
+export async function shopHandler(params) {
   const data = linkData(getLinks());
   const key = genKey(params.objectType);
 
   // Unsafely assume the data is what we want for now
-  const load = <ShopData> (await Store.load(key))[key] || defaultPage;
+  const load = await Store.load(key) || defaultPage;
   const page = buildPageData(data);
   const now  = new Date().getTime();
 
   // If the last snapshot is empty or too old, don't apply
   // highlighting, just store the current state.
-  if (load.fresh.length == 0 || now - load.time > timeout) {
+  if (load.fresh.length === 0 || now - load.time > timeout) {
 
     await Store.save(key, {
       time: new Date().getTime(),
