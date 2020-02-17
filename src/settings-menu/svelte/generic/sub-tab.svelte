@@ -62,6 +62,10 @@
    * @type {HighlightStyle}
    */
   export let style;
+
+  /**
+   * ID of the currently selected style
+   */
   export let selection;
 
   /**

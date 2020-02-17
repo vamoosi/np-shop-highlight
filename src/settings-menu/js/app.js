@@ -18,8 +18,9 @@ Store.load(confKey)
   .catch(console.log);
 
 Conf.subscribe(v => {
-  if (last !== JSON.stringify(v)) {
-    last = JSON.stringify(v);
+  const newVal = JSON.stringify(v);
+  if (last !== newVal) {
+    last = newVal;
     Store.save(confKey, v);
   }
 });
