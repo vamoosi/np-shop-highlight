@@ -1,5 +1,5 @@
 <style>
-  @import '../../css/settings.css';
+  @import '../../../css/settings.css';
 
   legend {
     font-size: 1.4em;

@@ -2,10 +2,11 @@
   select {
     font-size: 1.4em;
     margin-bottom: 20px;
+    padding: 5px;
   }
 </style>
 <script>
-  import InputLabel from "./input-label.svelte";
+  import InputLabel from "./form/input-label.svelte";
   import ExampleItem from "./example-item.svelte";
 
   /** @type {HighlightConfig} */

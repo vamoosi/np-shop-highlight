@@ -9,7 +9,7 @@
 </script>
 
 <style>
-  @import '../../css/settings.css';
+  @import '../../../css/settings.css';
 
   span {
     display:       block;
@@ -19,11 +19,9 @@
   input[type=color] {
     opacity:       0;
     padding:       0;
-    height:        2.2em;
+    height:        2em;
     margin-right:  5px;
     width:         60px;
-    position:      relative;
-    bottom:        -0.5em;
     border:        0;
     border-radius: 3px;
   }
@@ -34,11 +32,13 @@
 
   input[type=text] {
     margin:        0;
-    line-height:   1.4em;
+    line-height:   1.6em;
     color:         var(--text-color);
     border-radius: 5px;
     font-size:     1.1em;
     border-width:  0 0 1px 0;
+    position:      relative;
+    bottom:        -.3em;
   }
 
   input[type=text]:focus {

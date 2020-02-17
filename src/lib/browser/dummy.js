@@ -4,7 +4,7 @@
  * @return {Promise<void>}
  */
 export async function storeLocal(key, value) {
-  console.log(`storeLocal: ${key} => ${value}`);
+  console.log(`storeLocal: ${key} => ${JSON.stringify(value)}`);
   return Promise.resolve();
 }
 

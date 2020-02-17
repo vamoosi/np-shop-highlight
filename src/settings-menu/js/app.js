@@ -6,13 +6,21 @@ import App from "../svelte/app.svelte"
 const confKey = "app-config";
 const config  = defaultAppConfig();
 const store   = writable(config);
+let last;
 
 Store.load(confKey)
-  .then(o => store.set(o || config))
+  .then(o => {
+    const tmp = o || config;
+    last = JSON.stringify(tmp)
+    store.set(tmp);
+  })
   .catch(console.log);
 
 store.subscribe(v => {
-  Store.save(confKey, v);
+  if (last !== JSON.stringify(v)) {
+    last = JSON.stringify(v);
+    Store.save(confKey, v);
+  }
 });
 
 const app = new App({

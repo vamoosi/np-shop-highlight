@@ -1,5 +1,5 @@
 <style>
-  @import url('../../css/settings.css');
+  @import url('../../../css/settings.css');
 
   li {
     margin:       15px 0;
@@ -9,7 +9,7 @@
   }
 
   li.selected {
-    width:   221px;
+    /*width: 221px;*/
     outline: none;
   }
 
@@ -20,7 +20,6 @@
     bottom:         0;
     left:           220px;
     right:          0;
-    padding:        50px 20px;
     pointer-events: none;
     opacity:        0;
   }
@@ -30,7 +29,7 @@
     opacity:        100%;
   }
 
-  h3 {
+  h2 {
     cursor:        pointer;
     color:         var(--text-color);
     padding:       20px 15px 20px 0;
@@ -44,26 +43,19 @@
     transition:    border-color var(--tab-fade) ease, background-color var(--tab-fade) ease;
   }
 
-  li.selected > h3 {
+  li.selected > h2 {
     position:         relative;
     background-color: #fff;
     right:            -1px;
-    z-index:          10;
-    padding-right:    17px;
+    padding-right:    16px;
     border-color:     rgba(220, 220, 220, 1);
     border-radius:    10px 0 0 10px;
   }
 </style>
 
 <script>
-  import StyleConfig from "../tabs/style-config.svelte";
-
-  /**
-   * @type {HighlightStyle}
-   */
-  export let style;
+  export let title;
   export let focused = "false";
-  export let config;
 
   /**
    * @type {HTMLLIElement}
@@ -92,8 +84,8 @@
 </script>
 
 <li class:selected={focused==="true"} on:click={selectTab} bind:this={self}>
-  <h3 bind:this={header}>{style.name}</h3>
+  <h2 bind:this={header}>{title}</h2>
   <div>
-    <StyleConfig bind:style={style} bind:config={config}/>
+    <slot></slot>
   </div>
 </li>

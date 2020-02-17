@@ -4,12 +4,12 @@
   export let label;
   export let styleClass;
   export let hint = '';
-  export let value = "";
+  export let value;
 
 </script>
 
 <style>
-  @import "../../css/settings.css";
+  @import "../../../css/settings.css";
 
   input {
     display:       block;
@@ -30,5 +30,8 @@
 </style>
 
 <InputLabel label="{label}" style="{styleClass}">
-  <input type="text" placeholder="{hint}" value="{value}" class="{styleClass}" />
+  <input type="text"
+    placeholder="{hint}"
+    bind:value={value}
+    class="{styleClass}"/>
 </InputLabel>

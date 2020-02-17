@@ -1,11 +1,11 @@
 <script>
-  import Tab from "../generic/tab.svelte";
+  import Tab from "../generic/tab/tab.svelte";
   import SubTabPane from "../generic/sub-tab-pane.svelte";
-  import { defaultHighlightConfig } from "../../../config/types/highlight-config";
 
-  export let styles = defaultHighlightConfig();
+  export let config;
+  export let styles;
 </script>
 
 <Tab title="Styles">
-  <SubTabPane bind:styles={styles} />
+  <SubTabPane bind:styles={styles} bind:config={config} />
 </Tab>

@@ -34,11 +34,13 @@
 
 <script>
   import SubTab from "./sub-tab.svelte";
+  import { newHighlightStyle } from "../../../config/types/highlight-style";
 
   /** @type {HighlightConfig} */
+  export let config;
   export let styles;
 
-  let i = 1;
+  let selected = styles.order[0];
 
   /**
    * @param {Event} e
@@ -48,11 +50,26 @@
     e.stopImmediatePropagation();
     return false;
   }
+
+  function newStyle() {
+    let max = 1;
+    for (const val of styles.order)
+      if (val > max)
+        max = val;
+    max++;
+
+    const thing = newHighlightStyle("New Style", max);
+    styles.order.push(max);
+    styles.values[max.toString()] = thing;
+    selected = max;
+  }
 </script>
 
 <ul on:={noFocus}>
-  <li><span title="Add new style">+ New</span></li>
-  {#each styles.order as id}
-    <SubTab bind:config={styles.values[id]} focused="{i++===1 ? 'true' : 'false'}" />
-  {/each}
+  <li><span title="Add new style" on:click={newStyle}>+ New</span></li>
+    {#each styles.order as id}
+      <SubTab bind:style={styles.values[id]}
+        bind:config={config}
+        focused="{selected===id ? 'true' : 'false'}"/>
+    {/each}
 </ul>

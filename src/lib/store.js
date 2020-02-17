@@ -1,6 +1,6 @@
 const browser = (chrome && chrome.storage)
-  ? require('./chrome')
-  : require('./dummy');
+  ? require('./browser/chrome')
+  : require('./browser/dummy');
 
 
 /**

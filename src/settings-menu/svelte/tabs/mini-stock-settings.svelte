@@ -1,8 +1,8 @@
 <script>
-  import Tab from "../generic/tab.svelte";
-  import BooleanInput from "../generic/boolean-input.svelte";
-  import Fieldset from "../generic/fieldset.svelte";
-  import ColorInput from "../generic/color-input.svelte";
+  import Tab from "../generic/tab/tab.svelte";
+  import BooleanInput from "../generic/form/boolean-input.svelte";
+  import Fieldset from "../generic/form/fieldset.svelte";
+  import ColorInput from "../generic/form/color-input.svelte";
   import PaddingBox from "../generic/padding-box.svelte";
   import StyleSelect from "../generic/style-select.svelte";
 
