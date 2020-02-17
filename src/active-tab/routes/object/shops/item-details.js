@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Container for parsed item link details.
  *

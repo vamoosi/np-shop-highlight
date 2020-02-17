@@ -1,3 +1,5 @@
+"use strict";
+
 import * as Store from "../../lib/store";
 import { writable } from "svelte/store";
 import { defaultAppConfig } from "../../config/types/app-config";

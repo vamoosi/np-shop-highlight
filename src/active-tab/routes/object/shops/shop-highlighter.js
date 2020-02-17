@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @property {ShopData} snapshot
  * @property {PageData} current

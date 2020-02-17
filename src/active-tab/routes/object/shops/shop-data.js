@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @typedef {object} ShopData
  *     Container for the current and previous snapshots of
@@ -6,7 +8,6 @@
  * @property {[ItemDetails]} stale
  * @property {number} time
  */
-
 
 /**
  * Creates a defaulted instance of a ShopData object.

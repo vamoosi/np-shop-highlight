@@ -1,3 +1,5 @@
+"use strict";
+
 import {shopHandler} from "./shops/shop-handler";
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

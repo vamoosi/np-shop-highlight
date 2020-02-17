@@ -1,3 +1,5 @@
+"use strict";
+
 import { defaultAppConfig } from "../config/types/app-config";
 import { load, save } from "../lib/store";
 import { APP_CONFIG_KEY } from "../config/Constants";

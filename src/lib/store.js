@@ -1,3 +1,5 @@
+"use strict";
+
 const browser = (chrome && chrome.storage)
   ? require('./browser/chrome')
   : require('./browser/dummy');

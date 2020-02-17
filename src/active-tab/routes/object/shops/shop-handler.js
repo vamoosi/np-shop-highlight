@@ -1,3 +1,5 @@
+"use strict";
+
 import * as Store from "../../../../lib/store";
 import { ShopHighlighter } from "./shop-highlighter";
 import { getConfig } from "../../../../config/Configuration";

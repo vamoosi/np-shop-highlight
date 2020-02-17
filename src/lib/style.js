@@ -1,13 +1,15 @@
-/**
- * @param {HighlightStyle} style
- * @param {HTMLElement} element
- */
+"use strict";
+
 import {
   BG_COLOR_KEY,
   OPACITY_KEY,
   TXT_COLOR_KEY
 } from "../config/types/highlight-style";
 
+/**
+ * @param {HighlightStyle} style
+ * @param {HTMLElement} element
+ */
 export function applyStyle(style, element) {
   if (style.hasOwnProperty(BG_COLOR_KEY))
     element.style.backgroundColor = style[BG_COLOR_KEY];

@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Convenience/efficiency container for processed page link
  * data.

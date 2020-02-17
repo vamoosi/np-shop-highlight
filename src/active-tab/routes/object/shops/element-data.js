@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @typedef {object} ElementData
  * @property {HTMLAnchorElement} tag

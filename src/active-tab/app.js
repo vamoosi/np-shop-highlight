@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * @typedef {function():void} Handler
  *     Handler function
