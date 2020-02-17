@@ -62,8 +62,8 @@
    * @type {HighlightStyle}
    */
   export let style;
-  export let focused = "false";
   export let config;
+  export let selection;
 
   /**
    * @type {HTMLLIElement}
@@ -75,23 +75,12 @@
    */
   let header;
 
-  /**
-   * @param {Event} e
-   */
-  function selectTab(e) {
-    if (e.target !== header)
-      return;
-
-    const siblings = self.parentElement.children;
-
-    for (let i = 0; i < siblings.length; i++) {
-      siblings[i].classList.remove("selected");
-    }
-    self.classList.add("selected")
+  function change() {
+    selection = style.id;
   }
 </script>
 
-<li class:selected={focused==="true"} on:click={selectTab} bind:this={self}>
+<li class:selected={selection===style.id} bind:this={self} on:click={change}>
   <h3 bind:this={header}>{style.name}</h3>
   <div>
     <StyleConfig bind:style={style} bind:config={config}/>

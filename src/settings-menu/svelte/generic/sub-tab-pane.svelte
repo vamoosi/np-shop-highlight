@@ -36,11 +36,16 @@
   import SubTab from "./sub-tab.svelte";
   import { newHighlightStyle } from "../../../config/types/highlight-style";
 
-  /** @type {HighlightConfig} */
   export let config;
   export let styles;
 
   let selected = styles.order[0];
+
+  $: {
+    if (!styles.values.hasOwnProperty(selected.toString())) {
+      selected = styles.order[0];
+    }
+  }
 
   /**
    * @param {Event} e
@@ -70,6 +75,6 @@
     {#each styles.order as id}
       <SubTab bind:style={styles.values[id]}
         bind:config={config}
-        focused="{selected===id ? 'true' : 'false'}"/>
+        bind:selection={selected} />
     {/each}
 </ul>

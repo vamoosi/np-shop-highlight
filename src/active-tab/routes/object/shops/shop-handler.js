@@ -1,6 +1,10 @@
 import * as Store from "../../../../lib/store";
 import { ShopHighlighter } from "./shop-highlighter";
 import { getConfig } from "../../../../config/Configuration";
+import { findAndTransform } from "../../../../lib/dom/query";
+import { defaultShopData, newShopData } from "./shop-data";
+import { newElementData } from "./element-data";
+import { newPageData } from "./page-data";
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -13,40 +17,30 @@ import { getConfig } from "../../../../config/Configuration";
  *
  * Used to locate links that may be relevant as shop items.
  */
-const anchorQuery = "a[onclick]";
+const ANCHOR_QUERY = "a[onclick]";
 
 /**
  * Anchor URL Param Stock ID key.
  */
-const stockIdKey  = "stock_id";
+const STOCK_ID_KEY = "stock_id";
 
 /**
  * Anchor URL Param Object Info ID key.
  */
-const objInfoId   = "obj_info_id";
+const OBJ_INFO_ID = "obj_info_id";
 
 /**
  * Location URL Param object type value for shops.
  */
-const shopTypeKey = "shop";
+const OBJECT_TYPE_KEY = "shop";
 
 /**
  * Defines the length of time a snapshot will be considered
  * valid (in milliseconds).
- */
-const timeout = 20 * 60 * 1000;
-
-/**
- * Empty shop data struct for use as a default when actual
- * shop data cannot be constructed or is not available.
  *
- * @type {ShopData}
+ * @todo Make this configurable
  */
-const defaultPage = {
-  fresh: [],
-  stale: [],
-  time: 0
-};
+const TIMEOUT = 20 * 60 * 1000;
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -64,52 +58,35 @@ const defaultPage = {
  * @return {string}
  */
 function genKey(id) {
-  return shopTypeKey + id;
+  return OBJECT_TYPE_KEY + id;
 }
 
 /**
- * Retrieve a list of relevant nodes for processing the shop
- * items.
- *
- * @return {NodeList}
- */
-function getLinks() {
-  return document.querySelectorAll(anchorQuery);
-}
-
-/**
- * Process the given dom nodes to parse out required data
+ * Process the given dom node to parse out required data
  * for keeping track of the shop state.
  *
- * @param {NodeList} anchors shop item links
+ * @param {HTMLAnchorElement} anchor shop item links
  *
- * @return {Array<ElementData>}
+ * @return {ElementData}
  */
-function linkData(anchors) {
-  const out = [];
+function linkData(anchor) {
 
-  for (let i = 0; i < anchors.length; i++) {
-    const tag = anchors.item(i);
-    const ref = tag.href.split("?");
+  // noinspection JSUnresolvedVariable
+  const ref = anchor.href.split("?");
 
-    if (ref.length < 2)
-      continue;
+  if (ref.length < 2)
+    return undefined;
 
-    const params = new URLSearchParams(ref[1]);
+  const params = new URLSearchParams(ref[1]);
 
-    if (!params.has(stockIdKey) || !params.has(objInfoId))
-      continue;
+  if (!params.has(STOCK_ID_KEY) || !params.has(OBJ_INFO_ID))
+    return undefined;
 
-    out.push({
-      tag,
-      val: {
-        stockId: parseInt(params.get(stockIdKey)),
-        itemInfoId: parseInt(params.get(objInfoId)),
-      }
-    });
-  }
-
-  return out;
+  return newElementData(
+    anchor,
+    parseInt(params.get(STOCK_ID_KEY)),
+    parseInt(params.get(OBJ_INFO_ID)),
+  );
 }
 
 /**
@@ -117,7 +94,7 @@ function linkData(anchors) {
  * @return {PageData}
  */
 function buildPageData(data) {
-  const out = { items: [], elems: new Map() };
+  const out = newPageData([], new Map());
 
   for (let i = 0; i < data.length; i++) {
     out.items.push(data[i].val);
@@ -136,70 +113,20 @@ export async function shopHandler(params) {
   if (!getConfig().miniStock.enabled)
     return;
 
-  const data = linkData(getLinks());
+  const data = findAndTransform(ANCHOR_QUERY, linkData);
   const key = genKey(params.objectType);
-
-  // Unsafely assume the data is what we want for now
-  const load = await Store.load(key) || defaultPage;
+  const load = await Store.load(key) || defaultShopData();
   const page = buildPageData(data);
-  const now  = new Date().getTime();
+  const now = new Date().getTime();
 
   // If the last snapshot is empty or too old, don't apply
   // highlighting, just store the current state.
-  if (load.fresh.length === 0 || now - load.time > timeout) {
+  if (load.fresh.length === 0 || now - load.time > TIMEOUT) {
 
-    await Store.save(key, {
-      time: new Date().getTime(),
-      fresh: page.items,
-      stale: page.items
-    });
-    return
+    await Store.save(key, newShopData(page.items, page.items, new Date().getTime()));
+
+    return;
   }
 
   await Store.save(key, new ShopHighlighter(load, page).apply());
 }
-
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//
-// TypeDefs
-//
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-/**
- * Container for parsed item link details.
- *
- * @typedef {object} ItemDetails
- *
- * @property {number} stockId
- * @property {number} itemInfoId
- */
-
-/**
- * @typedef {object} ShopData
- *     Container for the current and previous snapshots of
- *     an item shop's available merchandise.
- * @property {[ItemDetails]} fresh
- * @property {[ItemDetails]} stale
- * @property {number} time
- */
-
-/**
- * Convenience/efficiency container for processed page link
- * data.
- *
- * @typedef {object} PageData
- *
- * @property {Array<ItemDetails>} items
- *     Collection of all parsed item details from the item
- *     links currently in the dom.
- *
- * @property {Map<number, ElementData>} elems
- *     Map of item id number to element data for every item
- *     link currently in the page.
- */
-
-/**
- * @typedef {object} ElementData
- * @property {HTMLAnchorElement} tag
- * @property {ItemDetails} val
- */
