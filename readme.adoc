@@ -3,3 +3,4 @@
 A simple chrome extension that adds highlighting to items added to NP shops by
 mini stocks.
 
+Mostly just a silly tool with which to try out Svelte.
