@@ -1,6 +1,6 @@
 <script>
-  import Tab from "../generic/Tab.svelte";
-  import SubTabPane from "../generic/SubTabPane.svelte";
+  import Tab from "../generic/tab.svelte";
+  import SubTabPane from "../generic/sub-tab-pane.svelte";
   import { defaultHighlightConfig } from "../../../config/types/highlight-config";
 
   export let styles = defaultHighlightConfig();

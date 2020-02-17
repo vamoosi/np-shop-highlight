@@ -1,7 +1,7 @@
 <script>
-  import Tab from "../generic/Tab.svelte";
-  import BooleanInput from "../generic/BooleanInput.svelte";
-  import PaddingBox from "../generic/PaddingBox.svelte";
+  import Tab from "../generic/tab.svelte";
+  import BooleanInput from "../generic/boolean-input.svelte";
+  import PaddingBox from "../generic/padding-box.svelte";
 
   export let config;
 

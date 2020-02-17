@@ -5,8 +5,8 @@
   }
 </style>
 <script>
-  import InputLabel from "./InputLabel.svelte";
-  import ExampleItem from "./ExampleItem.svelte";
+  import InputLabel from "./input-label.svelte";
+  import ExampleItem from "./example-item.svelte";
 
   /** @type {HighlightConfig} */
   export let styles;

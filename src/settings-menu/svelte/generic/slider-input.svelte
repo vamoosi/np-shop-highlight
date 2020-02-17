@@ -21,7 +21,7 @@
 </style>
 
 <script>
-  import InputLabel from "./InputLabel.svelte";
+  import InputLabel from "./input-label.svelte";
 
   export let label = "";
   export let title = "";

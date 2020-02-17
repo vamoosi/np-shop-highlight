@@ -33,7 +33,7 @@
 </style>
 
 <script>
-  import SubTab from "./SubTab.svelte";
+  import SubTab from "./sub-tab.svelte";
 
   /** @type {HighlightConfig} */
   export let styles;

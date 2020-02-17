@@ -1,9 +1,9 @@
 <style></style>
 <script>
-  import TextInput from "../generic/TextInput.svelte";
-  import SliderInput from "../generic/SliderInput.svelte";
-  import ColorInput from "../generic/ColorInput.svelte";
-  import ExampleItem from "../generic/ExampleItem.svelte";
+  import TextInput from "../generic/text-input.svelte";
+  import SliderInput from "../generic/slider-input.svelte";
+  import ColorInput from "../generic/color-input.svelte";
+  import ExampleItem from "../generic/example-item.svelte";
 
   /** @type {HighlightStyle} */
   export let config;

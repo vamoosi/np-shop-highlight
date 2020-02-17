@@ -1,5 +1,5 @@
 <script>
-  import InputLabel from "./InputLabel.svelte";
+  import InputLabel from "./input-label.svelte";
 
   /**
    * @type {string}

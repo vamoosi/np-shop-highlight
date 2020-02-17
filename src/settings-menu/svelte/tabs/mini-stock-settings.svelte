@@ -1,10 +1,10 @@
 <script>
-  import Tab from "../generic/Tab.svelte";
-  import BooleanInput from "../generic/BooleanInput.svelte";
-  import Fieldset from "../generic/Fieldset.svelte";
-  import ColorInput from "../generic/ColorInput.svelte";
-  import PaddingBox from "../generic/PaddingBox.svelte";
-  import StyleSelect from "../generic/StyleSelect.svelte";
+  import Tab from "../generic/tab.svelte";
+  import BooleanInput from "../generic/boolean-input.svelte";
+  import Fieldset from "../generic/fieldset.svelte";
+  import ColorInput from "../generic/color-input.svelte";
+  import PaddingBox from "../generic/padding-box.svelte";
+  import StyleSelect from "../generic/style-select.svelte";
 
   /** @type {MiniStockConfig} */
   export let config;
