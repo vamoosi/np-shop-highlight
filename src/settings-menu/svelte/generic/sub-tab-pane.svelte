@@ -10,71 +10,28 @@
     height:          100vh;
     box-sizing:      border-box;
   }
-
-  ul > li:first-child {
-    position:         absolute;
-    top:              2vh;
-    margin-left:      110px;
-    left:             -75px;
-    height:           50px;
-    width:            150px;
-    background-color: #008d40;
-    font-size:        1.8em;
-    line-height:      50px;
-    display:          inline-block;
-    text-align:       center;
-    vertical-align:   middle;
-    border-radius:    10px;
-    cursor:           pointer;
-    color:            #eee;
-    font-weight:      bold;
-  }
-
 </style>
 
 <script>
   import SubTab from "./sub-tab.svelte";
-  import { newHighlightStyle } from "../../../config/types/highlight-style";
+  import StyleControl from "../style-control.svelte";
+  import { getConfigStore } from "../../js/app-config";
 
-  export let config;
-  export let styles;
+  const config = getConfigStore();
 
-  let selected = styles.order[0];
+  let selected = $config.styles.order[0];
 
   $: {
-    if (!styles.values.hasOwnProperty(selected.toString())) {
-      selected = styles.order[0];
+    if (!$config.styles.values.hasOwnProperty(selected.toString())) {
+      selected = $config.styles.order[0];
     }
-  }
-
-  /**
-   * @param {Event} e
-   */
-  function noFocus(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-  }
-
-  function newStyle() {
-    let max = 1;
-    for (const val of styles.order)
-      if (val > max)
-        max = val;
-    max++;
-
-    const thing = newHighlightStyle("New Style", max);
-    styles.order.push(max);
-    styles.values[max.toString()] = thing;
-    selected = max;
   }
 </script>
 
-<ul on:={noFocus}>
-  <li><span title="Add new style" on:click={newStyle}>+ New</span></li>
-    {#each styles.order as id}
-      <SubTab bind:style={styles.values[id]}
-        bind:config={config}
-        bind:selection={selected} />
+<StyleControl bind:selected={selected} />
+<ul>
+    {#each $config.styles.order as id}
+      <SubTab bind:style={$config.styles.values[id]}
+        bind:selection={selected}/>
     {/each}
 </ul>

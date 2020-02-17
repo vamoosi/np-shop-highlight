@@ -62,7 +62,6 @@
    * @type {HighlightStyle}
    */
   export let style;
-  export let config;
   export let selection;
 
   /**
@@ -83,6 +82,6 @@
 <li class:selected={selection===style.id} bind:this={self} on:click={change}>
   <h3 bind:this={header}>{style.name}</h3>
   <div>
-    <StyleConfig bind:style={style} bind:config={config}/>
+    <StyleConfig bind:style={style} />
   </div>
 </li>

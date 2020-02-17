@@ -1,24 +1,23 @@
 "use strict";
 
 import * as Store from "../../lib/store";
-import { writable } from "svelte/store";
-import { defaultAppConfig } from "../../config/types/app-config";
 import App from "../svelte/app.svelte"
+import * as Conf from "./app-config";
+import { defaultAppConfig } from "../../config/types/app-config";
 
 const confKey = "app-config";
 const config  = defaultAppConfig();
-const store   = writable(config);
 let last;
 
 Store.load(confKey)
   .then(o => {
     const tmp = o || config;
-    last = JSON.stringify(tmp)
-    store.set(tmp);
+    last = JSON.stringify(tmp);
+    Conf.setConfig(tmp);
   })
   .catch(console.log);
 
-store.subscribe(v => {
+Conf.subscribe(v => {
   if (last !== JSON.stringify(v)) {
     last = JSON.stringify(v);
     Store.save(confKey, v);
@@ -27,5 +26,5 @@ store.subscribe(v => {
 
 const app = new App({
   target: document.body,
-  props: store
+  props: Conf.getConfigStore()
 });

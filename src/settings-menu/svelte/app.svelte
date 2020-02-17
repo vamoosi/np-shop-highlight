@@ -9,7 +9,7 @@
 </script>
 
 <TabPane>
-  <GeneralSettings bind:config={$settings.general} />
-  <MiniStockSettings bind:config={$settings.miniStock} styles={$settings.styles} />
+  <GeneralSettings />
+  <MiniStockSettings />
   <StyleSettings bind:config={$settings} bind:styles={$settings.styles} />
 </TabPane>

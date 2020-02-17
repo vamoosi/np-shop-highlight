@@ -21,33 +21,42 @@
  *     character.
  */
 
-export const NAME_KEY      = "name";
-export const ID_KEY        = "id";
-export const BG_COLOR_KEY  = "bgColor";
+export const NAME_KEY = "name";
+export const ID_KEY = "id";
+export const BG_COLOR_KEY = "bgColor";
 export const TXT_COLOR_KEY = "textColor";
-export const OPACITY_KEY   = "opacity";
+export const OPACITY_KEY = "opacity";
 
 /**
  * Create a new defaulted highlight style object.
  *
  * @param {string} name
  * @param {number} id
- * @param {string} [bgCol="#fff"]
- * @param {string} [txtCol="#000"]
- * @param {number} [opac=100]
+ * @param {string} [bgColor="#fff"]
+ * @param {string} [textColor="#000"]
+ * @param {number} [opacity=100]
  *
  * @returns {HighlightStyle}
  */
 export const newHighlightStyle = (
   name,
   id,
-  bgCol = "#ffffff",
-  txtCol = "#000000",
-  opac = 100
-) => ({
-  [NAME_KEY]: name,
-  [ID_KEY]: id,
-  [BG_COLOR_KEY]: bgCol,
-  [TXT_COLOR_KEY]: txtCol,
-  [OPACITY_KEY]: opac
-});
+  bgColor = "#ffffff",
+  textColor = "#000000",
+  opacity = 100
+) => ({ name, id, bgColor, textColor, opacity });
+
+/**
+ * @param {HighlightStyle} style
+ *
+ * @return {HighlightStyle}
+ */
+export function copyHighlightStyle(style) {
+  return newHighlightStyle(
+    style.name,
+    style.id,
+    style.bgColor,
+    style.textColor,
+    style.opacity
+  );
+}
