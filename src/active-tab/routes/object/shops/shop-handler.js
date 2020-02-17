@@ -1,4 +1,6 @@
 import * as Store from "../../../../lib/store";
+import { ShopHighlighter } from "./shop-highlighter";
+import { getConfig } from "../../../../config/Configuration";
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -46,127 +48,12 @@ const defaultPage = {
   time: 0
 };
 
-const staleColor = "#f4ff79";
-const freshColor = "#58ff89";
-
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//
-// Types
-//
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
-/**
- * Container for parsed item link details.
- *
- * @typedef {object} ItemDetails
- *
- * @property {number} stockId
- * @property {number} itemInfoId
- */
-
-/**
- * @typedef {object} ShopData
- *     Container for the current and previous snapshots of
- *     an item shop's available merchandise.
- * @property {[ItemDetails]} fresh
- * @property {[ItemDetails]} stale
- * @property {number} time
- */
-
-/**
- * Convenience/efficiency container for processed page link
- * data.
- *
- * @typedef {object} PageData
- *
- * @property {Array<ItemDetails>} items
- *     Collection of all parsed item details from the item
- *     links currently in the dom.
- *
- * @property {Map<number, ElementData>} elems
- *     Map of item id number to element data for every item
- *     link currently in the page.
- */
-/**
- * @typedef {object} ElementData
- * @property {HTMLAnchorElement} tag
- * @property {ItemDetails} val
- */
-
-/**
- * @property {ShopData} snapshot
- * @property {PageData} current
- */
-class ShopHandler {
-
-  /**
-   * @param {ShopData} snap
-   * @param {PageData} cur
-   */
-  constructor(snap, cur) {
-    this.snapshot = snap;
-    this.current = cur;
-  }
-
-  /**
-   * @return {ShopData}
-   */
-  apply() {
-    const curMap = this.current.elems;
-    const dead   = this.snapshot.stale;
-    const stale  = this.snapshot.fresh;
-
-    // Remove the snapshot stale data from further processing
-    for (let i = 0; i < dead.length; i++)
-      curMap.delete(dead[i].itemInfoId);
-
-    // Highlight new stale items (snapshot fresh)
-    for (let i = 0; i < stale.length; i++) {
-      if (curMap.has(stale[i].itemInfoId)) {
-        highlightStale(curMap.get(stale[i].itemInfoId).tag);
-        curMap.delete(stale[i].itemInfoId);
-      }
-    }
-
-    // Highlight fresh items
-    for (const key of curMap.keys())
-      highlightFresh(curMap.get(key).tag);
-
-    return {
-      time: new Date().getTime(),
-      fresh: this.current.items,
-      stale: stale
-    }
-  }
-}
-
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
 // Functions
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-/**
- * Applies any mutations to dom required to highlight a
- * stale shop item.
- *
- * @param {HTMLAnchorElement} a
- *     anchor tag representing the shop item in the page
- */
-function highlightStale(a) {
-  a.parentElement.style.backgroundColor = staleColor;
-}
-
-/**
- * Applies any mutations to dom required to highlight a
- * new shop item.
- *
- * @param {HTMLAnchorElement} a
- *     anchor tag representing the shop item in the page
- */
-function highlightFresh(a) {
-  a.parentElement.style.backgroundColor = freshColor;
-}
 
 /**
  * Generate a distinct key for a specific shop to avoid
@@ -246,6 +133,9 @@ function buildPageData(data) {
  * @return void
  */
 export async function shopHandler(params) {
+  if (!getConfig().miniStock.enabled)
+    return;
+
   const data = linkData(getLinks());
   const key = genKey(params.objectType);
 
@@ -266,5 +156,50 @@ export async function shopHandler(params) {
     return
   }
 
-  await Store.save(key, new ShopHandler(load, page).apply());
+  await Store.save(key, new ShopHighlighter(load, page).apply());
 }
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//
+// TypeDefs
+//
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+/**
+ * Container for parsed item link details.
+ *
+ * @typedef {object} ItemDetails
+ *
+ * @property {number} stockId
+ * @property {number} itemInfoId
+ */
+
+/**
+ * @typedef {object} ShopData
+ *     Container for the current and previous snapshots of
+ *     an item shop's available merchandise.
+ * @property {[ItemDetails]} fresh
+ * @property {[ItemDetails]} stale
+ * @property {number} time
+ */
+
+/**
+ * Convenience/efficiency container for processed page link
+ * data.
+ *
+ * @typedef {object} PageData
+ *
+ * @property {Array<ItemDetails>} items
+ *     Collection of all parsed item details from the item
+ *     links currently in the dom.
+ *
+ * @property {Map<number, ElementData>} elems
+ *     Map of item id number to element data for every item
+ *     link currently in the page.
+ */
+
+/**
+ * @typedef {object} ElementData
+ * @property {HTMLAnchorElement} tag
+ * @property {ItemDetails} val
+ */

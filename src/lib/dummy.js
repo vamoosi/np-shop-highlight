@@ -21,3 +21,6 @@ export async function loadLocal(key) {
   return Promise.resolve(null);
 }
 
+export function subscribe(key, fn) {
+  console.log(`subscribe: ${key} => ${fn}`);
+}

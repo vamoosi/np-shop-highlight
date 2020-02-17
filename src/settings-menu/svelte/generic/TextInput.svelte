@@ -2,32 +2,24 @@
   import InputLabel from "./InputLabel.svelte"
 
   export let label;
-  export let name;
   export let styleClass;
   export let hint = '';
+  export let value = "";
 
-  export const getId = () => `input-${name}`;
 </script>
 
 <style>
+  @import "../../css/settings.css";
+
   input {
     display:       block;
-    margin-bottom: 20px;
     border-width:  0 0 1px 0;
     position:      relative;
     width:         50%;
     font-size:     1.2em;
-    color:         #555555;
+    color:         var(--text-color);
     border-radius: 5px;
     line-height:   1.4em;
-  }
-
-  input.error {
-    background-color: #ffbab7;
-  }
-
-  input.ok {
-    background-color: #c0ffc2;
   }
 
   input:focus {
@@ -37,5 +29,6 @@
   }
 </style>
 
-<InputLabel label="{label}" target="{getId()}" style="{styleClass}" />
-<input type="text" id="{getId()}" name="{name}" placeholder="{hint}" class="{styleClass}" />
+<InputLabel label="{label}" style="{styleClass}">
+  <input type="text" placeholder="{hint}" value="{value}" class="{styleClass}" />
+</InputLabel>

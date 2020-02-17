@@ -1,24 +1,21 @@
 <script>
   export let label;
-  export let target;
   export let styleClass;
+  export let title;
 </script>
 
 <style>
-  label {
+  @import url('../../css/settings.css');
+
+  label span:first-child {
     padding:   10px 0;
     display:   inline-block;
     font-size: 1.3em;
-    color:     #555555;
-  }
-
-  label.error {
-    color: #933030;
-  }
-
-  label.ok {
-    color: #428056;
+    color:     var(--text-color);
   }
 </style>
 
-<label for="{target}" class="{styleClass}">{label}</label>
+<label class="{styleClass}" title="{title}">
+  <span>{label}</span>
+  <slot></slot>
+</label>

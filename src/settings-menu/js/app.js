@@ -1,7 +1,7 @@
 import * as Store from "../../lib/store";
 import { writable } from "svelte/store";
-import { defaultAppConfig } from "../../config/AppConfig";
-import App from "../svelte/App.svelte"
+import { defaultAppConfig } from "../../config/types/app-config";
+import App from "../svelte/app.svelte"
 
 const confKey = "app-config";
 const config  = defaultAppConfig();

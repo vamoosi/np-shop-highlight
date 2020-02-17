@@ -6,15 +6,17 @@ import {shopHandler} from "./shops/shop-handler";
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+const typeString = "type";
+const objectString = "obj_type";
+
 /**
+ * Object type routes
+ *
  * @type {ObjectHandlerMap}
  */
 const objectHandlers = {
   "shop": shopHandler,
 };
-
-const typeString = "type";
-const objectString = "obj_type";
 
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

@@ -27,3 +27,7 @@ export async function load(key) {
 export async function save(key, data) {
   return browser.storeLocal(key, data);
 }
+
+export function subscribe(key, fn) {
+  browser.subscribe(key, fn);
+}

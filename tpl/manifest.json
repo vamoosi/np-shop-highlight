@@ -15,6 +15,12 @@
       "js": ["active-tab.js"]
     }
   ],
+
+  "background": {
+    "scripts": ["migrate.js"],
+    "persistent": false
+  },
+
   "options_page": "settings.html",
   "icons": {
     "16": "res/icon-16.png",

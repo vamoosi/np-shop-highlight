@@ -5,8 +5,8 @@
     margin:          0;
     position:        relative;
     background-size: 220px;
-    background:      #fafafa;
-    background:      linear-gradient(90deg, rgba(250,250,250,1) 205px, rgba(240,240,240,1) 220px, #ddd 221px, #fff 222px);
+    background:      #e9e9e9;
+    background:      linear-gradient(90deg, #e9e9e9 205px, #d9d9d9 219px, #ccc 220px, #fff 221px);
     height:          100vh;
     box-sizing:      border-box;
   }

@@ -9,7 +9,7 @@
   }
 
   li.selected {
-    /*width: 221px;*/
+    width: 221px;
     outline: none;
   }
 
@@ -20,6 +20,7 @@
     bottom: 0;
     left: 220px;
     right: 0;
+    padding: 50px 20px;
     pointer-events: none;
     opacity: 0;
   }
@@ -29,7 +30,7 @@
     opacity: 100%;
   }
 
-  h2 {
+  h3 {
     cursor: pointer;
     color: var(--text-color);
     padding: 20px 15px 20px 0;
@@ -43,20 +44,25 @@
     transition: border-color 750ms ease, background-color 750ms ease;
   }
 
-  li.selected > h2 {
+  li.selected > h3 {
     position: relative;
     background-color: #fff;
     right: -1px;
-    /*z-index: 10;*/
-    padding-right: 16px;
+    z-index: 10;
+    padding-right: 17px;
     border-color: rgba(220,220,220,1);
     border-radius: 10px 0 0 10px;
   }
 </style>
 
 <script>
-  export let title;
-  export let focused="false";
+  import StyleConfig from "../tabs/style-config.svelte";
+
+  /**
+   * @type {HighlightStyle}
+   */
+  export let config;
+  export let focused = "false";
 
   /**
    * @type {HTMLLIElement}
@@ -85,6 +91,8 @@
 </script>
 
 <li class:selected={focused==="true"} on:click={selectTab} bind:this={self}>
-  <h2 bind:this={header}>{title}</h2>
-  <div><slot></slot></div>
+  <h3 bind:this={header}>{config.name}</h3>
+  <div>
+    <StyleConfig config={config} />
+  </div>
 </li>

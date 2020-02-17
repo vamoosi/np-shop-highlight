@@ -4,11 +4,6 @@
   /**
    * @type {string}
    */
-  export let name;
-
-  /**
-   * @type {string}
-   */
   export let label;
 
   /**
@@ -60,6 +55,7 @@
 
   span {
     display: block;
+    margin-bottom: 25px;
   }
 
   span span {
@@ -71,8 +67,9 @@
   }
 </style>
 
-<InputLabel target="{getId()}" label="{label}" class="{styleClass}" on:click={onCheck} />
-<span>
-  <input type="checkbox" checked={check} on:click={onCheck} name="{name}" id="{getId()}" />
-  <span on:click={onCheck} style="{check ? yesStyle : noStyle}">{check ? yesText : noText}</span>
-</span>
+<InputLabel label="{label}" class="{styleClass}" on:click={onCheck}>
+  <span>
+    <input type="checkbox" checked={check} on:click={onCheck}  />
+    <span on:click={onCheck} style="{check ? yesStyle : noStyle}">{check ? yesText : noText}</span>
+  </span>
+</InputLabel>

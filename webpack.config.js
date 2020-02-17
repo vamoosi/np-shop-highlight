@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     "settings-menu": "settings-menu/js/app.js",
     "active-tab": "active-tab/app.js",
+    "migrate": "init/migrate.js",
   },
   output: {
     filename: "[name].js",
@@ -38,6 +39,10 @@ module.exports = {
           ExtractCss.loader,
           'css-loader'
         ]
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-url-loader'
       }
     ]
   },

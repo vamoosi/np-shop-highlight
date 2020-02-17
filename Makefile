@@ -31,7 +31,7 @@ stage: build
 
 $(DIST)/np-shop-highlight-$(VERSION).zip: stage
 	@echo "Packaging extension"
-	@rm $(DIST)/$(NAME)-$(VERSION).zip
+	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
 	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-$(VERSION).zip *
 
 $(BUILD)/%.js: $(JS_FILES) $(SVELTE_FILES)
