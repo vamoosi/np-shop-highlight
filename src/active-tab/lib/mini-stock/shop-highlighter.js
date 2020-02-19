@@ -4,8 +4,8 @@
  * @property {ShopData} snapshot
  * @property {PageData} current
  */
-import { getConfig } from "../../../../config/Configuration";
-import { applyStyle } from "../../../../lib/style";
+import { getConfig } from "../../../config/Configuration";
+import { applyStyle } from "../../../lib/style";
 
 export class ShopHighlighter {
 
