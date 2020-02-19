@@ -13,16 +13,8 @@
 </style>
 
 <script>
-  /**
-   * @param {Event} e
-   */
-  function noFocus(e) {
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    return false;
-  }
 </script>
 
-<ul on:={noFocus}>
+<ul>
   <slot></slot>
 </ul>

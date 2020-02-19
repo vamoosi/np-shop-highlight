@@ -14,7 +14,6 @@
 
 <script>
   import SubTab from "./sub-tab.svelte";
-  import StyleControl from "../style-control.svelte";
   import { getConfigStore } from "../../js/app-config";
 
   const config = getConfigStore();
@@ -28,7 +27,6 @@
   }
 </script>
 
-<StyleControl bind:selected={selected} />
 <ul>
     {#each $config.styles.order as id}
       <SubTab bind:style={$config.styles.values[id]}

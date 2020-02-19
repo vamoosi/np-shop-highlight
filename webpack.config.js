@@ -12,6 +12,9 @@ module.exports = {
     filename: "[name].js",
     path: path.resolve("build", "compile")
   },
+  optimization: {
+    minimize: false
+  },
   resolve: {
     alias: {
       svelte: path.resolve("node_modules", "svelte")

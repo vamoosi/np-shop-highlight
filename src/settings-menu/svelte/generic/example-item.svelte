@@ -33,7 +33,6 @@
   $: {
     if (self && config)
       applyStyle(config, self);
-    console.log("hoof");
   }
 </script>
 

@@ -31,7 +31,7 @@
 
 <InputLabel label="{label}" style="{styleClass}">
   <input type="text"
-    placeholder="{hint}"
-    bind:value={value}
-    class="{styleClass}"/>
+         placeholder="{hint}"
+         bind:value={value}
+         class="{styleClass}"/>
 </InputLabel>

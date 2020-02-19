@@ -3,10 +3,11 @@
 import * as Store from "../../../../lib/store";
 import { ShopHighlighter } from "./shop-highlighter";
 import { getConfig } from "../../../../config/Configuration";
-import { findAndTransform } from "../../../../lib/dom/query";
+import { findAll, findAndTransform } from "../../../../lib/dom/query";
 import { defaultShopData, newShopData } from "./shop-data";
 import { newElementData } from "./element-data";
 import { newPageData } from "./page-data";
+import * as IM from "../../../lib/item-match/handler"
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //
@@ -112,7 +113,12 @@ function buildPageData(data) {
  * @return void
  */
 export async function shopHandler(params) {
-  if (!getConfig().miniStock.enabled)
+  const config = getConfig();
+
+  if (config.itemMatch.enabled)
+    IM.handler(findAll(ANCHOR_QUERY));
+
+  if (!config.miniStock.enabled)
     return;
 
   const data = findAndTransform(ANCHOR_QUERY, linkData);

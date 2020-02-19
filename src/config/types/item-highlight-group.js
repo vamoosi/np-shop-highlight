@@ -1,12 +1,20 @@
 /**
  * @typedef {object} ItemHighlightGroup
  *
+ * @property {number} id
+ *
+ * @property {string} name
+ *
  * @property {[string]} items
  *     List of strings to match against items to determine
  *     what to highlight.
  *
- * @property {[HighlightStyle]} styles
- *     List of styles to apply to the items matched by
+ * @property {number[]} stores
+ *     IDs of stores that the ItemHighlightGroup should
+ *     apply to.
+ *
+ * @property {number[]} styles
+ *     List of style ids to apply to the items matched by
  *     strings in the items list.
  *
  *     Styles will be applied as follows:
@@ -15,17 +23,17 @@
  *     the strings in the `items` array will have this style
  *     applied.
  *
- *     * If 2 styles are present, the items matched by the
- *     first item in the `items` list will have the first
+ *     * If 2 styles are present, the first item from the
+ *     `items` list to appear on the page will the first
  *     style applied, and all items matched by subsequent
  *     `items` strings will have the second style applied.
  *
- *     * If more than 2 styles are present, items matched by
- *     the first string in the `items` array will have the
- *     first highlight style applied, items matched by the
- *     second string in the `items` array will have the
- *     second highlight style applied, and so forth.  Once
- *     the last style is hit all items matched by any
+ *     * If more than 2 styles are present, the first item
+ *     from the items list to appear on the page will have
+ *     the first highlight style applied, the second item
+ *     from the items list to appear on the page will have
+ *     the second highlight style applied, and so forth.
+ *     Once the last style is hit all items matched by any
  *     remaining entries in the `items` list will have the
  *     last style applied.
  *
@@ -48,12 +56,46 @@
  *
  */
 
+import { arrayCopy } from "../../lib/util";
+
 /**
- * Creates a new defaulted ItemHighlightGroup.
+ * Create a new ItemHighlightGroup instance from the given
+ * input params.
  *
- * @returns {ItemHighlightGroup}
+ * @param {number}   id
+ *     Unique id value
+ * @param {string}   name
+ *     User specified name
+ * @param {number[]} stores
+ *     List of store ids
+ * @param {string[]} items
+ *     List of item match strings
+ * @param {number[]} styles
+ *     List of style ids
+ *
+ * @return {ItemHighlightGroup}
  */
-export const newItemHighlightGroup = () => ({
-  items: [],
-  styles: [],
-});
+export function newItemHighlightGroup(
+  id,
+  name,
+  stores = [],
+  items = [],
+  styles = [],
+) {
+  return {id, name, stores, items, styles};
+}
+
+/**
+ * @param {ItemHighlightGroup} group
+ * @return {ItemHighlightGroup}
+ */
+export function copyItemHighlightGroup(group) {
+  return {
+    id: group.id,
+    name: group.name,
+    stores: arrayCopy(group.stores),
+    items: arrayCopy(group.items),
+    styles: arrayCopy(group.styles)
+  };
+}
+

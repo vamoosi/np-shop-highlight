@@ -13,7 +13,7 @@
     outline: none;
   }
 
-  div {
+  li > div {
     transition:     opacity var(--tab-fade) ease;
     position:       absolute;
     top:            0;
@@ -57,6 +57,8 @@
 
 <script>
   import StyleConfig from "../tabs/style-config.svelte";
+  import StyleControl from "../style-control.svelte";
+  import { onDestroy, onMount } from "svelte";
 
   /**
    * @type {HighlightStyle}
@@ -78,14 +80,47 @@
    */
   let header;
 
-  function change() {
+  /** @type {HTMLDivElement} */
+  let body;
+
+  /**
+   * @param {Event} e
+   */
+  function selectTab(e) {
+    if (e.target !== header)
+      return;
+
     selection = style.id;
   }
+
+  function isSelected() {
+    return selection === style.id;
+  }
+
+  function showHide() {
+    if (selection !== style.id)
+      body.style.zIndex = "0";
+    else
+      body.style.zIndex = "10";
+  }
+
+  onMount(() => {
+    body.addEventListener('transitionend', showHide);
+    body.addEventListener('webkitTransitionEnd', showHide);
+    showHide();
+  });
+
+  onDestroy(() => {
+    body.removeEventListener('transitionend', showHide);
+    body.removeEventListener('webkitTransitionEnd', showHide);
+  })
+
 </script>
 
-<li class:selected={selection===style.id} bind:this={self} on:click={change}>
+<li class:selected={selection===style.id} bind:this={self} on:click={selectTab}>
   <h3 bind:this={header}>{style.name}</h3>
-  <div>
+  <div bind:this={body}>
     <StyleConfig bind:style={style} />
+    <StyleControl bind:selected={selection} />
   </div>
 </li>

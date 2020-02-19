@@ -4,6 +4,8 @@
  * @property {GeneralConfig} general
  *     Global extension config.
  *
+ * @property {ItemMatchConfig} itemMatch
+ *
  * @property {MiniStockConfig} miniStock
  *     Configuration for the MicroStock component of this
  *     extension.

@@ -25,6 +25,7 @@
   }
 
   li.selected > div {
+    display:        block;
     pointer-events: auto;
     opacity:        100%;
   }
@@ -54,18 +55,25 @@
 </style>
 
 <script>
-  export let title;
-  export let focused = "false";
+  import { onDestroy, onMount } from "svelte";
 
-  /**
-   * @type {HTMLLIElement}
-   */
+  /** @type {string} */
+  export let title;
+
+  /** @type {string} */
+  export let id;
+
+  /** @type {string} */
+  export let selected;
+
+  /** @type {HTMLLIElement} */
   let self;
 
-  /**
-   * @type {HTMLHeadingElement}
-   */
+  /** @type {HTMLHeadingElement} */
   let header;
+
+  /** @type HTMLDivElement */
+  let body;
 
   /**
    * @param {Event} e
@@ -74,18 +82,36 @@
     if (e.target !== header)
       return;
 
-    const siblings = self.parentElement.children;
-
-    for (let i = 0; i < siblings.length; i++) {
-      siblings[i].classList.remove("selected");
-    }
-    self.classList.add("selected")
+    selected = id;
   }
+
+  function isSelected() {
+    return selected === id;
+  }
+
+  function showHide() {
+    if (selected !== id)
+      body.style.zIndex = "0";
+    else
+      body.style.zIndex = "10";
+  }
+
+  onMount(() => {
+    body.addEventListener('transitionend', showHide);
+    body.addEventListener('webkitTransitionEnd', showHide);
+    showHide();
+  });
+
+  onDestroy(() => {
+    body.removeEventListener('transitionend', showHide);
+    body.removeEventListener('webkitTransitionEnd', showHide);
+  })
+
 </script>
 
-<li class:selected={focused==="true"} on:click={selectTab} bind:this={self}>
+<li class:selected={selected===id} on:click={selectTab} bind:this={self}>
   <h2 bind:this={header}>{title}</h2>
-  <div>
+  <div bind:this={body}>
     <slot></slot>
   </div>
 </li>

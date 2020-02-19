@@ -1,4 +1,39 @@
 :root {
-  --text-color: #555;
-  --tab-fade: 750ms;
+  --text-color:        #555;
+  --tab-fade:          500ms;
+
+  --plus-svg:          url("../../../res/plus.svg");
+  --trash-svg:         url("../../../res/trash-alt.svg");
+
+  --general-font:      Cantarell, Arial, sans-serif;
+
+  --input-line-height: 1.6em;
+  --input-font-size:   1.4em;
+  --input-font-family: var(--general-font);
+
+  pointer-events: inherit;
+}
+
+textarea,
+input[type=text] {
+  width:   300px;
+  display: block;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+select,
+textarea,
+input[type=text],
+input[type=number] {
+  line-height: var(--input-line-height);
+  font-size:   var(--input-font-size);
+  font-family: var(--input-font-family);
+}
+
+label {
+  display: block;
 }
