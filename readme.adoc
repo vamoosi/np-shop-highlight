@@ -3,7 +3,11 @@
 image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/EuPathDB-Infra/js-deref/releases/latest]
 image:https://img.shields.io/travis/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.org/EuPathDB-Infra/js-deref]
 
-A simple chrome extension that adds highlighting to items added to NP shops by
-mini stocks.
+A simple chrome extension that adds highlighting to item shops in NP.
+
+Items can be applied a customizable highlight by:
+
+- Mini stock shop additions
+- Custom user item lists
 
 Mostly just a silly tool with which to try out Svelte.
