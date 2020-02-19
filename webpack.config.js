@@ -13,7 +13,7 @@ module.exports = {
     path: path.resolve("build", "compile")
   },
   optimization: {
-    minimize: false
+    minimize: true
   },
   resolve: {
     alias: {
