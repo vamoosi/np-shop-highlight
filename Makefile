@@ -46,7 +46,7 @@ tag:
 		jq ". | .version = \"$(TAG)\"" package.json | sponge package.json; \
 		git add package.json; \
 		git commit -m 'version bump'; \
-		git tag $(TAG); \
+		git tag v$(TAG); \
 		git push; \
 		git push --tag; \
 	fi
