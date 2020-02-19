@@ -17,8 +17,8 @@ build: $(BUILD)/active-tab.js $(BUILD)/settings-menu.js
 
 stage: build
 	@echo "Staging Project"
-	@mkdir -p build/stage
-	@rm -rf build/stage/*
+	@mkdir -p $(STAGE)
+	@rm -rf $(STAGE)*
 	@cp -rt $(STAGE) \
 		$(BUILD)/* \
 		res \
@@ -32,6 +32,7 @@ stage: build
 
 $(DIST)/np-shop-highlight-$(VERSION).zip: stage
 	@echo "Packaging extension"
+	@mkdir -p $(DIST)
 	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
 	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-$(VERSION).zip *
 
