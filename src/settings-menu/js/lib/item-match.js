@@ -1,6 +1,6 @@
 const LINE_END_PATTERN = / +\n|\n{2,}/g;
 const LINE_END_REPLACE = '\n';
-const LINE_START_PATTERN = /^ +/g;
+const LINE_START_PATTERN = /^ +/gm;
 const LINE_START_REPLACE = '';
 const SPLIT_PATTERN = '\n';
 
