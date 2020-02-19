@@ -38,3 +38,15 @@ $(BUILD)/%.js: $(JS_FILES) $(SVELTE_FILES)
 	@echo "Compiling Project"
 	@rm -rf $(BUILD)
 	./node_modules/.bin/webpack --config webpack.config.js --mode production
+
+tag:
+	@if [ "$(TAG)" = "" ]; then \
+		echo "TAG value required (TAG=x.x.x)"; \
+	else \
+		jq ". | .version = \"$(TAG)\"" package.json | sponge package.json; \
+		git add package.json; \
+		git commit -m 'version bump'; \
+		git tag $(TAG); \
+		git push; \
+		git push --tag; \
+	fi
