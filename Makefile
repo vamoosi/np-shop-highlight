@@ -18,7 +18,7 @@ build: $(BUILD)/active-tab.js $(BUILD)/settings-menu.js
 stage: build
 	@echo "Staging Project"
 	@mkdir -p $(STAGE)
-	@rm -rf $(STAGE)*
+	@rm -rf $(STAGE)/*
 	@cp -rt $(STAGE) \
 		$(BUILD)/* \
 		res \
