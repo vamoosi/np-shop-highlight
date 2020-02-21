@@ -4,6 +4,8 @@ export interface GeneralConfig {
    * functionality should be enabled.
    */
   enabled: boolean;
+
+  debug: boolean;
 }
 
 /**
@@ -13,5 +15,6 @@ export interface GeneralConfig {
 export function defaultGeneralConfig(): GeneralConfig {
   return {
     enabled: true,
+    debug: true,
   };
 }

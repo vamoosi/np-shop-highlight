@@ -5,7 +5,7 @@
 </script>
 
 <style>
-  @import url('../../../css/settings.css');
+  @import url('../../../css/global.css');
 
   label span:first-child {
     padding:   10px 0;

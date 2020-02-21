@@ -1,3 +1,4 @@
+<!--suppress CssUnresolvedCustomProperty -->
 <style>
   textarea {
     height: var(--height);
@@ -35,7 +36,7 @@
   /**
    * Post validation input value for binding.
    *
-   *
+   * @type {string}
    */
   export let validValue;
 
@@ -79,7 +80,8 @@
   });
 </script>
 
-<InputLabel label="{label}" title="{title}">
+<InputLabel label="{label}" title="{title}" styleClass="{styleClass}">
+  <!--suppress HtmlFormInputWithoutLabel -->
   <textarea bind:this={textBox}
             class="{styleClass}"
             style="--height: {height}">{initialValue || ""}</textarea>

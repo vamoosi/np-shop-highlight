@@ -9,7 +9,7 @@
 </script>
 
 <ExampleItem bind:config={style}/>
-<TextInput label="Style Name" bind:value={style.name}/>
+<TextInput label="Style Name" initialValue="{style.name}" bind:validValue={style.name}/>
 <SliderInput label="Opacity" bind:value={style.opacity}/>
 <ColorInput label="Background Color" bind:value={style.bgColor}/>
 <ColorInput label="Text Color" bind:value={style.textColor}/>

@@ -1,14 +1,18 @@
 import { exists } from "./util";
 
 export enum LogLevel {
-  DEBUG = 1 << 0,
-  INFO = 1 << 1,
-  WARN = 1 << 2,
-  ERROR = 1 << 3,
+  DEBUG,
+  WARN,
+  ERROR,
 }
 
 let logLevel: LogLevel = LogLevel.WARN;
 let filter: RegExp = /.*/;
+
+const tag = (n: string) => __filename + ":" + n;
+const tagIn = (n: string) => tag(n) + ".start";
+const tagOut = (n: string) => tag(n) + ".stop";
+
 
 /**
  * Sets the global logging level threshold.
@@ -19,7 +23,9 @@ let filter: RegExp = /.*/;
  *        New log level threshold value
  */
 export function setLogLevel(level: LogLevel) {
+  debug(tagIn(setLogLevel.name), {level});
   logLevel = level;
+  debug(tagOut(setLogLevel.name), {level});
 }
 
 /**
@@ -48,20 +54,6 @@ export function setFilter(pattern: RegExp) {
  * @return the input value `v`
  */
 export const debug = <T>(tag: string, v: T): T => log(LogLevel.DEBUG, tag, v);
-
-/**
- * Logs the given message at the {@link LogLevel.INFO} log
- * level.
- *
- * @param tag
- *        Log origin tag.
- *
- * @param v
- *        Log value/message.
- *
- * @return the input value `v`
- */
-export const info = <T>(tag: string, v: T): T => log(LogLevel.INFO, tag, v);
 
 /**
  * Logs the given message at the {@link LogLevel.WARN} log
@@ -102,7 +94,7 @@ export const error = <T>(tag: string, v: T): T => log(LogLevel.ERROR, tag, v);
  *        An optional additional value to log
  */
 export function fatal(message: string, value?: any) {
-  if (has(LogLevel.ERROR) && exists(value))
+  if (logLevel === LogLevel.ERROR && exists(value))
     console.log(LogLevel[LogLevel.ERROR], value);
 
   throw new Error(message);
@@ -120,15 +112,11 @@ export function fatal(message: string, value?: any) {
  *        Log value.
  */
 export function log<T>(lvl: LogLevel, tag: string, val: T): T {
-  if (has(lvl) && filter.test(tag))
+  if (logLevel <= lvl && filter.test(tag))
     if (exists(val))
       console.log(LogLevel[lvl], tag, val);
     else
       console.log(LogLevel[lvl], tag);
 
   return val;
-}
-
-function has(l: LogLevel): boolean {
-  return (logLevel & l) > 0;
 }

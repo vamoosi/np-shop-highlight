@@ -1,37 +1,87 @@
 <script>
   import InputLabel from './input-label.svelte';
+  import { newDebouncer } from '../../../ts/lib/debouncer';
+  import { onMount } from 'svelte';
 
+  /**
+   * Input label text
+   *
+   * @type {string}
+   */
   export let label;
-  export let styleClass;
-  export let hint = '';
-  export let value;
 
+  /**
+   * Input placeholder text
+   *
+   * @type {string}
+   */
+  export let placeholder;
+
+  /**
+   * Input hover text (html title)
+   *
+   * @type {string}
+   */
+  export let title;
+
+  /**
+   * Initial Input value.
+   *
+   * This field is not written to by this component.
+   *
+   * @type {string}
+   */
+  export let initialValue;
+
+  /**
+   * Post validation input value for binding.
+   *
+   * @type {string}
+   */
+  export let validValue;
+
+  /**
+   * Custom css class(es) as a space separated string
+   *
+   * @type {string}
+   */
+  export let styleClass;
+
+  /**
+   * Callback that will be called when the validValue prop
+   * is updated.
+   *
+   * @type {function(string)}
+   */
+  export let onUpdate = _ => {};
+
+  /**
+   * Custom input validator.
+   *
+   * @type {function(string): boolean}
+   */
+  export let validator = _ => true;
+
+  const debouncer = newDebouncer(() => {
+    if (validator(input.value)) {
+      validValue = input.value;
+      onUpdate(validValue);
+    }
+  });
+
+  /** @type {HTMLInputElement} */
+  let input;
+
+  onMount(() => {
+    input.addEventListener('keyup', debouncer);
+  });
 </script>
 
-<style>
-  @import "../../../css/settings.css";
-
-  input {
-    display:       block;
-    border-width:  0 0 1px 0;
-    position:      relative;
-    width:         50%;
-    font-size:     1.2em;
-    color:         var(--text-color);
-    border-radius: 5px;
-    line-height:   1.4em;
-  }
-
-  input:focus {
-    border-width: 0 0 1px 0;
-    outline:      none;
-    border-color: #6db5ff;
-  }
-</style>
-
-<InputLabel label="{label}" style="{styleClass}">
+<InputLabel label="{label}" title="{title}" styleClass="{styleClass}">
+  <!--suppress HtmlFormInputWithoutLabel -->
   <input type="text"
-         placeholder="{hint}"
-         bind:value={value}
+         bind:this={input}
+         placeholder="{placeholder}"
+         value={initialValue}
          class="{styleClass}"/>
 </InputLabel>

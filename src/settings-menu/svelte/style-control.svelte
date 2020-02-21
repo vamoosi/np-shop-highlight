@@ -11,7 +11,7 @@
   import ItemManagementButton from './generic/item-management-button.svelte';
   import { newHighlightStyle } from '../../config/types/highlight-style';
   import * as HConf from '../../config/types/highlight-config';
-  import { writableStore } from '../../lib/store/svelte-store';
+  import { SvelteStore } from '../../lib/store/svelte';
 
   /**
    * Current style id
@@ -21,7 +21,7 @@
   export let selected;
 
   /** @type {Writable<AppConfig> | AppConfig} */
-  const config = writableStore();
+  const config = SvelteStore.writableStore();
 
   function newStyle() {
     const max = HConf.nextHighlightId($config.styles);

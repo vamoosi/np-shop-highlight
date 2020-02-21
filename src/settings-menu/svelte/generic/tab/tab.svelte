@@ -1,11 +1,13 @@
 <style>
-  @import url('../../../css/settings.css');
+  @import url('../../../css/global.css');
 
   li {
-    margin:       15px 0;
-    width:        220px;
-    box-sizing:   border-box;
-    padding-left: 15px;
+    margin:     15px 0;
+    display:    block;
+    width:      240px;
+    /*width:        220px;*/
+    box-sizing: border-box;
+    padding:    0 5px;
   }
 
   li.selected {
@@ -18,10 +20,12 @@
     position:       absolute;
     top:            0;
     bottom:         0;
-    left:           220px;
+    left:           250px;
     right:          0;
     pointer-events: none;
     opacity:        0;
+    background:     #fafafa;
+    box-shadow:     -5px 0 10px 0 #aaa;
   }
 
   li.selected > div {
@@ -32,25 +36,36 @@
 
   h2 {
     cursor:        pointer;
-    color:         var(--text-color);
-    padding:       20px 15px 20px 0;
+    color:         #999;
+    padding:       20px 15px;
     margin:        0;
-    text-align:    right;
+    text-align:    center;
     border-color:  rgba(220, 220, 220, 0);
     border-style:  solid;
     border-width:  1px 0 1px 1px;
-    border-radius: 10px 0 0 10px;
+    border-radius: 10px;
     box-sizing:    border-box;
-    transition:    border-color var(--tab-fade) ease, background-color var(--tab-fade) ease;
+    font-weight:   normal;
+    transition:    border-color var(--tab-fade) ease,
+                   background-color var(--tab-fade) ease,
+                   box-shadow var(--tab-fade) ease,
+                   color var(--tab-fade) ease;
+  }
+
+  h2:hover, h2:focus {
+    color:        #666;
+    border-color: #eee;
+    box-shadow:   inset 0px 5px 10px -11px #222;
   }
 
   li.selected > h2 {
-    position:         relative;
-    background-color: #fff;
-    right:            -1px;
-    padding-right:    16px;
-    border-color:     rgba(220, 220, 220, 1);
-    border-radius:    10px 0 0 10px;
+    /*position:         relative;*/
+    /*background-color: #fff;*/
+    /*right:            -1px;*/
+    /*padding-right:    16px;*/
+    /*border-color:     rgba(220, 220, 220, 1);*/
+    /*border-radius:    10px 0 0 10px;*/
+    text-decoration: underline;
   }
 </style>
 
@@ -83,10 +98,6 @@
       return;
 
     selected = id;
-  }
-
-  function isSelected() {
-    return selected === id;
   }
 
   function showHide() {

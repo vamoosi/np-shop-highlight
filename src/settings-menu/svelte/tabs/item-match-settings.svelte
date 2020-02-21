@@ -6,6 +6,10 @@
   .menu-left {
     margin-right: 20px;
   }
+
+  .flex {
+    display: flex;
+  }
 </style>
 
 <script>
@@ -15,18 +19,21 @@
   import StyleSelect from '../generic/style-select.svelte';
   import BooleanInput from '../generic/form/boolean-input.svelte';
   import * as Lib from '../../ts/lib/item-match';
-  import { writableStore } from '../../../lib/store/svelte-store';
-  import { readableStore } from '../../../lib/store/svelte-store';
+  import { SvelteStore } from '../../../lib/store/svelte';
+  import { debug } from '../../../lib/logging'
 
   export let id;
 
   export let selected;
 
+  console.log('wat');
+
   /** @type {Writable<AppConfig>|AppConfig} */
-  const write = writableStore();
+  console.log(SvelteStore.writableStore());
+  const write = SvelteStore.writableStore();
 
   /** @type {Readable<AppConfig>|AppConfig} */
-  const read = readableStore();
+  const read = SvelteStore.readableStore();
 
   function type(value) {
     $write.itemMatch
@@ -43,17 +50,19 @@
 
 <Tab title="Item Match" bind:selected={selected} id="{id}">
   <PaddingBox>
-    <div class="menu-left">
-      <BooleanInput bind:checked={$write.itemMatch.enabled} label="Enabled"/>
-      <TextArea label="Item List"
-                title="List of items to match on the page"
-                height="40vh"
-                initialValue="{value}"
-                onUpdate={type}/>
-    </div>
-    <div class="menu-right">
-      <StyleSelect label="Style"
-                   bind:value={$write.itemMatch.groups["1"].styles[0]}/>
+    <div class="flex">
+      <div class="menu-left">
+        <BooleanInput bind:checked={$write.itemMatch.enabled} label="Enabled"/>
+        <TextArea label="Item List"
+                  title="List of items to match on the page"
+                  height="40vh"
+                  initialValue="{value}"
+                  onUpdate={type}/>
+      </div>
+      <div class="menu-right">
+        <StyleSelect label="Style"
+                     bind:value={$write.itemMatch.groups["1"].styles[0]}/>
+      </div>
     </div>
   </PaddingBox>
 </Tab>

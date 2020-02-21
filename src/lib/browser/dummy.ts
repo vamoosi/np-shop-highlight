@@ -16,10 +16,12 @@ interface StoreResult<T> {
 const subscribers: SubscriberMap = {};
 
 function pushSubscriber(key: string, fn: BrowserStoreCB): void {
+  debug(tagIn(pushSubscriber.name), {key, fn});
   if (subscribers.hasOwnProperty(key))
     subscribers[key].push(fn);
   else
     subscribers[key] = [ fn ];
+  debug(tagOut(pushSubscriber.name), null);
 }
 
 
@@ -29,7 +31,7 @@ function changeCB(data: StoreResult<any>): void {
     if (data.hasOwnProperty(key) && subscribers.hasOwnProperty(key)) {
       for (const fn of subscribers[key]) {
         debug(tag("changeCB.fn"), [ key, fn ]);
-        fn(data);
+        fn(data[key]);
       }
     }
   }
@@ -39,19 +41,24 @@ function changeCB(data: StoreResult<any>): void {
 const out: BrowserStore = {
   name: "Noop",
 
-  loadLocal<T>(_key: string): Promise<Option<T>> {
-    return Promise.resolve(Option.none());
+  loadLocal<T>(key: string): Promise<Option<T>> {
+    debug(tagIn('out.loadLocal'), {key});
+    return debug(tagOut('out.loadLocal'), Promise.resolve(Option.none()));
   },
 
   subscribe(key: string | Array<string>, fn: BrowserStoreCB): void {
+    debug(tagIn('out.subscribe'), {key, fn});
     const iter = Array.isArray(key) ? key : [ key ];
     for (const k of iter)
       pushSubscriber(k, fn);
+
+    debug(tagOut('out.subscribe'), null);
   },
 
-  saveLocal<T>(_key: string, data: T): Promise<any> {
-    changeCB(data);
-    return Promise.resolve();
+  saveLocal<T>(key: string, data: T): Promise<any> {
+    debug(tagIn('out.saveLocal'), {key, data});
+    changeCB({[key]: data});
+    return debug(tagOut('out.saveLocal'), Promise.resolve());
   },
 };
 

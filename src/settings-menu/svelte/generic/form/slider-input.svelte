@@ -1,7 +1,7 @@
 <style>
   span {
     display:   block;
-    font-size: 1.4em;
+    font-size: var(--input-font-size);
   }
 
   input[type=range] {
@@ -12,11 +12,10 @@
   }
 
   input[type=number] {
-    font-size:    1em;
-    text-align:   right;
-    width:        2.5em;
-    padding:      0;
-    border-width: 0 0 1px 0;
+    font-size:  1em;
+    text-align: right;
+    width:      2.5em;
+    padding:    0;
   }
 </style>
 

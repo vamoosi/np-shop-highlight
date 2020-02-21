@@ -9,7 +9,7 @@
 </script>
 
 <style>
-  @import '../../../css/settings.css';
+  @import '../../../css/global.css';
 
   span {
     display:       block;
@@ -22,7 +22,6 @@
     height:        2em;
     margin-right:  5px;
     width:         60px;
-    border:        0;
     border-radius: 3px;
   }
 
@@ -36,20 +35,14 @@
     color:         var(--text-color);
     border-radius: 5px;
     font-size:     1.1em;
-    border-width:  0 0 1px 0;
     position:      relative;
     bottom:        -.3em;
-  }
-
-  input[type=text]:focus {
-    border-width: 0 0 1px 0;
-    outline:      none;
-    border-color: #6db5ff;
   }
 
   span span {
     display:          inline-block;
     background-color: var(--value);
+    border:           var(--input-border-off);
     border-radius:    5px;
     margin-right:     5px;
     margin-bottom:    0;

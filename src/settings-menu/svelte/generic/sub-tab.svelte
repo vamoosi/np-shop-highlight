@@ -1,5 +1,5 @@
 <style>
-  @import url('../../css/settings.css');
+  @import url('../../css/global.css');
 
   li {
     margin:       15px 0;
