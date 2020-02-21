@@ -29,5 +29,5 @@ export async function handler(links: NodeListOf<HTMLAnchorElement>): Promise<voi
 function matches(node: HTMLElement | null, text: string): boolean {
   return node !== null
     && node.textContent !== null
-    && node.textContent.indexOf(text) > -1;
+    && node.textContent.toLowerCase().indexOf(text.toLowerCase()) > -1;
 }
