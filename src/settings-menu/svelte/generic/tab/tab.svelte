@@ -8,7 +8,7 @@
     box-sizing: border-box;
     padding:    0 5px;
   }
-  
+
   div {
     transition:     opacity var(--tab-fade) ease;
     position:       absolute;
@@ -48,11 +48,12 @@
 
   h2:hover, h2:focus {
     color:        #666;
-    border-color: #eee;
-    box-shadow:   inset 0 5px 10px -11px #222;
+    border-color: #ccc;
+    box-shadow:   inset 0 5px 10px -10px #222;
   }
 
   li.selected > h2 {
+    color:           #666;
     text-decoration: underline;
   }
 </style>
@@ -62,19 +63,15 @@
 
   /** @type {string} */
   export let title;
-
   /** @type {string} */
   export let id;
-
   /** @type {string} */
   export let selected;
 
   /** @type {HTMLLIElement} */
   let self;
-
   /** @type {HTMLHeadingElement} */
   let header;
-
   /** @type HTMLDivElement */
   let body;
 
@@ -88,7 +85,7 @@
     selected = id;
   }
 
-  function showHide() {
+  function showHide(e) {
     if (selected !== id)
       body.style.zIndex = '0';
     else
@@ -109,7 +106,7 @@
 </script>
 
 <li class:selected={selected===id} on:click={selectTab} bind:this={self}>
-  <h2 bind:this={header}>{title}</h2>
+  <h2 bind:this={header} title="{title}">{title}</h2>
   <div bind:this={body}>
     <!--suppress CheckTagEmptyBody -->
     <slot></slot>

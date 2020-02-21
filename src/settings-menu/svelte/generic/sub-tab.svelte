@@ -2,27 +2,21 @@
   @import url('../../css/global.css');
 
   li {
-    margin:       15px 0;
-    width:        220px;
-    box-sizing:   border-box;
-    padding-left: 15px;
-  }
-
-  li.selected {
-    width:   221px;
-    outline: none;
+    width:      220px;
+    box-sizing: border-box;
   }
 
   li > div {
-    transition:     opacity var(--tab-fade) ease;
-    position:       absolute;
-    top:            0;
-    bottom:         0;
-    left:           220px;
-    right:          0;
-    padding:        50px 20px;
-    pointer-events: none;
-    opacity:        0;
+    transition:       opacity var(--tab-fade) ease;
+    position:         absolute;
+    top:              0;
+    bottom:           0;
+    left:             220px;
+    right:            0;
+    padding:          50px 20px;
+    pointer-events:   none;
+    opacity:          0;
+    background-color: #f0f2f5;
   }
 
   li.selected > div {
@@ -31,27 +25,30 @@
   }
 
   h3 {
-    cursor:        pointer;
-    color:         var(--text-color);
-    padding:       20px 15px 20px 0;
-    margin:        0;
-    text-align:    right;
-    border-color:  rgba(220, 220, 220, 0);
-    border-style:  solid;
-    border-width:  1px 0 1px 1px;
-    border-radius: 10px 0 0 10px;
-    box-sizing:    border-box;
-    transition:    border-color var(--tab-fade) ease, background-color var(--tab-fade) ease;
+    cursor:          pointer;
+    color:           #f0f2f5;
+    padding:         20px 15px;
+    margin:          0;
+    text-align:      right;
+    border-width:    0 0 1px 0;
+    border-color:    #cdcdcd;
+    border-style:    solid;
+    border-collapse: collapse;
+    box-sizing:      border-box;
+    transition:      border-color var(--tab-fade) ease,
+                     background-color var(--tab-fade) ease;
+    text-overflow:   ellipsis;
+    overflow:        hidden;
+    white-space:     nowrap;
+  }
+
+  li:first-child > h3 {
+    border-top-width: 1px;
   }
 
   li.selected > h3 {
-    position:         relative;
-    background-color: #fff;
-    right:            -1px;
-    z-index:          10;
-    padding-right:    17px;
-    border-color:     rgba(220, 220, 220, 1);
-    border-radius:    10px 0 0 10px;
+    color:            var(--text-color);
+    background-color: #f0f2f5;
   }
 </style>
 

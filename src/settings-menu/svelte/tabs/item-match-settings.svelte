@@ -6,10 +6,6 @@
   .menu-left {
     margin-right: 20px;
   }
-
-  .flex {
-    display: flex;
-  }
 </style>
 
 <script>
