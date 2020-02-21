@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     filename: "[name].js",
-    path: path.resolve("build", "compile")
+    path: path.resolve("out", "compile")
   },
   optimization: {
     minimize: true

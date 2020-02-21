@@ -3,13 +3,12 @@ NAME     := $(shell jq -r .name     package.json)
 HOME_URL := $(shell jq -r .homepage package.json)
 AUTHOR   := $(shell jq -r .author   package.json | sed 's/"/\\"/g')
 
-JS_FILES     := $(shell find src -type f -name '*.ts')
-SVELTE_FILES := $(shell find src -type f -name '*.svelte')
+JS_FILES     := $(shell find src -type f -name '*.ts' -o -name '*.svelte')
 
 CWD   := $(shell pwd)
 DIST  := $(CWD)/dist
-BUILD := $(CWD)/build/compile
-STAGE := $(CWD)/build/stage
+BUILD := $(CWD)/out/compile
+STAGE := $(CWD)/out/stage
 
 dist: $(DIST)/np-shop-highlight-$(VERSION).zip
 
@@ -36,7 +35,7 @@ $(DIST)/np-shop-highlight-$(VERSION).zip: stage
 	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
 	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-$(VERSION).zip *
 
-$(BUILD)/%.js: $(JS_FILES) $(SVELTE_FILES)
+$(BUILD)/%.js: $(JS_FILES)
 	@echo "Compiling Project"
 	@rm -rf $(BUILD)
 	./node_modules/.bin/webpack --config webpack.config.js
