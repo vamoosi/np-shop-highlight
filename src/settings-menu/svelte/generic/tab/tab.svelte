@@ -2,11 +2,11 @@
   @import url('../../../css/global.css');
 
   li {
-    margin:     15px 0;
-    display:    block;
-    width:      240px;
-    box-sizing: border-box;
-    padding:    0 5px;
+    margin:       15px 0;
+    display:      block;
+    width:        260px;
+    box-sizing:   border-box;
+    padding-left: 40px;
   }
 
   div {
@@ -14,11 +14,11 @@
     position:       absolute;
     top:            0;
     bottom:         0;
-    left:           250px;
+    left:           300px;
     right:          0;
     pointer-events: none;
     opacity:        0;
-    background:     #fafafa;
+    background:     #f0f2f5;
     box-shadow:     -5px 0 10px 0 #aaa;
   }
 
@@ -48,13 +48,12 @@
 
   h2:hover, h2:focus {
     color:        #666;
-    border-color: #ccc;
-    box-shadow:   inset 0 5px 10px -10px #222;
+    border-color: #ddd;
+    box-shadow:   inset 0 5px 10px -10px #878787;
   }
 
   li.selected > h2 {
-    color:           #666;
-    text-decoration: underline;
+    color: #555;
   }
 </style>
 

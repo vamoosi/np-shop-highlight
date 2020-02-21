@@ -115,7 +115,7 @@
 </script>
 
 <li class:selected={selection===style.id} bind:this={self} on:click={selectTab}>
-  <h3 bind:this={header}>{style.name}</h3>
+  <h3 bind:this={header} title="{style.name}">{style.name}</h3>
   <div bind:this={body}>
     <StyleConfig bind:style={style}/>
     <StyleControl bind:selected={selection}/>

@@ -1,7 +1,5 @@
 <style>
   div.box {
-    margin-left:    50px;
-    margin-bottom:  50px;
     width:          120px;
     vertical-align: middle;
     text-align:     center;
@@ -21,6 +19,7 @@
     height:           80px;
     border:           1px solid blue;
   }
+
 </style>
 
 <script>
@@ -36,13 +35,16 @@
   }
 </script>
 
-<div bind:this={self} class="box">
-  <div class="img"></div>
-  <b>Some Item Name</b>
-  <br>
-  9 in stock
-  <br>
-  Cost: 3000 NP
-  <br>
-  <br>
+<div>
+  <h4>Example Item</h4>
+  <div bind:this={self} class="box">
+    <div class="img"></div>
+    <b>Some Item Name</b>
+    <br>
+    9 in stock
+    <br>
+    Cost: 3000 NP
+    <br>
+    <br>
+  </div>
 </div>

@@ -41,6 +41,12 @@ export class Option<T> {
     return new Option<R>(fn(this.value));
   }
 
+  public flatMap<R>(fn: (v: T) => Option<R>): Option<R> {
+    if (this.isNone())
+      return Option.none();
+    return fn(this.value);
+  }
+
   public ifSome(fn: (v: T) => void): Option<T> {
     if (this.isSome())
       fn(this.value);
@@ -77,7 +83,7 @@ export class Option<T> {
     return new Option<T>();
   }
 
-  public static maybe<T>(val?: T): Option<T> {
+  public static maybe<T>(val?: T | null): Option<T> {
     if (val === undefined || val === null)
       return Option.none();
     return Option.some(val);

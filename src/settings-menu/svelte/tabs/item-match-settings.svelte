@@ -1,6 +1,7 @@
 <style>
   .menu-right {
     width: 20%;
+    margin-left: 30px;
   }
 
   .menu-left {

@@ -1,3 +1,9 @@
+<style>
+  div.space {
+    margin-left: 50px;
+  }
+</style>
+
 <script>
   import TextInput from '../generic/form/text-input.svelte';
   import SliderInput from '../generic/form/slider-input.svelte';
@@ -8,8 +14,14 @@
   export let style;
 </script>
 
-<ExampleItem bind:config={style}/>
-<TextInput label="Style Name" initialValue="{style.name}" bind:validValue={style.name}/>
-<SliderInput label="Opacity" bind:value={style.opacity}/>
-<ColorInput label="Background Color" bind:value={style.bgColor}/>
-<ColorInput label="Text Color" bind:value={style.textColor}/>
+<div class="flex">
+  <div>
+    <TextInput label="Style Name" initialValue="{style.name}" bind:validValue={style.name}/>
+    <SliderInput label="Opacity" bind:value={style.opacity}/>
+    <ColorInput label="Background Color" bind:value={style.bgColor}/>
+    <ColorInput label="Text Color" bind:value={style.textColor}/>
+  </div>
+  <div class="space">
+    <ExampleItem bind:config={style}/>
+  </div>
+</div>
