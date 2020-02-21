@@ -7,7 +7,7 @@ node_js:
   - node
 
 script:
-  make dist
+  - make dist
 
 deploy:
   provider: releases
