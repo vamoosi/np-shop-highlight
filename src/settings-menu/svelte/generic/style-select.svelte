@@ -8,13 +8,14 @@
 <script>
   import InputLabel from "./form/input-label.svelte";
   import ExampleItem from "./example-item.svelte";
-  import { getConfigStore } from "../../js/app-config";
+  import { writableStore } from "../../../lib/store/svelte-store";
 
   export let label;
   export let title;
   export let value;
 
-  const config = getConfigStore();
+  /** @type {Writable<AppConfig> | AppConfig} */
+  const config = writableStore();
 
   $: selected = $config.styles.values[value];
 

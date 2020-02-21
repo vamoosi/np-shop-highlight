@@ -14,9 +14,10 @@
 
 <script>
   import SubTab from "./sub-tab.svelte";
-  import { getConfigStore } from "../../js/app-config";
+  import { writableStore } from "../../../lib/store/svelte-store";
 
-  const config = getConfigStore();
+  /** @type {Writable<AppConfig> | AppConfig} */
+  const config = writableStore();
 
   let selected = $config.styles.order[0];
 

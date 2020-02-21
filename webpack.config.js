@@ -2,11 +2,11 @@ const path = require('path');
 const ExtractCss = require('mini-css-extract-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: {
-    "settings-menu": "settings-menu/js/app.js",
-    "active-tab": "active-tab/app.js",
-    "migrate": "init/migrate.js",
+    "settings-menu": "settings-menu/ts/app.ts",
+    "active-tab": "active-tab/app.ts",
+    "migrate": "init/migrate.ts",
   },
   output: {
     filename: "[name].js",
@@ -19,11 +19,16 @@ module.exports = {
     alias: {
       svelte: path.resolve("node_modules", "svelte")
     },
-    extensions: [".mjs", ".js", ".svelte"],
+    extensions: [".mjs", ".js", ".svelte", ".ts"],
     modules: ["node_modules", "src"]
   },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules|dist|build/,
+        use: 'ts-loader'
+      },
       {
         test: /\.svelte$/,
         exclude: /node_modules/,
@@ -31,7 +36,14 @@ module.exports = {
           loader: "svelte-loader",
           options: {
             emitCss: true,
-            hotReload: true
+            hotReload: true,
+            preprocess: [
+              require('svelte-preprocess')({
+                typescript: {
+                  tsconfigFile: './tsconfig.json'
+                }
+              })
+            ]
           }
         }
       },
@@ -49,6 +61,9 @@ module.exports = {
       }
     ]
   },
+  node: {
+    __filename: true,
+  },
   plugins: [
     new ExtractCss({
       filename: 'style.css'
@@ -56,6 +71,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: path.join(__dirname, "build", "stage"),
+    hot: true,
     compress: true,
     port: 9000
   }

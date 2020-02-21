@@ -5,18 +5,13 @@
   import StyleSettings from "./tabs/style-settings.svelte";
   import ItemMatchSettings from "./tabs/item-match-settings.svelte";
 
-  let settings = $$props;
-
-  let selection = "item-match";
+  let selection = "general";
 
 </script>
 
 <TabPane>
-  <GeneralSettings bind:selected={selection} id="general" />
+  <GeneralSettings   bind:selected={selection} id="general" />
   <MiniStockSettings bind:selected={selection} id="mini-stock"/>
   <ItemMatchSettings bind:selected={selection} id="item-match"/>
-  <StyleSettings id="style"
-                 bind:selected={selection}
-                 bind:config={$settings}
-                 bind:styles={$settings.styles} />
+  <StyleSettings     bind:selected={selection} id="style" />
 </TabPane>

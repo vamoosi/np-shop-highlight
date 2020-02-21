@@ -2,7 +2,7 @@
   import Tab from "../generic/tab/tab.svelte";
   import BooleanInput from "../generic/form/boolean-input.svelte";
   import PaddingBox from "../generic/padding-box.svelte";
-  import { getConfigStore } from "../../js/app-config";
+  import {writableStore } from "../../../lib/store/svelte-store";
 
   /** @type {*} */
   export let id;
@@ -10,7 +10,7 @@
   /** @type {*} */
   export let selected;
 
-  const config = getConfigStore();
+  const config = writableStore();
 
 </script>
 

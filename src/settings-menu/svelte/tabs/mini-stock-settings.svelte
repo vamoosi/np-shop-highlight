@@ -3,14 +3,14 @@
   import BooleanInput from "../generic/form/boolean-input.svelte";
   import PaddingBox from "../generic/padding-box.svelte";
   import StyleSelect from "../generic/style-select.svelte";
-  import { getConfigStore } from "../../js/app-config";
+  import { writableStore } from "../../../lib/store/svelte-store";
 
   export let id;
 
   export let selected;
 
-  const config = getConfigStore();
-  $: mini = $config.miniStock;
+  /** @type {Writable<AppConfig> | AppConfig} */
+  const config = writableStore();
 
 </script>
 
@@ -18,10 +18,10 @@
   <PaddingBox>
     <div>
       <BooleanInput label="Mini Stock Item Highlighting"
-                    bind:checked={config.enabled}/>
+                    bind:checked={$config.miniStock.enabled}/>
 
-      <StyleSelect label="Fresh Item Style" bind:value={mini.freshStyle} />
-      <StyleSelect label="Stale Item Style" bind:value={mini.staleStyle} />
+      <StyleSelect label="Fresh Item Style" bind:value={$config.miniStock.freshStyle} />
+      <StyleSelect label="Stale Item Style" bind:value={$config.miniStock.staleStyle} />
     </div>
   </PaddingBox>
 </Tab>

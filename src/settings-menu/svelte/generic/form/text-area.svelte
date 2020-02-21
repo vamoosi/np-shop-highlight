@@ -3,9 +3,10 @@
     height: var(--height);
   }
 </style>
+
 <script>
   import InputLabel from './input-label.svelte';
-  import { newDebouncer } from "../../../js/lib/debouncer";
+  import { newDebouncer } from "../../../ts/lib/debouncer";
   import { onMount } from "svelte";
 
   /**
@@ -23,11 +24,20 @@
   export let title;
 
   /**
-   * Input value
+   * Initial Input value.
+   *
+   * This field is not written to by this component.
    *
    * @type {string}
    */
-  export let value;
+  export let initialValue;
+
+  /**
+   * Post validation input value for binding.
+   *
+   *
+   */
+  export let validValue;
 
   /**
    * Custom css class(es) as a space separated string
@@ -36,11 +46,29 @@
    */
   export let styleClass;
 
-  export let onType = () => {};
+  /**
+   * Callback that will be called when the validValue prop
+   * is updated.
+   *
+   * @type {function(string)}
+   */
+  export let onUpdate = _ => {};
+
+  /**
+   * Custom input validator.
+   *
+   * @type {function(string): boolean}
+   */
+  export let validator = _ => true;
 
   export let height;
 
-  const debouncer = newDebouncer(() => {onType()});
+  const debouncer = newDebouncer(() => {
+    if (validator(textBox.value)) {
+      validValue = textBox.value;
+      onUpdate(validValue);
+    }
+  });
 
   /** @type {HTMLTextAreaElement} */
   let textBox;
@@ -53,6 +81,5 @@
 <InputLabel label="{label}" title="{title}">
   <textarea bind:this={textBox}
             class="{styleClass}"
-            style="--height: {height}"
-            bind:value={value}></textarea>
+            style="--height: {height}">{initialValue || ""}</textarea>
 </InputLabel>

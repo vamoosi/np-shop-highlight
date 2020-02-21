@@ -11,7 +11,7 @@
   import ItemManagementButton from "./generic/item-management-button.svelte"
   import { newHighlightStyle } from "../../config/types/highlight-style";
   import * as HConf from "../../config/types/highlight-config";
-  import { getConfigStore } from "../js/app-config";
+  import { writableStore } from "../../lib/store/svelte-store";
 
   /**
    * Current style id
@@ -20,20 +20,20 @@
    */
   export let selected;
 
-  const config = getConfigStore();
+  /** @type {Writable<AppConfig> | AppConfig} */
+  const config = writableStore();
 
   function newStyle() {
     const max = HConf.nextHighlightId($config.styles);
     $config.styles = HConf.appendHighlight(
       $config.styles,
-      newHighlightStyle("New Style", max)
+      newHighlightStyle(max, "New Style")
     );
 
     selected = max;
   }
 
   function del() {
-    const style = $config.styles.values[selected.toString()];
     if (inUse()) {
       alert("Cannot delete this style, it is currently in use.");
       return;

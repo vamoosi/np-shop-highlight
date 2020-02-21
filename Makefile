@@ -3,7 +3,7 @@ NAME     := $(shell jq -r .name     package.json)
 HOME_URL := $(shell jq -r .homepage package.json)
 AUTHOR   := $(shell jq -r .author   package.json | sed 's/"/\\"/g')
 
-JS_FILES     := $(shell find src -type f -name '*.js')
+JS_FILES     := $(shell find src -type f -name '*.ts')
 SVELTE_FILES := $(shell find src -type f -name '*.svelte')
 
 CWD   := $(shell pwd)
@@ -39,7 +39,7 @@ $(DIST)/np-shop-highlight-$(VERSION).zip: stage
 $(BUILD)/%.js: $(JS_FILES) $(SVELTE_FILES)
 	@echo "Compiling Project"
 	@rm -rf $(BUILD)
-	./node_modules/.bin/webpack --config webpack.config.js --mode production
+	./node_modules/.bin/webpack --config webpack.config.js
 
 tag:
 	@if [ "$(TAG)" = "" ]; then \
