@@ -5,16 +5,10 @@
     margin:     15px 0;
     display:    block;
     width:      240px;
-    /*width:        220px;*/
     box-sizing: border-box;
     padding:    0 5px;
   }
-
-  li.selected {
-    /*width: 221px;*/
-    outline: none;
-  }
-
+  
   div {
     transition:     opacity var(--tab-fade) ease;
     position:       absolute;
@@ -55,16 +49,10 @@
   h2:hover, h2:focus {
     color:        #666;
     border-color: #eee;
-    box-shadow:   inset 0px 5px 10px -11px #222;
+    box-shadow:   inset 0 5px 10px -11px #222;
   }
 
   li.selected > h2 {
-    /*position:         relative;*/
-    /*background-color: #fff;*/
-    /*right:            -1px;*/
-    /*padding-right:    16px;*/
-    /*border-color:     rgba(220, 220, 220, 1);*/
-    /*border-radius:    10px 0 0 10px;*/
     text-decoration: underline;
   }
 </style>
@@ -123,6 +111,7 @@
 <li class:selected={selected===id} on:click={selectTab} bind:this={self}>
   <h2 bind:this={header}>{title}</h2>
   <div bind:this={body}>
+    <!--suppress CheckTagEmptyBody -->
     <slot></slot>
   </div>
 </li>
