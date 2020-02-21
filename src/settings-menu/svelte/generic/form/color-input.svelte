@@ -1,11 +1,11 @@
 <script>
-  import InputLabel from "./input-label.svelte"
+  import InputLabel from './input-label.svelte';
 
   export let label;
   export let styleClass;
   export let value;
 
-  export const getId = () => `input-${name}`
+  export const getId = () => `input-${name}`;
 </script>
 
 <style>
@@ -60,8 +60,8 @@
   <span style="--value: {value}">
     <span>
       <input type="color"
-        class="{styleClass}"
-        bind:value="{value}"/>
+             class="{styleClass}"
+             bind:value="{value}"/>
     </span>
     <input type="text" bind:value={value}/>
   </span>

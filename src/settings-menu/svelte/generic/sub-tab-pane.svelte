@@ -13,8 +13,8 @@
 </style>
 
 <script>
-  import SubTab from "./sub-tab.svelte";
-  import { writableStore } from "../../../lib/store/svelte-store";
+  import SubTab from './sub-tab.svelte';
+  import { writableStore } from '../../../lib/store/svelte-store';
 
   /** @type {Writable<AppConfig> | AppConfig} */
   const config = writableStore();
@@ -29,8 +29,8 @@
 </script>
 
 <ul>
-    {#each $config.styles.order as id}
-      <SubTab bind:style={$config.styles.values[id]}
-        bind:selection={selected}/>
-    {/each}
+  {#each $config.styles.order as id}
+    <SubTab bind:style={$config.styles.values[id]}
+            bind:selection={selected}/>
+  {/each}
 </ul>

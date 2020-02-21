@@ -2,8 +2,8 @@ import { exists } from "./util";
 
 export enum LogLevel {
   DEBUG = 1 << 0,
-  INFO  = 1 << 1,
-  WARN  = 1 << 2,
+  INFO = 1 << 1,
+  WARN = 1 << 2,
   ERROR = 1 << 3,
 }
 
@@ -19,8 +19,8 @@ export function setFilter(p: RegExp) {
 }
 
 export const debug = <T>(tag: string, v: T): T => log(LogLevel.DEBUG, tag, v);
-export const info  = <T>(tag: string, v: T): T => log(LogLevel.INFO, tag, v);
-export const warn  = <T>(tag: string, v: T): T => log(LogLevel.WARN, tag, v);
+export const info = <T>(tag: string, v: T): T => log(LogLevel.INFO, tag, v);
+export const warn = <T>(tag: string, v: T): T => log(LogLevel.WARN, tag, v);
 export const error = <T>(tag: string, v: T): T => log(LogLevel.ERROR, tag, v);
 
 export function fatal(message: string, v?: any) {

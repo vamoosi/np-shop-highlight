@@ -1,6 +1,6 @@
 <script>
-  import Tab from "../generic/tab/tab.svelte";
-  import SubTabPane from "../generic/sub-tab-pane.svelte";
+  import Tab from '../generic/tab/tab.svelte';
+  import SubTabPane from '../generic/sub-tab-pane.svelte';
 
   export let id;
 
@@ -8,5 +8,5 @@
 </script>
 
 <Tab title="Styles" bind:selected={selected} id="{id}">
-  <SubTabPane />
+  <SubTabPane/>
 </Tab>

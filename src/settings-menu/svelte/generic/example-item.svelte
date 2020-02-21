@@ -1,30 +1,30 @@
 <style>
   div.box {
-    margin-left: 50px;
-    margin-bottom: 50px;
-    width: 120px;
+    margin-left:    50px;
+    margin-bottom:  50px;
+    width:          120px;
     vertical-align: middle;
-    text-align: center;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 9pt;
-    padding: 4px;
-    box-sizing: border-box;
+    text-align:     center;
+    font-family:    Verdana, Arial, Helvetica, sans-serif;
+    font-size:      9pt;
+    padding:        4px;
+    box-sizing:     border-box;
   }
 
   div.img {
     background-image: url("../../../../res/x.svg");
     background-color: white;
-    position: relative;
-    margin-left: 56px;
-    left: -40px;
-    width: 80px;
-    height: 80px;
-    border: 1px solid blue;
+    position:         relative;
+    margin-left:      56px;
+    left:             -40px;
+    width:            80px;
+    height:           80px;
+    border:           1px solid blue;
   }
 </style>
 
 <script>
-  import { applyStyle } from "../../../lib/style";
+  import { applyStyle } from '../../../lib/style';
 
   export let config;
 

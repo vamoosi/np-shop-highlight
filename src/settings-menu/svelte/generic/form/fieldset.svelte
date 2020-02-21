@@ -3,9 +3,9 @@
 
   legend {
     font-size: 1.4em;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 0 10px;
+    color:     var(--text-color);
+    cursor:    pointer;
+    padding:   0 10px;
   }
 
   legend:after {
@@ -14,11 +14,11 @@
 
   fieldset {
     border-radius: 10px;
-    border: 1px solid #ddd;
+    border:        1px solid #ddd;
     margin-bottom: 25px;
-    transition: max-height 500ms ease-out;
-    overflow: hidden;
-    max-height: 100vh;
+    transition:    max-height 500ms ease-out;
+    overflow:      hidden;
+    max-height:    100vh;
   }
 
   fieldset.collapsed {
@@ -31,18 +31,18 @@
 </style>
 
 <script>
-  export let legend = "";
+  export let legend = '';
 
   let collapsed = false;
 
   const toggle = () => {
     collapsed = !collapsed;
-  }
+  };
 </script>
 
 <fieldset class:collapsed={collapsed}>
   {#if legend}
-  <legend on:click={toggle}>{legend}</legend>
+    <legend on:click={toggle}>{legend}</legend>
   {/if}
   <slot>
 

@@ -6,8 +6,8 @@
 
 <script>
   import InputLabel from './input-label.svelte';
-  import { newDebouncer } from "../../../ts/lib/debouncer";
-  import { onMount } from "svelte";
+  import { newDebouncer } from '../../../ts/lib/debouncer';
+  import { onMount } from 'svelte';
 
   /**
    * Input label text
@@ -52,7 +52,8 @@
    *
    * @type {function(string)}
    */
-  export let onUpdate = _ => {};
+  export let onUpdate = _ => {
+  };
 
   /**
    * Custom input validator.

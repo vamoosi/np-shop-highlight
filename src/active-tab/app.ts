@@ -3,8 +3,8 @@
  *     Handler function
  */
 
-import { objectHandler }  from "./routes/object/object-handler";
-import Storage from "../lib/store/static-store"
+import { objectHandler } from "./routes/object/object-handler";
+import Storage from "../lib/store/static-store";
 import { APP_CONFIG_KEY } from "../config/Constants";
 import { AppConfig, defaultAppConfig } from "../config/types/app-config";
 import { setConfig } from "../config/Configuration";
@@ -29,7 +29,10 @@ Storage.loadLocal<AppConfig>(APP_CONFIG_KEY)
   .then(setConfig)
   .then(() => {
     Option.objectGet(recognizedPaths, window.location.pathname)
-      .orElse(() => {})();
+      .orElse(() => {
+      })();
   })
-  .catch(e => {throw new Error('Failed to load configuration: ' + e)});
+  .catch(e => {
+    throw new Error("Failed to load configuration: " + e);
+  });
 

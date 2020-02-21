@@ -1,9 +1,9 @@
 <script>
-  import Tab from "../generic/tab/tab.svelte";
-  import BooleanInput from "../generic/form/boolean-input.svelte";
-  import PaddingBox from "../generic/padding-box.svelte";
-  import StyleSelect from "../generic/style-select.svelte";
-  import { writableStore } from "../../../lib/store/svelte-store";
+  import Tab from '../generic/tab/tab.svelte';
+  import BooleanInput from '../generic/form/boolean-input.svelte';
+  import PaddingBox from '../generic/padding-box.svelte';
+  import StyleSelect from '../generic/style-select.svelte';
+  import { writableStore } from '../../../lib/store/svelte-store';
 
   export let id;
 
@@ -20,8 +20,10 @@
       <BooleanInput label="Mini Stock Item Highlighting"
                     bind:checked={$config.miniStock.enabled}/>
 
-      <StyleSelect label="Fresh Item Style" bind:value={$config.miniStock.freshStyle} />
-      <StyleSelect label="Stale Item Style" bind:value={$config.miniStock.staleStyle} />
+      <StyleSelect label="Fresh Item Style"
+                   bind:value={$config.miniStock.freshStyle}/>
+      <StyleSelect label="Stale Item Style"
+                   bind:value={$config.miniStock.staleStyle}/>
     </div>
   </PaddingBox>
 </Tab>

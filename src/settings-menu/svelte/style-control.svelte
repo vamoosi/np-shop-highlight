@@ -8,10 +8,10 @@
 </style>
 
 <script>
-  import ItemManagementButton from "./generic/item-management-button.svelte"
-  import { newHighlightStyle } from "../../config/types/highlight-style";
-  import * as HConf from "../../config/types/highlight-config";
-  import { writableStore } from "../../lib/store/svelte-store";
+  import ItemManagementButton from './generic/item-management-button.svelte';
+  import { newHighlightStyle } from '../../config/types/highlight-style';
+  import * as HConf from '../../config/types/highlight-config';
+  import { writableStore } from '../../lib/store/svelte-store';
 
   /**
    * Current style id
@@ -27,7 +27,7 @@
     const max = HConf.nextHighlightId($config.styles);
     $config.styles = HConf.appendHighlight(
       $config.styles,
-      newHighlightStyle(max, "New Style")
+      newHighlightStyle(max, 'New Style'),
     );
 
     selected = max;
@@ -35,7 +35,7 @@
 
   function del() {
     if (inUse()) {
-      alert("Cannot delete this style, it is currently in use.");
+      alert('Cannot delete this style, it is currently in use.');
       return;
     }
 

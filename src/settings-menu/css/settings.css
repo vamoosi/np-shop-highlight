@@ -11,7 +11,7 @@
   --input-font-size:   1.4em;
   --input-font-family: var(--general-font);
 
-  pointer-events: inherit;
+  pointer-events:      inherit;
 }
 
 textarea,
@@ -21,7 +21,7 @@ input[type=text] {
 }
 
 textarea {
-  padding: 10px;
+  padding:       10px;
   border-radius: 5px;
 }
 

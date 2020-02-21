@@ -55,7 +55,7 @@
 </style>
 
 <script>
-  import { onDestroy, onMount } from "svelte";
+  import { onDestroy, onMount } from 'svelte';
 
   /** @type {string} */
   export let title;
@@ -91,9 +91,9 @@
 
   function showHide() {
     if (selected !== id)
-      body.style.zIndex = "0";
+      body.style.zIndex = '0';
     else
-      body.style.zIndex = "10";
+      body.style.zIndex = '10';
   }
 
   onMount(() => {
@@ -105,7 +105,7 @@
   onDestroy(() => {
     body.removeEventListener('transitionend', showHide);
     body.removeEventListener('webkitTransitionEnd', showHide);
-  })
+  });
 
 </script>
 

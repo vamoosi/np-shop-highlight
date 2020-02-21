@@ -9,7 +9,7 @@ export interface ShopDetails {
  * Index of Neopets shop details
  */
 export const Shops: Array<ShopDetails> = [
-  { id: 1, name: "Neopian Fresh Foods"  },
+  { id: 1, name: "Neopian Fresh Foods" },
   { id: 2, name: "Kauvara's Magic Shop" },
   { id: 3, name: "Toy Shop" },
   { id: 4, name: "Unis Clothing Shop" },

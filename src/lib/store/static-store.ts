@@ -7,8 +7,8 @@ import ChromeStore from "../browser/chrome";
 import DummyStore from "../browser/dummy";
 import { debug } from "../logging";
 
-const tag    = (n: string) => __filename + ':' + n;
-const tagIn  = (n: string) => tag(n) + ".start";
+const tag = (n: string) => __filename + ":" + n;
+const tagIn = (n: string) => tag(n) + ".start";
 const tagOut = (n: string) => tag(n) + ".stop";
 
 const browser: BrowserStore = (exists(chrome) && exists(chrome.storage))
@@ -31,13 +31,13 @@ const out: BrowserStore = {
   },
 
   subscribe(key: string | Array<string>, fn: BrowserStoreCB): void {
-    debug(tagIn("BrowserStore#subscribe"), {key,fn});
+    debug(tagIn("BrowserStore#subscribe"), { key, fn });
     if (Array.isArray(key))
       browser.subscribe(key, fn);
     else
       browser.subscribe(key, fn);
     debug(tagOut("BrowserStore#subscribe"), null);
-  }
+  },
 };
 
 export default out;

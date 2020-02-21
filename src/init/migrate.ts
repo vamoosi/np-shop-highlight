@@ -12,7 +12,7 @@ Storage.loadLocal<AppConfig>(APP_CONFIG_KEY)
   .then(v => Storage.saveLocal(APP_CONFIG_KEY, v))
   .catch(console.log);
 
-function apply(a: {[s: string]: any}, b: {[s: string]: any}) {
+function apply(a: { [s: string]: any }, b: { [s: string]: any }) {
   for (const key in a) {
     if (!a.hasOwnProperty(key))
       continue;
@@ -20,9 +20,9 @@ function apply(a: {[s: string]: any}, b: {[s: string]: any}) {
     if (!b.hasOwnProperty(key)) {
       b[key] = a[key];
     } else {
-      if (exists(b[key]) && b[key].toString() === 'object'
-        && exists(a[key]) && a[key].toString() === 'object') {
-        apply(a[key], b[key])
+      if (exists(b[key]) && b[key].toString() === "object"
+        && exists(a[key]) && a[key].toString() === "object") {
+        apply(a[key], b[key]);
       }
     }
   }

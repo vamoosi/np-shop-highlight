@@ -16,7 +16,7 @@ export interface PageData {
  */
 export function newPageData(
   items: Array<ItemDetails>,
-  elems: Map<number, ElementData>
+  elems: Map<number, ElementData>,
 ): PageData {
   return { items, elems };
 }

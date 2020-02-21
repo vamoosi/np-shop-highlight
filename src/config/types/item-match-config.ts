@@ -1,6 +1,6 @@
 import {
   ItemHighlightGroup,
-  newItemHighlightGroup
+  newItemHighlightGroup,
 } from "./item-highlight-group";
 
 export interface ItemMatchConfig {
@@ -35,9 +35,9 @@ export function defaultItemMatchConfig(): ItemMatchConfig {
   return {
     enabled: false,
     groups: {
-      "1": newItemHighlightGroup(1, "Default", [], [ "Negg" ], [])
+      "1": newItemHighlightGroup(1, "Default", [], [ "Negg" ], []),
     },
     order: [],
-    byShop: {}
+    byShop: {},
   };
 }

@@ -1,14 +1,14 @@
 <style>
   select {
-    font-size: 1.4em;
+    font-size:     1.4em;
     margin-bottom: 20px;
-    padding: 5px;
+    padding:       5px;
   }
 </style>
 <script>
-  import InputLabel from "./form/input-label.svelte";
-  import ExampleItem from "./example-item.svelte";
-  import { writableStore } from "../../../lib/store/svelte-store";
+  import InputLabel from './form/input-label.svelte';
+  import ExampleItem from './example-item.svelte';
+  import { writableStore } from '../../../lib/store/svelte-store';
 
   export let label;
   export let title;
@@ -28,5 +28,5 @@
       {/each}
     </select>
   </div>
-  <ExampleItem config={selected} />
+  <ExampleItem config={selected}/>
 </InputLabel>

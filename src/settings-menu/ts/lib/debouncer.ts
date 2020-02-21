@@ -13,8 +13,8 @@
  */
 export function newDebouncer(
   onTimeout: () => void,
-  delay:number = 500,
-  cb?: (e: Event) => void
+  delay: number = 500,
+  cb?: (e: Event) => void,
 ): (e: Event) => void {
   let timeout: number;
 

@@ -22,7 +22,7 @@ export function defaultShopData() {
 export function newShopData(
   fresh: Array<ItemDetails>,
   stale: Array<ItemDetails>,
-  time: number
+  time: number,
 ): ShopData {
   return { fresh, stale, time };
 }

@@ -9,7 +9,7 @@ export interface ItemDetails {
  */
 export function newItemDetails(
   stockId: number,
-  itemInfoId: number
+  itemInfoId: number,
 ): ItemDetails {
   return { stockId, itemInfoId };
 }

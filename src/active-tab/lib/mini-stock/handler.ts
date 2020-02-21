@@ -31,12 +31,12 @@ const TIMEOUT = 20 * 60 * 1000;
 
 export async function handler(
   nodes: NodeListOf<HTMLAnchorElement>,
-  shopId: number
+  shopId: number,
 ): Promise<void> {
-  const key    = genKey(shopId);
-  const store  = (await Storage.loadLocal<ShopData>(key)).orElseGet(defaultShopData);
-  const page   = buildPageData(linkData(nodes));
-  const now    = new Date().getTime();
+  const key = genKey(shopId);
+  const store = (await Storage.loadLocal<ShopData>(key)).orElseGet(defaultShopData);
+  const page = buildPageData(linkData(nodes));
+  const now = new Date().getTime();
 
   // If the last snapshot is empty or too old, don't apply
   // highlighting, just store the current state.
@@ -78,8 +78,8 @@ function linkData(nodeList: NodeListOf<HTMLAnchorElement>): Array<ElementData> {
 
     out.push(newElementData(
       anchor,
-      parseInt(params.get(STOCK_ID_KEY) || '0'),
-      parseInt(params.get(OBJ_INFO_ID) || '0'),
+      parseInt(params.get(STOCK_ID_KEY) || "0"),
+      parseInt(params.get(OBJ_INFO_ID) || "0"),
     ));
 
   }

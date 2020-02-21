@@ -8,10 +8,10 @@ import { Option } from "../../../lib/option";
 /**
  * @return {ShopData}
  */
-export  function applyHighlight(snap: ShopData, cur: PageData) {
+export function applyHighlight(snap: ShopData, cur: PageData) {
   const curMap = cur.elems;
-  const dead   = snap.stale;
-  const stale  = snap.fresh;
+  const dead = snap.stale;
+  const stale = snap.fresh;
 
   // Remove the snapshot stale data from further processing
   for (let i = 0; i < dead.length; i++)
@@ -33,8 +33,8 @@ export  function applyHighlight(snap: ShopData, cur: PageData) {
   return {
     time: new Date().getTime(),
     fresh: cur.items,
-    stale: stale
-  }
+    stale: stale,
+  };
 }
 
 /**

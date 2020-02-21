@@ -12,7 +12,7 @@ export interface ElementData {
 export function newElementData(
   tag: HTMLAnchorElement,
   stockId: number,
-  itemInfoId: number
+  itemInfoId: number,
 ): ElementData {
   return { tag, val: newItemDetails(stockId, itemInfoId) };
 }

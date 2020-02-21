@@ -34,9 +34,9 @@ export interface HighlightStyle {
 export function newHighlightStyle(
   id: number,
   name: string,
-  bgColor:string = "#ffffff",
-  textColor:string = "#000000",
-  opacity:number = 100
+  bgColor: string = "#ffffff",
+  textColor: string = "#000000",
+  opacity: number = 100,
 ): HighlightStyle {
   return { name, id, bgColor, textColor, opacity };
 }

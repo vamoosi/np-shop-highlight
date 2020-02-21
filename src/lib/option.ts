@@ -9,7 +9,7 @@ export class Option<T> {
   private constructor(val?: T) {
     if (val !== undefined && val !== null) {
       this.value = val;
-      this.none  = false;
+      this.none = false;
     } else {
       this.none = true;
     }
@@ -83,7 +83,7 @@ export class Option<T> {
     return Option.some(val);
   }
 
-  public static objectGet<T>(obj: {[key: string]: T}, key: string): Option<T> {
+  public static objectGet<T>(obj: { [key: string]: T }, key: string): Option<T> {
     return isNone(obj) ? Option.none() : Option.maybe(obj[key]);
   }
 }

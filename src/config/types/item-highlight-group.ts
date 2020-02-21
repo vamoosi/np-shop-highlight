@@ -68,5 +68,5 @@ export function newItemHighlightGroup(
   items: Array<string> = [],
   styles: Array<number> = [],
 ): ItemHighlightGroup {
-  return {id, name, stores, items, styles};
+  return { id, name, stores, items, styles };
 }

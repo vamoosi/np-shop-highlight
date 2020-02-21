@@ -1,5 +1,5 @@
 <script>
-  import InputLabel from "./input-label.svelte";
+  import InputLabel from './input-label.svelte';
 
   /**
    * Input label text
@@ -82,6 +82,7 @@
 <InputLabel label="{label}" class="{styleClass}">
   <span>
     <input type="checkbox" bind:checked={checked}/>
-    <span style="{checked ? yesStyle : noStyle}">{checked ? yesText : noText}</span>
+    <span
+      style="{checked ? yesStyle : noStyle}">{checked ? yesText : noText}</span>
   </span>
 </InputLabel>

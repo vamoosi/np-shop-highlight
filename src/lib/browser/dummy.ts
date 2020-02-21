@@ -1,12 +1,12 @@
 import {
   BrowserStore, BrowserStoreCB,
-  SubscriberMap
+  SubscriberMap,
 } from "./browser-store";
 import { Option } from "../option";
 import { debug } from "../logging";
 
-const tag    = (n: string) => __filename + ":" + n;
-const tagIn  = (n: string) => tag(n) + ".start";
+const tag = (n: string) => __filename + ":" + n;
+const tagIn = (n: string) => tag(n) + ".start";
 const tagOut = (n: string) => tag(n) + ".stop";
 
 interface StoreResult<T> {
@@ -19,7 +19,7 @@ function pushSubscriber(key: string, fn: BrowserStoreCB): void {
   if (subscribers.hasOwnProperty(key))
     subscribers[key].push(fn);
   else
-    subscribers[key] = [fn];
+    subscribers[key] = [ fn ];
 }
 
 
@@ -28,7 +28,7 @@ function changeCB(data: StoreResult<any>): void {
   for (const key in data) {
     if (data.hasOwnProperty(key) && subscribers.hasOwnProperty(key)) {
       for (const fn of subscribers[key]) {
-        debug(tag("changeCB.fn"), [key, fn]);
+        debug(tag("changeCB.fn"), [ key, fn ]);
         fn(data);
       }
     }
@@ -44,7 +44,7 @@ const out: BrowserStore = {
   },
 
   subscribe(key: string | Array<string>, fn: BrowserStoreCB): void {
-    const iter = Array.isArray(key) ? key : [key];
+    const iter = Array.isArray(key) ? key : [ key ];
     for (const k of iter)
       pushSubscriber(k, fn);
   },
@@ -52,7 +52,7 @@ const out: BrowserStore = {
   saveLocal<T>(_key: string, data: T): Promise<any> {
     changeCB(data);
     return Promise.resolve();
-  }
+  },
 };
 
 export default out;

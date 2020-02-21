@@ -12,6 +12,6 @@ export interface GeneralConfig {
  */
 export function defaultGeneralConfig(): GeneralConfig {
   return {
-    enabled: true
+    enabled: true,
   };
 }

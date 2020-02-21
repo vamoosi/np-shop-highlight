@@ -56,9 +56,9 @@
 </style>
 
 <script>
-  import StyleConfig from "../tabs/style-config.svelte";
-  import StyleControl from "../style-control.svelte";
-  import { onDestroy, onMount } from "svelte";
+  import StyleConfig from '../tabs/style-config.svelte';
+  import StyleControl from '../style-control.svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   /**
    * @type {HighlightStyle}
@@ -99,9 +99,9 @@
 
   function showHide() {
     if (selection !== style.id)
-      body.style.zIndex = "0";
+      body.style.zIndex = '0';
     else
-      body.style.zIndex = "10";
+      body.style.zIndex = '10';
   }
 
   onMount(() => {
@@ -113,14 +113,14 @@
   onDestroy(() => {
     body.removeEventListener('transitionend', showHide);
     body.removeEventListener('webkitTransitionEnd', showHide);
-  })
+  });
 
 </script>
 
 <li class:selected={selection===style.id} bind:this={self} on:click={selectTab}>
   <h3 bind:this={header}>{style.name}</h3>
   <div bind:this={body}>
-    <StyleConfig bind:style={style} />
-    <StyleControl bind:selected={selection} />
+    <StyleConfig bind:style={style}/>
+    <StyleControl bind:selected={selection}/>
   </div>
 </li>

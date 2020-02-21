@@ -1,41 +1,41 @@
 <style>
   span {
-    display: block;
+    display:   block;
     font-size: 1.4em;
   }
 
   input[type=range] {
-    width: 350px;
-    padding: 0;
+    width:    350px;
+    padding:  0;
     position: relative;
-    bottom: -5px;
+    bottom:   -5px;
   }
 
   input[type=number] {
-    font-size: 1em;
-    text-align: right;
-    width: 2.5em;
-    padding: 0;
-    border-width:  0 0 1px 0;
+    font-size:    1em;
+    text-align:   right;
+    width:        2.5em;
+    padding:      0;
+    border-width: 0 0 1px 0;
   }
 </style>
 
 <script>
-  import InputLabel from "./input-label.svelte";
+  import InputLabel from './input-label.svelte';
 
   /**
    * Form control label text
    *
    * @type {string} label
    */
-  export let label = "";
+  export let label = '';
 
   /**
    * Help text (html title attribute)
    *
    * @type {string} title
    */
-  export let title = "";
+  export let title = '';
 
   /**
    * Minimum allowed slider value
