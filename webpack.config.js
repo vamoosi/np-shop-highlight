@@ -14,7 +14,7 @@ module.exports = {
     path: path.resolve('out', 'compile'),
   },
   optimization: {
-    minimize: false,
+    minimize: true,
     minimizer: [new MiniCss({})],
   },
   resolve: {
