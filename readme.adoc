@@ -1,7 +1,7 @@
 = NP Shop Highlighter
 
-image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/EuPathDB-Infra/js-deref/releases/latest]
-image:https://img.shields.io/travis/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.org/EuPathDB-Infra/js-deref]
+image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/Foxcapades/np-shop-highlight/releases/latest]
+image:https://img.shields.io/travis/com/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.com/Foxcapades/np-shop-highlight]
 
 A simple chrome extension that adds highlighting to item shops in NP.
 
