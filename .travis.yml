@@ -1,5 +1,10 @@
 language: javascript
 
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+\.\d+/
+
 os:
   - linux
 
@@ -8,6 +13,7 @@ node_js:
 
 before_script:
   - npm install
+  - npm ls --depth 0
 
 script:
   - make dist
