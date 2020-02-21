@@ -9,6 +9,19 @@ const tag = (n: string) => __filename + ":" + n;
 const tagIn = (n: string) => tag(n) + ".start";
 const tagOut = (n: string) => tag(n) + ".stop";
 
+/**
+ * Applies the given {@link HighlightStyle} to the given
+ * {@link HTMLElement}.  Due to the DOM api, the
+ * `HTMLElement` value may be null and this condition is
+ * handled.
+ *
+ * @param style
+ *        Style to apply to the given element
+ *
+ * @param element
+ *        Nullable html element to which the given style
+ *        should be applied.
+ */
 export function applyStyle(style: HighlightStyle, element: HTMLElement | null) {
   debug(tagIn("applyStyle"), { style, element });
   if (!element) {
