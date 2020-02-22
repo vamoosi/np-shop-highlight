@@ -14,7 +14,7 @@ module.exports = {
     path: path.resolve('out', 'compile'),
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     minimizer: [new MiniCss({})],
   },
   resolve: {
@@ -57,12 +57,12 @@ module.exports = {
           'css-loader',
         ],
       },
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'svg-url-loader',
+      // },
       {
-        test: /\.svg$/,
-        loader: 'svg-url-loader',
-      },
-      {
-        test: /\.(jpg|png|gif)$/,
+        test: /\.(jpg|png|gif|svg)$/,
         loader: 'file-loader'
       }
     ],

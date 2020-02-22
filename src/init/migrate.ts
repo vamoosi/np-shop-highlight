@@ -14,8 +14,10 @@ const migrations: Array<Migration> = [
     version: "1.4.2",
     apply: c => {
       c.itemMatch.order.push(1);
-      c.general.features.miniStock = c.miniStock.enabled;
-      c.general.features.itemMatch = c.itemMatch.enabled;
+      c.general.features = {
+        miniStock: c.miniStock.enabled,
+        itemMatch: c.itemMatch.enabled
+      };
       c.itemMatch.groups["1"].enabled = true;
 
       delete c.miniStock["enabled"];

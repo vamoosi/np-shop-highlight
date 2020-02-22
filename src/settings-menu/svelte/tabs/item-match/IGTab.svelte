@@ -1,7 +1,7 @@
 <script>
   import NestedTab from '../../generic/tab/NestedTab.svelte';
   import ItemGroupConfig from './ItemGroupConfig.svelte';
-  import ItemGroupControl from './ItemGroupControl.svelte';
+  import ItemGroupControl from './IGControl.svelte';
 
   /** @type {number} */
   export let selection;

@@ -7,6 +7,8 @@
   --up-svg:            url("../../../res/angle-double-up.svg");
   --down-svg:          url("../../../res/angle-double-down.svg");
 
+  --bg-light-paper:    url("../../../res/groovepaper.png");
+
   --general-font:      Cantarell, Arial, sans-serif;
 
   --input-line-height: 1.6em;
@@ -44,7 +46,7 @@ select {
 
 textarea,
 input[type=text] {
-  width:   300px;
+  width:   350px;
   display: block;
 }
 
@@ -72,7 +74,7 @@ label {
   display: flex;
 }
 
-button.item-mgmt {
+.item-mgmt {
   display:             block;
   width:               50px;
   opacity:             0.3;
@@ -90,10 +92,10 @@ button.item-mgmt {
   overflow:            hidden;
 }
 
-button.item-mgmt:focus {
+.item-mgmt:focus {
   outline: none;
 }
 
-button.item-mgmt:hover {
+.item-mgmt:hover {
   opacity: 0.5;
 }

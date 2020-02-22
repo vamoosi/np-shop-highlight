@@ -39,7 +39,17 @@
       return;
     }
 
-    $config.styles = HConf.removeHighlight($config.styles, selected);
+    // Store current selection since we are gonna change it.
+    const prev = selected;
+
+    if ($config.styles.order[0] === selected)
+      selected = $config.styles.order[1];
+    else
+      selected = $config.styles
+        .order[$config.styles.order.indexOf(selected) - 1];
+
+
+    $config.styles = HConf.removeHighlight($config.styles, prev);
   }
 
   function inUse() {

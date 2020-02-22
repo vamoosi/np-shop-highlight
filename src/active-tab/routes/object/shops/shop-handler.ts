@@ -2,7 +2,7 @@
 
 import { getConfig } from "../../../../config/Configuration";
 import { findAll } from "../../../../lib/dom/query";
-import * as IM from "../../../lib/item-match/handler";
+import IM from "../../../lib/item-match";
 import * as MS from "../../../lib/mini-stock/handler";
 import { ObjectDetails } from "../types";
 
@@ -17,11 +17,10 @@ export function shopHandler(params: ObjectDetails): void {
   const config = getConfig();
   const nodes = findAll<HTMLAnchorElement>(ANCHOR_QUERY);
 
-  if (config.itemMatch.enabled)
-    IM.handler(nodes)
-      .catch(console.log);
+  if (config.general.features.itemMatch)
+    IM(nodes).catch(console.log);
 
-  if (config.miniStock.enabled)
+  if (config.general.features.miniStock)
     MS.handler(nodes, params.id)
       .catch(console.log);
 }

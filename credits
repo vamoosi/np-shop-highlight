@@ -1,0 +1,12 @@
+# Credits for external resources used
+
+subtlepatterns.com:
+  files:
+    - res/groovepaper.png
+
+fontawesome.com:
+  files:
+    - res/angle-double-down.svg
+    - res/angle-double-up.svg
+    - res/plus.svg
+    - res/trash-alt.svg
