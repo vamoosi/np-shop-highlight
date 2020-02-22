@@ -21,4 +21,4 @@ deploy:
     - dist/np-shop-highlight-${TRAVIS_TAG}.zip
   on:
     repo: Foxcapades/np-shop-highlight
-    tag: true
+    tags: true
