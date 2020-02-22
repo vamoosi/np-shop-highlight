@@ -3,9 +3,6 @@ import {
   OPACITY_KEY,
   TXT_COLOR_KEY,
 } from "../config/types/highlight-style";
-import { debug, debugIn, debugOutVoid } from "./logging";
-
-const tag = (n: string) => __filename + ":" + n;
 
 /**
  * Applies the given {@link HighlightStyle} to the given
@@ -21,11 +18,8 @@ const tag = (n: string) => __filename + ":" + n;
  *        should be applied.
  */
 export function applyStyle(style: HighlightStyle, element: HTMLElement | null) {
-  debugIn(tag("applyStyle"), { style, element });
-  if (!element) {
-    debug(tag("applyStyle"), "Null element, bailing early");
+  if (!element)
     return;
-  }
 
   if (style.hasOwnProperty(BG_COLOR_KEY))
     element.style.backgroundColor = style[BG_COLOR_KEY];
@@ -33,6 +27,4 @@ export function applyStyle(style: HighlightStyle, element: HTMLElement | null) {
     element.style.color = style[TXT_COLOR_KEY];
   if (style.hasOwnProperty(OPACITY_KEY))
     element.style.opacity = `${style[OPACITY_KEY]}%`;
-
-  debugOutVoid(tag("applyStyle"));
 }

@@ -5,13 +5,6 @@ import { findAll } from "../../../../lib/dom/query";
 import * as IM from "../../../lib/item-match/handler";
 import * as MS from "../../../lib/mini-stock/handler";
 import { ObjectDetails } from "../types";
-import { debugIn, debugOutVoid } from "../../../../lib/logging";
-
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//
-// Constants
-//
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 /**
  * Shop item link document query.
@@ -20,17 +13,7 @@ import { debugIn, debugOutVoid } from "../../../../lib/logging";
  */
 const ANCHOR_QUERY = "a[onclick]";
 
-const tag = (n: string) => __filename + ":" + n;
-
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-//
-// Functions
-//
-// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-
 export function shopHandler(params: ObjectDetails): void {
-  debugIn(tag("shopHandler"), { params });
-
   const config = getConfig();
   const nodes = findAll<HTMLAnchorElement>(ANCHOR_QUERY);
 
@@ -41,6 +24,4 @@ export function shopHandler(params: ObjectDetails): void {
   if (config.miniStock.enabled)
     MS.handler(nodes, params.id)
       .catch(console.log);
-
-  debugOutVoid(tag("shopHandler"));
 }
