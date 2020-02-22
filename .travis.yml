@@ -16,6 +16,9 @@ deploy:
   provider: releases
   api_key:
     secure: utAHnJoImqB8FnOVualreyrhGoe9+6WX/sSByXSWvqjnr/lhdXWzq30PunuRNWfB6oM6a+xy5xthdUEl/j7TwsxR1reIGINE7fcUVBqQDDo1O4B9AOy5Rz0wl3F+GmQrArbNG1e6iX5NkJJ+jvXKqN5br3PAvOVmmdpCrwekWumW/MjUHFeGSG5ybtRwweyWVJtDZvBTqG8OUAOAOK87yL1WqY94F/1bGyjbk/38lNsU/RE2kTMxLH927taELPC+EJBI+KPyvZltONKa7H1hloWvM/unWvS8b70IPVGqXBodcMGODCnaJMQTaMAE7CFltWlW8Oihxtqvv5o03R5aMwC0Tkjcqy5r6Z+/joG+dQT368bDHIE/Bv/zssJzqTX4ktSbZjJIHE3rj6R+Wluni5b7N5EC7zlNLTFVSJYfAAEl5etwuSMdA77hWF4XyyTy9oxGHXNH1eGl/186uj9/o52It4SSlD9yWzkSyrqi7x/WoFM7aa+8icKp4evoy87VJu3JkuFlrP1QTT2pECYP+H50fnSfKISt3MBNDXJ0OmZ9Hz3XWcbvHSUtqyeOVIU3oGArrukVLtltyV8DpunE+LuBdk3Vl8RaQ0NU42wm3hkJ936e6mI6u/YwgUy2BkSR/g+Uu6bx8mGIpNLtpZIZ2dQ6MzrhvoUKYqSb/19lhUI=
-  file: np-shop-highlight-${TRAVIS_TAG}.zip
+  skip_cleanup: true
+  file:
+    - dist/np-shop-highlight-${TRAVIS_TAG}.zip
   on:
     repo: Foxcapades/np-shop-highlight
+    tag: true
