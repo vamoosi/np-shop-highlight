@@ -42,7 +42,7 @@ function matches(node: HTMLElement | null, text: string): boolean {
     .orElse("");
 
   const wcl = Text.hasWildcardLeft(text);
-  const wcr = Text.trimWildCard(text);
+  const wcr = Text.hasWildcardRight(text);
   const trm = wcl || wcr ? Text.trimWildCard(text) : text;
 
   let out = false;
