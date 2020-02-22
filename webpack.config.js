@@ -1,6 +1,7 @@
 const path = require('path');
 const ExtractCss = require('mini-css-extract-plugin');
 const MiniCss = require('optimize-css-assets-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -57,13 +58,12 @@ module.exports = {
           'css-loader',
         ],
       },
-      // {
-      //   test: /\.svg$/,
-      //   loader: 'svg-url-loader',
-      // },
       {
         test: /\.(jpg|png|gif|svg)$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
+        options: {
+          name: 'res/[name].[ext]'
+        }
       }
     ],
   },
@@ -74,6 +74,7 @@ module.exports = {
     new ExtractCss({
       filename: 'style.css',
     }),
+    new HtmlPlugin()
   ],
   devServer: {
     contentBase: path.join(__dirname, 'out', 'compile'),
