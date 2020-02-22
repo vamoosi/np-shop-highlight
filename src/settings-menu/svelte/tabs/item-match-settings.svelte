@@ -17,16 +17,12 @@
   import BooleanInput from '../generic/form/boolean-input.svelte';
   import * as Lib from '../../ts/lib/item-match';
   import { SvelteStore } from '../../../lib/store/svelte';
-  import { debug } from '../../../lib/logging'
 
   export let id;
 
   export let selected;
 
-  console.log('wat');
-
   /** @type {Writable<AppConfig>|AppConfig} */
-  console.log(SvelteStore.writableStore());
   const write = SvelteStore.writableStore();
 
   /** @type {Readable<AppConfig>|AppConfig} */

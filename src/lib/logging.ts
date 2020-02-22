@@ -2,17 +2,17 @@ import { exists } from "./util";
 
 export enum LogLevel {
   DEBUG,
-  WARN,
   ERROR,
 }
 
-let logLevel: LogLevel = LogLevel.WARN;
-let filter: RegExp = /.*/;
+const BEGIN = "Begin ";
+const END   = "End   ";
+const DEBUG = "Debug ";
+
+let logLevel: LogLevel = LogLevel.ERROR;
+let stack: number = 0;
 
 const tag = (n: string) => __filename + ":" + n;
-const tagIn = (n: string) => tag(n) + ".start";
-const tagOut = (n: string) => tag(n) + ".stop";
-
 
 /**
  * Sets the global logging level threshold.
@@ -23,22 +23,16 @@ const tagOut = (n: string) => tag(n) + ".stop";
  *        New log level threshold value
  */
 export function setLogLevel(level: LogLevel) {
-  debug(tagIn(setLogLevel.name), {level});
+  debugIn(tag(setLogLevel.name), {level});
   logLevel = level;
-  debug(tagOut(setLogLevel.name), {level});
+  debugOutVoid(tag(setLogLevel.name));
 }
 
-/**
- * Sets a global log filter pattern to apply to all logging.
- *
- * Any log tag, regardless of {@link LogLevel} will be
- * omitted if it does not match this pattern.
- *
- * @param pattern
- *        New regex pattern to match log tags against.
- */
-export function setFilter(pattern: RegExp) {
-  filter = pattern;
+export function debug(tag: string, v?: any) {
+  if (logLevel > LogLevel.DEBUG)
+    return;
+
+  superTopSecretPrivateLog(DEBUG + tag, v);
 }
 
 /**
@@ -53,35 +47,27 @@ export function setFilter(pattern: RegExp) {
  *
  * @return the input value `v`
  */
-export const debug = <T>(tag: string, v: T): T => log(LogLevel.DEBUG, tag, v);
+export function debugIn(tag: string, v?: object) {
+  stack++;
+  if (logLevel > LogLevel.DEBUG)
+    return;
 
-/**
- * Logs the given message at the {@link LogLevel.WARN} log
- * level.
- *
- * @param tag
- *        Log origin tag.
- *
- * @param v
- *        Log value/message.
- *
- * @return the input value `v`
- */
-export const warn = <T>(tag: string, v: T): T => log(LogLevel.WARN, tag, v);
+  superTopSecretPrivateLog(BEGIN + tag, v);
+}
 
-/**
- * Logs the given message at the {@link LogLevel.ERROR} log
- * level.
- *
- * @param tag
- *        Log origin tag.
- *
- * @param v
- *        Log value/message.
- *
- * @return the input value `v`
- */
-export const error = <T>(tag: string, v: T): T => log(LogLevel.ERROR, tag, v);
+export function debugOutVoid(tag: string) {
+  if (logLevel == LogLevel.DEBUG)
+    superTopSecretPrivateLog(END + tag);
+  stack--;
+}
+
+export function debugOut<T>(tag: string, v: T): T {
+  if (logLevel === LogLevel.DEBUG)
+    superTopSecretPrivateLog(END + tag, v);
+
+  stack--;
+  return v;
+}
 
 /**
  * Logs the given message at the {@link LogLevel.ERROR} log
@@ -100,23 +86,18 @@ export function fatal(message: string, value?: any) {
   throw new Error(message);
 }
 
-/**
- * Logs the given tag and value at the provided
- * {@link LogLevel}.
- *
- * @param lvl
- *        {@link LogLevel} at which this message should be logged
- * @param tag
- *        Log origin tag.
- * @param val
- *        Log value.
- */
-export function log<T>(lvl: LogLevel, tag: string, val: T): T {
-  if (logLevel <= lvl && filter.test(tag))
-    if (exists(val))
-      console.log(LogLevel[lvl], tag, val);
-    else
-      console.log(LogLevel[lvl], tag);
+function superTopSecretPrivateLog(tag: string, v?: any) {
+  if (exists(v))
+    console.log(pad() + tag, v);
+  else
+    console.log(pad() + tag);
+}
 
-  return val;
+const indent = "  ";
+const pads = [""];
+function pad(): string {
+   if (pads.length < stack) {
+     pads.push(pads[stack - 2] + indent);
+   }
+   return pads[stack - 1];
 }

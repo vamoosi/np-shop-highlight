@@ -4,45 +4,43 @@ import {
 } from "./browser-store";
 import { Option } from "../option";
 import { exists } from "../util";
-import { debug } from "../logging";
+import { debug, debugIn, debugOut, debugOutVoid } from "../logging";
 
 interface StoreResult<T> {
   [key: string]: T;
 }
 
 const tag = (n: string) => __filename + ":" + n;
-const tagIn = (n: string) => tag(n) + ".start";
-const tagOut = (n: string) => tag(n) + ".stop";
 
 const subscribers: SubscriberMap = {};
 
 let initialized = false;
 
 function init() {
-  debug(tagIn("init"), null);
+  debugIn(tag("init"));
   if (initialized) {
     debug(tag("init"), "already initialized");
-    debug(tagOut("init"), null);
+    debugOutVoid(tag("init"));
     return;
   }
 
   debug(tag("init"), "initializing");
   chrome.storage.onChanged.addListener(changeCB);
   initialized = true;
-  debug(tagOut("init"), null);
+  debugOutVoid(tag("init"));
 }
 
 function pushSubscriber(key: string, fn: BrowserStoreCB): void {
-  debug(tagIn("pushSubscriber"), [ key, fn ]);
+  debugIn(tag("pushSubscriber"), { key, fn });
   if (subscribers.hasOwnProperty(key))
     subscribers[key].push(fn);
   else
     subscribers[key] = [ fn ];
-  debug(tagOut("pushSubscriber"), null);
+  debugOutVoid(tag("pushSubscriber"));
 }
 
 function changeCB(data: StoreResult<any>): void {
-  debug(tagIn("changeCB"), data);
+  debugIn(tag("changeCB"), data);
   if (exists(data)) {
     for (const key in data) {
       if (data.hasOwnProperty(key) && subscribers.hasOwnProperty(key)) {
@@ -53,7 +51,7 @@ function changeCB(data: StoreResult<any>): void {
     }
   }
 
-  debug(tagOut("changeCB"), null);
+  debugOutVoid(tag("changeCB"));
   return;
 }
 
@@ -61,32 +59,32 @@ const out: BrowserStore = {
   name: "Chrome",
 
   subscribe(key: string | Array<string>, fn: BrowserStoreCB): void {
-    debug(tagIn("Chrome#subscribe"), { key, fn });
+    debugIn(tag("Chrome#subscribe"), { key, fn });
     init();
     const iter = Array.isArray(key) ? key : [ key ];
 
     for (const k of iter)
       pushSubscriber(k, fn);
 
-    debug(tagOut("Chrome#subscribe"), null);
+    debugOutVoid(tag("Chrome#subscribe"));
   },
 
   saveLocal<T>(key: string, data: T): Promise<any> {
-    debug(tagIn("Chrome#saveLocal"), { key, data });
+    debugIn(tag("Chrome#saveLocal"), { key, data });
     init();
 
-    return debug(
-      tagOut("Chrome#saveLocal"),
+    return debugOut(
+      tag("Chrome#saveLocal"),
       new Promise(g => chrome.storage.local.set({ [key]: data }, g)),
     );
   },
 
   loadLocal<T>(key: string): Promise<Option<T>> {
-    debug(tagIn("Chrome#loadLocal"), { key });
+    debugIn(tag("Chrome#loadLocal"), { key });
     init();
 
-    return debug(
-      tagOut("Chrome#loadLocal"),
+    return debugOut(
+      tag("Chrome#loadLocal"),
       new Promise<StoreResult<T>>(g => chrome.storage.local.get(key.toString(), g))
         .then(o => Option.maybe(o[key])),
     );

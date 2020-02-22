@@ -1,16 +1,14 @@
 import { getConfig } from "../../../config/Configuration";
 import { applyStyle } from "../../../lib/style";
-import { debug } from "../../../lib/logging";
+import { debug, debugIn, debugOut, debugOutVoid } from "../../../lib/logging";
 import { Option } from "../../../lib/option";
 
-const WILDCARD = '*';
+const WILDCARD = "*";
 
-const tag    = (n: string) => __filename + ":" + n;
-const tagIn  = (n: string) => tag(n) + ".start";
-const tagOut = (n: string) => tag(n) + ".stop";
+const tag = (n: string) => __filename + ":" + n;
 
 export async function handler(links: NodeListOf<HTMLAnchorElement>): Promise<void> {
-  debug(tagIn("handler"), { links });
+  debugIn(tag("handler"), { links });
 
   const config = getConfig();
   const style = config.styles.values[config.itemMatch.groups["1"].styles[0].toString()];
@@ -23,24 +21,28 @@ export async function handler(links: NodeListOf<HTMLAnchorElement>): Promise<voi
     }
   }
 
-  debug(tagOut("handler"), null);
+  debugOutVoid(tag("handler"));
 }
 
 /**
  * Matches the given text against the given node.
  */
 function matches(node: HTMLElement | null, text: string): boolean {
-  if (text === '')
+  debugIn(tag(matches.name), { node, text });
+  if (text === "") {
+    console.log(tag(matches.name), "Empty string, exit early");
     return false;
+  }
 
-  const val =  Option.maybe<HTMLElement>(node)
-    .flatMap<string>(textContent)
-    .orElse('');
+  const val = Option.maybe<HTMLElement>(node)
+    .flatMap<string>(getTitle)
+    .orElse("");
   const wcl = text[0] === WILDCARD;
   const wcr = text[text.length - 1] === WILDCARD;
   const trm = wcl || wcr ? trimWildCard(text) : text;
 
-  let out  = false;
+  debug("matches", {wcl, wcr, trm});
+  let out = false;
 
   if (wcl)
     out = matchWildCardLeft(val, trm);
@@ -49,36 +51,45 @@ function matches(node: HTMLElement | null, text: string): boolean {
   if (!out && !wcl && !wcr)
     out = val === trm;
 
-  return out;
+  return debugOut(tag(matches.name), out);
 }
 
 function matchWildCardLeft(text: string, test: string): boolean {
-  return text.length > 0 && text.startsWith(test);
+  debugIn("matchWildCardLeft", { text, test });
+  return debugOut("matchWildCardLeft", text.length > 0 && text.endsWith(test));
 }
 
 function matchWildcardRight(text: string, test: string): boolean {
-  return text.length > 0 && text.endsWith(test);
+  debugIn("matchWildcardRight", { text, test });
+  return debugOut("matchWildcardRight", text.length > 0 && text.startsWith(test));
 }
 
-function textContent(e: HTMLElement): Option<string> {
-  return Option.maybe(e.textContent);
+function textContent(e: Element): Option<string> {
+  debugIn("textContent", {e});
+  return debugOut("textContent", Option.maybe(e.textContent));
 }
 
 function trimWildCard(text: string): string {
+  debugIn("trimWildCard", {text});
   let left = 0;
   let right = text.length;
 
   for (const c of text)
-    if (c === '*')
+    if (c === WILDCARD)
       left++;
     else
       break;
 
   for (let i = text.length - 1; i > -1; i--)
-    if (text[i] === '*')
+    if (text[i] === WILDCARD)
       right--;
     else
       break;
 
-  return text.substring(left, right);
+  return debugOut("trimWildCard", text.substring(left, right));
+}
+
+function getTitle(td: HTMLElement): Option<string> {
+  debugIn("getTitle", {td});
+  return debugOut("getTitle", Option.maybe(td.children[1]).flatMap(textContent));
 }

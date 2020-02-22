@@ -3,11 +3,9 @@ import {
   OPACITY_KEY,
   TXT_COLOR_KEY,
 } from "../config/types/highlight-style";
-import { debug } from "./logging";
+import { debug, debugIn, debugOutVoid } from "./logging";
 
 const tag = (n: string) => __filename + ":" + n;
-const tagIn = (n: string) => tag(n) + ".start";
-const tagOut = (n: string) => tag(n) + ".stop";
 
 /**
  * Applies the given {@link HighlightStyle} to the given
@@ -23,9 +21,9 @@ const tagOut = (n: string) => tag(n) + ".stop";
  *        should be applied.
  */
 export function applyStyle(style: HighlightStyle, element: HTMLElement | null) {
-  debug(tagIn("applyStyle"), { style, element });
+  debugIn(tag("applyStyle"), { style, element });
   if (!element) {
-    debug(tagOut("applyStyle"), "Null element, bailing early");
+    debug(tag("applyStyle"), "Null element, bailing early");
     return;
   }
 
@@ -36,5 +34,5 @@ export function applyStyle(style: HighlightStyle, element: HTMLElement | null) {
   if (style.hasOwnProperty(OPACITY_KEY))
     element.style.opacity = `${style[OPACITY_KEY]}%`;
 
-  debug(tagOut("applyStyle"), null);
+  debugOutVoid(tag("applyStyle"));
 }

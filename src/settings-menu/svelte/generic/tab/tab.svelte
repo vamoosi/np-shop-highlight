@@ -25,7 +25,7 @@
   li.selected > div {
     display:        block;
     pointer-events: auto;
-    opacity:        100%;
+    opacity:        1.0;
   }
 
   h2 {

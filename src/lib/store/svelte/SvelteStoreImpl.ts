@@ -3,7 +3,7 @@ import { Readable, writable, Writable } from "svelte/store";
 import { lossyClone } from "../../util";
 import Storage from "../static-store";
 import { APP_CONFIG_KEY } from "../../../config/Constants";
-import { debug, fatal } from "../../logging";
+import { debug, debugIn, debugOut, debugOutVoid, fatal } from "../../logging";
 import { Option } from "../../option";
 import ISvelteStore from "./ISvelteStore";
 
@@ -19,45 +19,43 @@ let lastState: string = "";
 
 const isInit = () => lastState !== "";
 const tag = (n: string) => __filename + ":" + n;
-const tagIn = (n: string) => tag(n) + ".start";
-const tagOut = (n: string) => tag(n) + ".stop";
 
 const out: ISvelteStore = {
   writableStore(): Writable<AppConfig> {
-    debug(tagIn('out#writableStore'), null);
+    debugIn(tag('out#writableStore'));
     if (!isInit())
       fatal(ERR_WRITE);
 
-    return debug(tagOut('out#writableStore'), confWrite);
+    return debugOut(tag('out#writableStore'), confWrite);
   },
 
   readableStore(): Readable<AppConfig> {
-    debug(tagIn('out#readableStore'), null);
+    debugIn(tag('out#readableStore'));
     if (!isInit())
       fatal(ERR_READ);
 
-    return debug(tagOut("out#readableStore"), confRead);
+    return debugOut(tag("out#readableStore"), confRead);
   },
 
   get(...path: Array<string>): Option<any> {
-    debug(tagIn('out#get'), {path});
+    debugIn(tag('out#get'), {path});
     let current: any = liveConf;
 
     for (const i of path) {
       if (current.hasOwnProperty(i))
         current = current[i];
       else
-        return debug(tagOut('out#get'), Option.none());
+        return debugOut(tag('out#get'), Option.none());
     }
 
-    return debug(tagOut('out#get'), Option.maybe(current));
+    return debugOut(tag('out#get'), Option.maybe(current));
   }
 };
 
 export default out;
 
 export function initConfigState(conf: AppConfig) {
-  debug(tagIn(initConfigState.name), {conf});
+  debugIn(tag("initConfigState"), {conf});
   if (isInit())
     fatal(ERR_REINIT);
 
@@ -68,32 +66,32 @@ export function initConfigState(conf: AppConfig) {
 
   Storage.subscribe(APP_CONFIG_KEY, browserCB);
   confWrite.subscribe(confCB);
-  debug(tagOut(initConfigState.name), null);
+  debugOutVoid(tag("initConfigState"));
 }
 
 function browserCB(value: AppConfig): void {
-  debug(tagIn("browserCB"), { value });
+  debugIn(tag("browserCB"), { value });
   confRead.set(value);
-  debug(tagOut("browserCB"), null);
+  debugOutVoid(tag("browserCB"));
 }
 
 function confCB(value: AppConfig): void {
-  debug(tagIn(confCB.name), {value});
+  debugIn(tag("confCB"), {value});
   if (stateChanged(value)) {
-    debug(tag(confCB.name), "State changed.");
+    debug(tag("confCB"), "State changed.");
     Storage.saveLocal(APP_CONFIG_KEY, value)
       .catch(console.log);
   }
-  debug(tagOut(confCB.name), null);
+  debugOutVoid(tag("confCB"));
 }
 
-function stateChanged(value: AppConfig) {
-  debug(tagIn(stateChanged.name), {value});
+function stateChanged(value: AppConfig): boolean {
+  debugIn(tag("stateChanged"), {value});
   const tmp = JSON.stringify(value);
 
   if (tmp === lastState)
-    return debug(tagOut(stateChanged.name), false);
+    return debugOut(tag("stateChanged"), false);
 
   lastState = tmp;
-  return debug(tagOut(stateChanged.name), true);
+  return debugOut(tag("stateChanged"), true);
 }
