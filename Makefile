@@ -30,7 +30,7 @@ stage: build
 
 
 $(DIST)/np-shop-highlight-$(VERSION).zip: stage
-	@echo "Packaging extension"
+	@echo "Packing $@"
 	@mkdir -p $(DIST)
 	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
 	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-$(VERSION).zip *
