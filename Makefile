@@ -32,8 +32,8 @@ stage: build
 $(DIST)/np-shop-highlight-v$(VERSION).zip: stage
 	@echo "Packing $@"
 	@mkdir -p $(DIST)
-	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
-	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-$(VERSION).zip *
+	@rm -f $(DIST)/$(NAME)-v$(VERSION).zip
+	@cd $(STAGE) && zip -r $(DIST)/$(NAME)-v$(VERSION).zip *
 
 $(BUILD)/%.js: $(JS_FILES)
 	@echo "Compiling Project"
