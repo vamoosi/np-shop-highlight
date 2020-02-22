@@ -76,7 +76,7 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname, 'build', 'stage'),
+    contentBase: path.join(__dirname, 'out', 'compile'),
     compress: true,
     port: 9000,
   },
