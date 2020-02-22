@@ -1,21 +1,21 @@
 language: javascript
 branches:
   only:
-  - master
-  - /^v\d+\.\d+\.\d+/
+    - master
+    - /^v\d+\.\d+\.\d+/
 os:
-- linux
+  - linux
 
 node_js:
-- node
+  - node
 
 script:
-- make dist
+  - make dist
 
 deploy:
   provider: releases
   api_key:
-    secure: utAHnJoImqB8FnOVualreyrhGoe9+6WX/sSByXSWvqjnr/lhdXWzq30PunuRNWfB6oM6a+xy5xthdUEl/j7TwsxR1reIGINE7fcUVBqQDDo1O4B9AOy5Rz0wl3F+GmQrArbNG1e6iX5NkJJ+jvXKqN5br3PAvOVmmdpCrwekWumW/MjUHFeGSG5ybtRwweyWVJtDZvBTqG8OUAOAOK87yL1WqY94F/1bGyjbk/38lNsU/RE2kTMxLH927taELPC+EJBI+KPyvZltONKa7H1hloWvM/unWvS8b70IPVGqXBodcMGODCnaJMQTaMAE7CFltWlW8Oihxtqvv5o03R5aMwC0Tkjcqy5r6Z+/joG+dQT368bDHIE/Bv/zssJzqTX4ktSbZjJIHE3rj6R+Wluni5b7N5EC7zlNLTFVSJYfAAEl5etwuSMdA77hWF4XyyTy9oxGHXNH1eGl/186uj9/o52It4SSlD9yWzkSyrqi7x/WoFM7aa+8icKp4evoy87VJu3JkuFlrP1QTT2pECYP+H50fnSfKISt3MBNDXJ0OmZ9Hz3XWcbvHSUtqyeOVIU3oGArrukVLtltyV8DpunE+LuBdk3Vl8RaQ0NU42wm3hkJ936e6mI6u/YwgUy2BkSR/g+Uu6bx8mGIpNLtpZIZ2dQ6MzrhvoUKYqSb/19lhUI=
+    secure: GR9oxg1v6lsGfKa5xF2PqMYt5uu9ixKI+VHt7CUmhfZ/uToYQV/EVBXN5/28JLkCVGI07oAvU0g0GGI3da/Gbznoj9eFo+gvQuOzylBjdBSM/9cXwRH1oKUi3N+fu6qWP+7+0ZOqTN78qTAxZlStI1bmdeQ/XT1Bhzb555Os/6fE6Rz+vGhjPJjCw6p3sMEgvVmyqq6R4GenB8SUwAIKAQ5WbwwsmNXRKHXk3VaoI4V7unfX32LMcZFescLH9aTS5eXYCZxbA9mbD9x7xOzWBYKMw27447yiB9AXQwF1gCJ5v41KeHxf/has+b52ImwkXhu2hcK+xs/vHmrUFfYRUmFEfpVhp0TjK492IIVAjs0AQW+DV1dWzkDFqvt4YQOQWMpE2QvlVSXBa4OYTczZZ/5RBfeS443byu9F/Vm7+jqWvnKgqwoBHcNTo/4HP++BNF+T7kDP/5od/MQgwYa3I4jWCvelXz5rBtgkxHRiyALyM5JCnijL35Azo/v7o6pe8J+dFPfuNpakJnwY7IHz1rvPDranAIT6gSCXadjZMr5Xlgl73k12kpku5jeBrxsorZvzxmUPyyZzPdXiKvsPb3Wlpl0lT7JvAQPFsGry+KI714T+x6VrcGMHXrwri88R15/Ao62Yu+QcPvjyWsOQYsp/36oq8J9RbEcycTFoJ5E=
   skip_cleanup: true
   file:
     - dist/np-shop-highlight-${TRAVIS_TAG}.zip
