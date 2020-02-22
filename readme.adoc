@@ -3,7 +3,7 @@
 image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/Foxcapades/np-shop-highlight/releases/latest]
 image:https://img.shields.io/travis/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.org/Foxcapades/np-shop-highlight]
 
-A simple chrome extension that adds highlighting to item shops in NP.
+A simple chrome extension that adds highlighting to item shops in Neopets.
 
 Items can be applied a customizable highlight by:
 
