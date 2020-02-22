@@ -18,7 +18,5 @@
   <PaddingBox>
     <BooleanInput label="Shop Highlight Extension"
                   bind:checked={$config.general.enabled}/>
-    <BooleanInput label="Debug Output"
-                  bind:checked={$config.general.debug}/>
   </PaddingBox>
 </Tab>
