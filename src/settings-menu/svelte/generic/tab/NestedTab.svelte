@@ -1,6 +1,4 @@
 <style>
-  @import url('../../css/global.css');
-
   li {
     width:      220px;
     box-sizing: border-box;
@@ -53,31 +51,13 @@
 </style>
 
 <script>
-  import StyleConfig from '../tabs/style-config.svelte';
-  import StyleControl from '../style-control.svelte';
   import { onDestroy, onMount } from 'svelte';
 
-  /**
-   * @type {HighlightStyle}
-   */
-  export let style;
-
-  /**
-   * ID of the currently selected style
-   */
+  export let tabId;
   export let selection;
+  export let name;
 
-  /**
-   * @type {HTMLLIElement}
-   */
-  let self;
-
-  /**
-   * @type {HTMLHeadingElement}
-   */
   let header;
-
-  /** @type {HTMLDivElement} */
   let body;
 
   /**
@@ -87,15 +67,11 @@
     if (e.target !== header)
       return;
 
-    selection = style.id;
-  }
-
-  function isSelected() {
-    return selection === style.id;
+    selection = tabId;
   }
 
   function showHide() {
-    if (selection !== style.id)
+    if (selection !== tabId)
       body.style.zIndex = '0';
     else
       body.style.zIndex = '10';
@@ -114,10 +90,10 @@
 
 </script>
 
-<li class:selected={selection===style.id} bind:this={self} on:click={selectTab}>
-  <h3 bind:this={header} title="{style.name}">{style.name}</h3>
+<li class:selected={selection === tabId} on:click={selectTab}>
+  <h3 bind:this={header} title="{name}">{name}</h3>
   <div bind:this={body}>
-    <StyleConfig bind:style={style}/>
-    <StyleControl bind:selected={selection}/>
+    <!--suppress CheckTagEmptyBody -->
+    <slot></slot>
   </div>
 </li>

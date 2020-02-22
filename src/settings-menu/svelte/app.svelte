@@ -1,5 +1,5 @@
 <script>
-  import TabPane from './generic/tab/tab-pane.svelte';
+  import TabPane from './generic/tab/TabPane.svelte';
   import GeneralSettings from './tabs/general-settings.svelte';
   import MiniStockSettings from './tabs/mini-stock-settings.svelte';
   import StyleSettings from './tabs/style-settings.svelte';

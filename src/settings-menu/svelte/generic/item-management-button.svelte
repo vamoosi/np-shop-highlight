@@ -2,7 +2,7 @@
   button {
     display:             block;
     width:               50px;
-    opacity:             30%;
+    opacity:             0.3;
     cursor:              pointer;
     height:              50px;
     background-size:     100% 100%;
@@ -18,7 +18,7 @@
   }
 
   button:hover {
-    opacity: 50%;
+    opacity: 0.5;
   }
 </style>
 

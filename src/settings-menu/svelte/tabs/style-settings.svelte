@@ -1,6 +1,6 @@
 <script>
-  import Tab from '../generic/tab/tab.svelte';
-  import SubTabPane from '../generic/sub-tab-pane.svelte';
+  import Tab from '../generic/tab/Tab.svelte';
+  import SubTabPane from '../generic/StyleTabPane.svelte';
 
   export let id;
 

@@ -10,7 +10,7 @@
 </style>
 
 <script>
-  import Tab from '../generic/tab/tab.svelte';
+  import Tab from '../generic/tab/Tab.svelte';
   import PaddingBox from '../generic/padding-box.svelte';
   import TextArea from '../generic/form/text-area.svelte';
   import StyleSelect from '../generic/style-select.svelte';
