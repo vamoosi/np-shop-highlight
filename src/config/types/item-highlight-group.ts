@@ -1,6 +1,8 @@
 export interface ItemHighlightGroup {
   id: number;
   name: string;
+  enabled: boolean;
+
   /**
    * List of strings to match against items to determine
    * what to highlight.
@@ -68,5 +70,5 @@ export function newItemHighlightGroup(
   items: Array<string> = [],
   styles: Array<number> = [],
 ): ItemHighlightGroup {
-  return { id, name, stores, items, styles };
+  return { id, name, stores, items, styles, enabled: false };
 }

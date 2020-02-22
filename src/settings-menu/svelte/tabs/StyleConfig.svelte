@@ -5,9 +5,9 @@
 </style>
 
 <script>
-  import TextInput from '../generic/form/text-input.svelte';
+  import TextInput from '../generic/form/TextInput.svelte';
   import SliderInput from '../generic/form/slider-input.svelte';
-  import ColorInput from '../generic/form/color-input.svelte';
+  import ColorInput from '../generic/form/ColorInput.svelte';
   import ExampleItem from '../generic/example-item.svelte';
 
   /** @type {HighlightStyle} */

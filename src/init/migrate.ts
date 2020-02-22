@@ -1,29 +1,43 @@
 import Storage from "../lib/store/static-store";
 import { APP_CONFIG_KEY } from "../config/Constants";
 import { AppConfig, defaultAppConfig } from "../config/types/app-config";
-import { exists } from "../lib/util";
+
+interface Migration {
+  readonly version: string;
+
+  apply(appConfig: AppConfig): void;
+}
+
+const migrations: Array<Migration> = [
+  { version: "1.4.1", apply: _ => {} },
+  {
+    version: "1.4.2",
+    apply: c => {
+      c.itemMatch.order.push(1);
+      c.general.features.miniStock = c.miniStock.enabled;
+      c.general.features.itemMatch = c.itemMatch.enabled;
+      c.itemMatch.groups["1"].enabled = true;
+
+      delete c.miniStock["enabled"];
+      delete c.itemMatch["enabled"];
+    },
+  },
+];
+
+function applyMigrations(appConf: AppConfig): AppConfig {
+  let apply = false;
+  for (let i = 0; i < migrations.length; i++) {
+    if (migrations[i].version === (appConf.general.version || "1.4.1")) {
+      apply = true;
+    } else if (apply) {
+      migrations[i].apply(appConf);
+    }
+  }
+  return appConf;
+}
 
 Storage.loadLocal<AppConfig>(APP_CONFIG_KEY)
   .then(o => o.orElseGet(defaultAppConfig))
-  .then(v => {
-    apply(defaultAppConfig(), v);
-    return v;
-  })
+  .then(applyMigrations)
   .then(v => Storage.saveLocal(APP_CONFIG_KEY, v))
   .catch(console.log);
-
-function apply(a: { [s: string]: any }, b: { [s: string]: any }) {
-  for (const key in a) {
-    if (!a.hasOwnProperty(key))
-      continue;
-
-    if (!b.hasOwnProperty(key)) {
-      b[key] = a[key];
-    } else {
-      if (exists(b[key]) && b[key].toString() === "object"
-        && exists(a[key]) && a[key].toString() === "object") {
-        apply(a[key], b[key]);
-      }
-    }
-  }
-}

@@ -1,6 +1,6 @@
 <script>
   import SubTab from './tab/NestedTab.svelte'
-  import StyleConfig from '../tabs/style-config.svelte';
+  import StyleConfig from '../tabs/StyleConfig.svelte';
   import StyleControl from '../style-control.svelte';
 
   /**

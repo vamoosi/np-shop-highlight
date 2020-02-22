@@ -4,6 +4,13 @@ export interface GeneralConfig {
    * functionality should be enabled.
    */
   enabled: boolean;
+
+  version: string;
+
+  features: {
+    itemMatch: boolean;
+    miniStock: boolean;
+  };
 }
 
 /**
@@ -13,5 +20,10 @@ export interface GeneralConfig {
 export function defaultGeneralConfig(): GeneralConfig {
   return {
     enabled: true,
+    version: '1.4.1',
+    features: {
+      itemMatch: false,
+      miniStock: true,
+    }
   };
 }

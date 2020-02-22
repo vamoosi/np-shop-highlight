@@ -7,6 +7,14 @@ export function arrayCopy<T>(arr: Array<T>): Array<T> {
   return out;
 }
 
+export function arrayOmit<T>(a: Array<T>, v: T): Array<T> {
+  const out: Array<T> = [];
+  for (const t of a)
+    if (t !== v)
+      out.push(t);
+  return out;
+}
+
 export function lossyClone<T>(val: T): T {
   return <T>JSON.parse(JSON.stringify(val));
 }

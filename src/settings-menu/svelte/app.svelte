@@ -1,9 +1,9 @@
 <script>
   import TabPane from './generic/tab/TabPane.svelte';
-  import GeneralSettings from './tabs/general-settings.svelte';
-  import MiniStockSettings from './tabs/mini-stock-settings.svelte';
-  import StyleSettings from './tabs/style-settings.svelte';
-  import ItemMatchSettings from './tabs/item-match-settings.svelte';
+  import GeneralSettings from './tabs/GeneralSettings.svelte';
+  import MiniStockSettings from './tabs/MiniStockSettings.svelte';
+  import StyleSettings from './tabs/StyleSettings.svelte';
+  import ItemMatchSettings from './tabs/ItemMatchSettings.svelte';
 
   let selection = 'general';
 

@@ -3,6 +3,14 @@ import {
   newItemHighlightGroup,
 } from "./item-highlight-group";
 
+export interface GroupMap {
+  [key: string]: ItemHighlightGroup;
+}
+
+export interface ShopMap {
+  [key: string]: Array<number>;
+}
+
 export interface ItemMatchConfig {
   /**
    * Determines whether or no the item matching
@@ -13,7 +21,7 @@ export interface ItemMatchConfig {
   /**
    * Index of item highlight groups by id
    */
-  groups: { [key: string]: ItemHighlightGroup };
+  groups: GroupMap;
 
   /**
    * Array of ItemHighlightGroup ids in the order in
@@ -24,7 +32,7 @@ export interface ItemMatchConfig {
   /**
    * Index of ordered item group id lists by shop id.
    */
-  byShop: { [key: string]: Array<number> };
+  byShop: ShopMap;
 }
 
 /**
@@ -32,12 +40,18 @@ export interface ItemMatchConfig {
  * object.
  */
 export function defaultItemMatchConfig(): ItemMatchConfig {
-  return {
-    enabled: false,
-    groups: {
-      "1": newItemHighlightGroup(1, "Default", [], [ "Negg" ], []),
-    },
-    order: [],
-    byShop: {},
-  };
+  return newItemMatchConfig(
+    [1],
+    { "1": newItemHighlightGroup(1, "Default", [], [ "Negg" ], []) },
+    {}
+  );
+}
+
+export function newItemMatchConfig(
+  order: Array<number>,
+  groups: GroupMap,
+  byShop: ShopMap,
+  enabled: boolean = false,
+) {
+  return { order, groups, byShop, enabled };
 }

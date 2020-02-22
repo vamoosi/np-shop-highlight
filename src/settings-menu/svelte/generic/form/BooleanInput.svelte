@@ -8,6 +8,8 @@
    */
   export let label;
 
+  export let toolTip;
+
   /**
    * Custom class value for the both the input and it's
    * label.
@@ -79,7 +81,7 @@
   }
 </style>
 
-<InputLabel label="{label}" class="{styleClass}">
+<InputLabel label="{label}" class="{styleClass}" title="{toolTip}">
   <span>
     <input type="checkbox" bind:checked={checked}/>
     <span

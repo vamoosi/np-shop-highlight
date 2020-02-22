@@ -1,6 +1,6 @@
 import { defaultMiniStockConfig, MiniStockConfig } from "./mini-stock-config";
 import { defaultItemMatchConfig, ItemMatchConfig } from "./item-match-config";
-import { defaultGeneralConfig, GeneralConfig } from "./general-config";
+import { defaultGeneralConfig, GeneralConfig } from "./GeneralConfig";
 import { defaultHighlightConfig, HighlightConfig } from "./highlight-config";
 
 export interface AppConfig {

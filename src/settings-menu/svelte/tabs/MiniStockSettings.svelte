@@ -1,8 +1,8 @@
 <script>
   import Tab from '../generic/tab/Tab.svelte';
-  import BooleanInput from '../generic/form/boolean-input.svelte';
-  import PaddingBox from '../generic/padding-box.svelte';
-  import StyleSelect from '../generic/style-select.svelte';
+  import BooleanInput from '../generic/form/BooleanInput.svelte';
+  import PaddingBox from '../generic/PaddingBox.svelte';
+  import StyleSelect from '../generic/StyleSelect.svelte';
   import { SvelteStore } from '../../../lib/store/svelte';
 
   export let id;

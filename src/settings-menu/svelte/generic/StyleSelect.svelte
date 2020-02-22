@@ -4,7 +4,16 @@
     margin-bottom: 20px;
     padding:       5px;
   }
+
+  div.flex {
+    margin-bottom: 40px;
+  }
+
+  div.space {
+    margin-left: 60px;
+  }
 </style>
+
 <script>
   import InputLabel from './form/input-label.svelte';
   import ExampleItem from './example-item.svelte';
@@ -20,13 +29,18 @@
   $: selected = $config.styles.values[value];
 
 </script>
-<InputLabel label="{label}" title="{title}">
-  <div>
-    <select bind:value={value}>
-      {#each $config.styles.order as id}
-        <option value={id}>{$config.styles.values[id].name}</option>
-      {/each}
-    </select>
+<div class="flex">
+  <InputLabel label="{label}" title="{title}">
+    <div>
+      <!--suppress HtmlFormInputWithoutLabel -->
+      <select bind:value={value}>
+        {#each $config.styles.order as id}
+          <option value={id}>{$config.styles.values[id].name}</option>
+        {/each}
+      </select>
+    </div>
+  </InputLabel>
+  <div class="space">
+    <ExampleItem config={selected}/>
   </div>
-  <ExampleItem config={selected}/>
-</InputLabel>
+</div>
