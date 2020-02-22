@@ -2,13 +2,16 @@ language: javascript
 branches:
   only:
   - master
-  - "/^v\d+\.\d+\.\d+/"
+  - /^v\d+\.\d+\.\d+/
 os:
 - linux
+
 node_js:
 - node
+
 script:
 - make dist
+
 deploy:
   provider: releases
   api_key:
