@@ -1,12 +1,3 @@
-export function arrayCopy<T>(arr: Array<T>): Array<T> {
-  const out = new Array(arr.length);
-
-  for (let i = 0; i < arr.length; i++)
-    out[i] = arr[i];
-
-  return out;
-}
-
 export function arrayOmit<T>(a: Array<T>, v: T): Array<T> {
   const out: Array<T> = [];
   for (const t of a)

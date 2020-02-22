@@ -31,6 +31,7 @@ function applyMigrations(appConf: AppConfig): AppConfig {
       apply = true;
     } else if (apply) {
       migrations[i].apply(appConf);
+      appConf.general.version = migrations[i].version;
     }
   }
   return appConf;

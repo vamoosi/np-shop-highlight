@@ -5,10 +5,10 @@
 </style>
 
 <script>
-  import TextInput from '../generic/form/TextInput.svelte';
-  import SliderInput from '../generic/form/slider-input.svelte';
-  import ColorInput from '../generic/form/ColorInput.svelte';
-  import ExampleItem from '../generic/example-item.svelte';
+  import TextInput from '../../generic/form/TextInput.svelte';
+  import SliderInput from '../../generic/form/slider-input.svelte';
+  import ColorInput from '../../generic/form/ColorInput.svelte';
+  import ExampleItem from '../../generic/example-item.svelte';
 
   /** @type {HighlightStyle} */
   export let style;

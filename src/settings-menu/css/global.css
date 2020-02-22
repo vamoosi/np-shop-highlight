@@ -71,3 +71,29 @@ label {
 .flex {
   display: flex;
 }
+
+button.item-mgmt {
+  display:             block;
+  width:               50px;
+  opacity:             0.3;
+  cursor:              pointer;
+  height:              50px;
+  background-size:     100% 100%;
+  background-position: center;
+  background-repeat:   no-repeat;
+  transition:          opacity 300ms ease;
+  background-color:    white;
+  border:              none;
+  margin-bottom:       2em;
+  text-indent:         120%;
+  white-space:         nowrap;
+  overflow:            hidden;
+}
+
+button.item-mgmt:focus {
+  outline: none;
+}
+
+button.item-mgmt:hover {
+  opacity: 0.5;
+}

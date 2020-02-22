@@ -1,7 +1,7 @@
 <script>
-  import SubTab from './tab/NestedTab.svelte'
-  import StyleConfig from '../tabs/StyleConfig.svelte';
-  import StyleControl from '../style-control.svelte';
+  import SubTab from '../../generic/tab/NestedTab.svelte'
+  import StyleConfig from './StyleConfig.svelte';
+  import StyleControl from './StyleControl.svelte';
 
   /**
    * @type {HighlightStyle}

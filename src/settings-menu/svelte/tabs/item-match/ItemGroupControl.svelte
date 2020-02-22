@@ -8,7 +8,7 @@
 </style>
 
 <script>
-  import ItemManagementButton from '../../generic/item-management-button.svelte';
+  import ItemManagementButton from '../../generic/ItemManagementButton.svelte';
   import { newHighlightStyle } from '../../../../config/types/highlight-style';
   import * as HConf from '../../../../config/types/highlight-config';
   import { SvelteStore } from '../../../../lib/store/svelte';
@@ -38,7 +38,16 @@
       return;
     }
 
-    $write.itemMatch = removeGroup($write.itemMatch, selection);
+    // Current selection (since we are gonna change it)
+    const prev = selection;
+
+    if ($write.itemMatch.order[0] === selection)
+      selection = $write.itemMatch.order[1];
+    else
+      selection = $write.itemMatch
+        .order[$write.itemMatch.order.indexOf(selection) - 1];
+
+    $write.itemMatch = removeGroup($write.itemMatch, prev);
   }
 
   function up() {

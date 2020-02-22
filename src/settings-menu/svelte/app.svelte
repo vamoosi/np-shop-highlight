@@ -2,8 +2,8 @@
   import TabPane from './generic/tab/TabPane.svelte';
   import GeneralSettings from './tabs/GeneralSettings.svelte';
   import MiniStockSettings from './tabs/MiniStockSettings.svelte';
-  import StyleSettings from './tabs/StyleSettings.svelte';
-  import ItemMatchSettings from './tabs/ItemMatchSettings.svelte';
+  import StyleSettings from './tabs/styles/StyleSettings.svelte';
+  import ItemMatchSettings from './tabs/item-match/ItemMatchSettings.svelte';
 
   let selection = 'general';
 
