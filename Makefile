@@ -10,7 +10,7 @@ DIST  := $(CWD)/dist
 BUILD := $(CWD)/out/compile
 STAGE := $(CWD)/out/stage
 
-dist: $(DIST)/np-shop-highlight-$(VERSION).zip
+dist: $(DIST)/np-shop-highlight-v$(VERSION).zip
 
 build: $(BUILD)/active-tab.js $(BUILD)/settings-menu.js
 
@@ -29,7 +29,7 @@ stage: build
 		tpl/manifest.json > $(STAGE)/manifest.json
 
 
-$(DIST)/np-shop-highlight-$(VERSION).zip: stage
+$(DIST)/np-shop-highlight-v$(VERSION).zip: stage
 	@echo "Packing $@"
 	@mkdir -p $(DIST)
 	@rm -f $(DIST)/$(NAME)-$(VERSION).zip
