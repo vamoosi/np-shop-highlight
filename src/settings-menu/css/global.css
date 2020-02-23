@@ -18,6 +18,11 @@
   --input-border-on:   1px #6db5ff solid;
 }
 
+body {
+  font-family: var(--general-font);
+  font-size:   1.2em;
+}
+
 textarea,
 select,
 input[type=text],

@@ -1,45 +1,50 @@
-const path = require('path');
+const path       = require('path');
 const ExtractCss = require('mini-css-extract-plugin');
-const MiniCss = require('optimize-css-assets-webpack-plugin');
+const MiniCss    = require('optimize-css-assets-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
+
   entry: {
     'settings-menu': 'settings-menu/ts/app.ts',
-    'active-tab': 'active-tab/app.ts',
-    'migrate': 'init/migrate.ts',
+    'active-tab':    'active-tab/app.ts',
+    'migrate':       'init/migrate.ts',
   },
+
   output: {
     filename: '[name].js',
-    path: path.resolve('out', 'compile'),
+    path:     path.resolve('out', 'compile'),
   },
+
   optimization: {
-    minimize: true,
-    minimizer: [new MiniCss({})],
+    minimize:  true,
+    minimizer: [ new MiniCss({}) ],
   },
+
   resolve: {
-    alias: {
+    alias:      {
       svelte: path.resolve('node_modules', 'svelte'),
     },
     extensions: [ '.mjs', '.js', '.svelte', '.ts' ],
-    modules: [ 'node_modules', 'src' ],
+    modules:    [ 'node_modules', 'src' ],
   },
+
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test:    /\.ts$/,
         exclude: /node_modules|dist\/|out\//,
-        use: 'ts-loader',
+        use:     'ts-loader',
       },
       {
-        test: /\.svelte$/,
+        test:    /\.svelte$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'svelte-loader',
+        use:     {
+          loader:  'svelte-loader',
           options: {
-            emitCss: true,
-            hotReload: true,
+            emitCss:    true,
+            hotReload:  true,
             preprocess: [
               require('svelte-preprocess')({
                 typescript: {
@@ -51,34 +56,37 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test:    /\.css$/,
         exclude: /node_modules/,
-        use: [
+        use:     [
           ExtractCss.loader,
           'css-loader',
         ],
       },
       {
-        test: /\.(jpg|png|gif|svg)$/,
-        loader: 'file-loader',
+        test:    /\.(jpg|png|gif|svg)$/,
+        loader:  'file-loader',
         options: {
-          name: 'res/[name].[ext]'
-        }
-      }
+          name: 'res/[name].[ext]',
+        },
+      },
     ],
   },
+
   node: {
     __filename: true,
   },
+
   plugins: [
     new ExtractCss({
       filename: 'style.css',
     }),
-    new HtmlPlugin()
+    new HtmlPlugin(),
   ],
+
   devServer: {
     contentBase: path.join(__dirname, 'out', 'compile'),
-    compress: true,
-    port: 9000,
+    compress:    true,
+    port:        9000,
   },
 };

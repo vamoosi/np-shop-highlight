@@ -9,8 +9,6 @@
 
 <script>
   import ItemManagementButton from '../../generic/ItemManagementButton.svelte';
-  import { newHighlightStyle } from '../../../../config/types/highlight-style';
-  import * as HConf from '../../../../config/types/highlight-config';
   import { SvelteStore } from '../../../../lib/store/svelte';
   import {
     appendGroup,
