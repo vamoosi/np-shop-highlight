@@ -7,14 +7,14 @@ module.exports = {
   mode: 'production',
 
   entry: {
-    'settings-menu': 'settings-menu/ts/app.ts',
-    'active-tab':    'active-tab/app.ts',
-    'migrate':       'init/migrate.ts',
+    'settings-menu': './out/compile/settings-menu/ts/app.js',
+    'active-tab':    './out/compile/active-tab/app.js',
+    'migrate':       './out/compile/init/migrate.js',
   },
 
   output: {
     filename: '[name].js',
-    path:     path.resolve('out', 'compile'),
+    path:     path.resolve('out', 'stage'),
   },
 
   optimization: {
@@ -23,38 +23,12 @@ module.exports = {
   },
 
   resolve: {
-    alias:      {
-      svelte: path.resolve('node_modules', 'svelte'),
-    },
-    extensions: [ '.mjs', '.js', '.svelte', '.ts' ],
-    modules:    [ 'node_modules', 'src' ],
+    extensions: [ '.mjs', '.js', '.svelte' ],
+    modules:    [ 'node_modules', './out/compile' ],
   },
 
   module: {
     rules: [
-      {
-        test:    /\.ts$/,
-        exclude: /node_modules|dist\/|out\//,
-        use:     'ts-loader',
-      },
-      {
-        test:    /\.svelte$/,
-        exclude: /node_modules/,
-        use:     {
-          loader:  'svelte-loader',
-          options: {
-            emitCss:    true,
-            hotReload:  true,
-            preprocess: [
-              require('svelte-preprocess')({
-                typescript: {
-                  tsconfigFile: './tsconfig.json',
-                },
-              }),
-            ],
-          },
-        },
-      },
       {
         test:    /\.css$/,
         exclude: /node_modules/,
@@ -85,7 +59,7 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: path.join(__dirname, 'out', 'compile'),
+    contentBase: path.join(__dirname, 'out', 'stage'),
     compress:    true,
     port:        9000,
   },

@@ -9,7 +9,7 @@
 </script>
 
 <style>
-  @import '../../../css/global.css';
+  @import '../../../css/global.sass';
 
   span {
     display:       block;
