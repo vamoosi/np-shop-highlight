@@ -83,7 +83,7 @@ G.task('manifest', () => G.src('./tpl/manifest.json')
   .pipe(replace('__VERSION__', config.version))
   .pipe(G.dest(dirs.stage)));
 
-G.task('zip', () => G.src(dirs.stage + '*')
+G.task('zip', () => G.src(dirs.stage + '/**/*')
   .pipe(zip(`${config.name}-v${config.version}.zip`))
   .pipe(G.dest(dirs.dist)));
 
