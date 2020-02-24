@@ -13,14 +13,13 @@ import { ObjectDetails } from "../types";
  */
 const ANCHOR_QUERY = "a[onclick]";
 
-export function shopHandler(params: ObjectDetails): void {
+export async function shopHandler(params: ObjectDetails): Promise<void> {
   const config = getConfig();
   const nodes = findAll<HTMLAnchorElement>(ANCHOR_QUERY);
 
+  if (config.general.features.miniStock)
+    await MS.handler(nodes, params.id).catch(console.log);
+
   if (config.general.features.itemMatch)
     IM(nodes).catch(console.log);
-
-  if (config.general.features.miniStock)
-    MS.handler(nodes, params.id)
-      .catch(console.log);
 }
