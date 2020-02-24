@@ -13,12 +13,6 @@ export interface ShopMap {
 
 export interface ItemMatchConfig {
   /**
-   * Determines whether or no the item matching
-   * component of this extension should be enabled.
-   */
-  enabled: boolean;
-
-  /**
    * Index of item highlight groups by id
    */
   groups: GroupMap;
@@ -50,8 +44,7 @@ export function defaultItemMatchConfig(): ItemMatchConfig {
 export function newItemMatchConfig(
   order: Array<number>,
   groups: GroupMap,
-  byShop: ShopMap,
-  enabled: boolean = false,
+  byShop: ShopMap
 ) {
-  return { order, groups, byShop, enabled };
+  return { order, groups, byShop };
 }

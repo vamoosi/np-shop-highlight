@@ -21,7 +21,7 @@
     "persistent": false
   },
 
-  "options_page": "settings.html",
+  "options_page": "settings-menu.html",
   "icons": {
     "16": "res/icon-16.png",
     "48": "res/icon-48.png",

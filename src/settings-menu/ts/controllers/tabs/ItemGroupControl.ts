@@ -11,7 +11,6 @@ import { AppConfig } from "../../../../config/types/app-config";
 
 export function removeGroup(conf: ItemMatchConfig, id: number): ItemMatchConfig {
   return {
-    enabled: conf.enabled,
     byShop: conf.byShop,
     groups: omitGroup(conf.groups, id),
     order: arrayOmit(conf.order, id),
@@ -31,7 +30,6 @@ export function appendGroup(app: AppConfig): ItemMatchConfig {
     [...conf.order, group.id],
     addGroup(conf.groups, group),
     conf.byShop,
-    conf.enabled,
   );
 }
 
@@ -51,7 +49,7 @@ export function shiftGroup(conf: ItemMatchConfig, id: number, up: boolean): Item
     }
   }
 
-  return newItemMatchConfig(conf.order, conf.groups, conf.byShop, conf.enabled);
+  return newItemMatchConfig(conf.order, conf.groups, conf.byShop);
 }
 
 function nextId(a: Array<number>): number {

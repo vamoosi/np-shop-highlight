@@ -1,91 +1,68 @@
-const fs      = require('fs');
-const svelte  = require('gulp-svelte');
-const sass    = require('gulp-sass');
-const ts      = require('gulp-typescript').createProject('tsconfig.json');
-const webpack = require('gulp-webpack');
-const G       = require('gulp');
-const replace = require('gulp-replace');
-const concat  = require('gulp-concat');
-const config  = require('./package.json');
-const zip     = require('gulp-zip');
-
-const dirs = {
-  stage: './out/stage',
-  work:  './out/compile/',
-  res:   './out/stage/res',
-  dist:  './dist'
-};
+const fs           = require('fs');
+const svelte       = require('gulp-svelte');
+const sass         = require('gulp-sass');
+const ts           = require('gulp-typescript').createProject('tsconfig.json');
+const webpack      = require('gulp-webpack');
+const G            = require('gulp');
+const replace      = require('gulp-replace');
+const concat       = require('gulp-concat');
+const packageJson  = require('./package.json');
+const zip          = require('gulp-zip');
+const terser       = require('gulp-terser');
+const {util, conf} = require('./gulp/config');
 
 G.task('clean-workspace', (cb) => {
-  new Promise(g => fs.rmdir(dirs.work, {recursive: true}, g))
-    .then(_ => fs.mkdir(dirs.work, {recursive: true}, cb));
+  new Promise(g => fs.rmdir(conf.out.dir.work, {recursive: true}, g))
+    .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
 });
 
-G.task('compile-sass', () => G.src('./src/**/*.sass')
+G.task('compile-sass', () => G.src(conf.in.entry.sass)
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-  .pipe(G.dest(dirs.work)));
+  .pipe(G.dest(conf.out.dir.work)));
 
-G.task('compile-ts', () => G.src('./src/**/*.ts')
+G.task('compile-ts', () => G.src(conf.in.entry.typescript)
   .pipe(ts())
   .pipe(replace('.svelte"', '"'))
-  .pipe(G.dest(dirs.work)));
+  .pipe(G.dest(conf.out.dir.work)));
 
-G.task('compile-svelte', () => G.src('./src/**/*.svelte')
+G.task('compile-svelte', () => G.src(conf.in.entry.svelte)
   .pipe(svelte({css: false, format: 'cjs'}))
   .pipe(replace('.svelte"', '"'))
-  .pipe(G.dest(dirs.work)));
+  .pipe(G.dest(conf.out.dir.work)));
 
-G.task('stage-settings-js', () => G.src(dirs.work + 'settings-menu/ts/app.js')
-  .pipe(webpack({
-    output:       {filename: 'settings-menu.js'},
-    optimization: {minimize: true},
-    resolve:      {
-      modules: [ 'node_modules', './out/compile' ],
-    },
-  }))
-  .pipe(require('gulp-terser')())
-  .pipe(G.dest(dirs.stage)));
+G.task('stage-settings-js', () => G.src(conf.in.entry.settingsJs)
+  .pipe(webpack(util.webConfig(conf.out.target.settings)))
+  .pipe(terser())
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('active-tab-js', () => G.src(dirs.work + 'active-tab/app.js')
-  .pipe(webpack({
-    output:       {filename: 'active-tab.js'},
-    optimization: {minimize: true},
-    resolve:      {
-      modules: [ 'node_modules', './out/compile' ],
-    },
-  }))
-  .pipe(require('gulp-terser')())
-  .pipe(G.dest(dirs.stage)));
+G.task('active-tab-js', () => G.src(conf.in.entry.injectJs)
+  .pipe(webpack(util.webConfig(conf.out.target.inject)))
+  .pipe(terser())
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('migrate-js', () => G.src(dirs.work + 'init/migrate.js')
-  .pipe(webpack({
-    output:       {filename: 'migrate.js'},
-    optimization: {minimize: true},
-    resolve:      {
-      modules: [ 'node_modules', './out/compile' ],
-    },
-  }))
-  .pipe(require('gulp-terser')())
-  .pipe(G.dest(dirs.stage)));
+G.task('migrate-js', () => G.src(conf.in.entry.backgroundJs)
+  .pipe(webpack(util.webConfig(conf.out.target.background)))
+  .pipe(terser())
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('copy-tpl', () => G.src('./tpl/settings-menu.html')
-  .pipe(G.dest(dirs.stage)));
+G.task('copy-tpl', () => G.src(conf.in.entry.settingsHtml)
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('copy-res', () => G.src('./res/*')
-  .pipe(G.dest(dirs.res)));
+G.task('copy-res', () => G.src(conf.in.entry.resources)
+  .pipe(G.dest(conf.out.dir.res)));
 
-G.task('merge-css', () => G.src(dirs.work + '**/*.css')
-  .pipe(concat('style.css'))
+G.task('merge-css', () => G.src(conf.in.entry.stylesheets)
+  .pipe(concat(conf.out.target.styles))
   .pipe(replace(/(\.\.\/)+res/g, './res'))
-  .pipe(G.dest(dirs.stage)));
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('manifest', () => G.src('./tpl/manifest.json')
-  .pipe(replace('__VERSION__', config.version))
-  .pipe(G.dest(dirs.stage)));
+G.task('manifest', () => G.src(conf.in.entry.manifest)
+  .pipe(replace('__VERSION__', packageJson.version))
+  .pipe(G.dest(conf.out.dir.stage)));
 
-G.task('zip', () => G.src(dirs.stage + '/**/*')
-  .pipe(zip(`${config.name}-v${config.version}.zip`))
-  .pipe(G.dest(dirs.dist)));
+G.task('zip', () => G.src(conf.in.entry.outputs)
+  .pipe(zip(util.zipName()))
+  .pipe(G.dest(conf.out.dir.dist)));
 
 exports.default = G.series(
   'clean-workspace',
@@ -97,11 +74,8 @@ exports.default = G.series(
     'active-tab-js',
     'copy-res',
     'merge-css',
+    'manifest',
   ),
 );
 
-exports.package = G.series(
-  exports.default,
-  'manifest',
-  'zip'
-);
+exports.package = G.series(exports.default, 'zip');

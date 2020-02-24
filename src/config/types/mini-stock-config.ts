@@ -1,11 +1,5 @@
 export interface MiniStockConfig {
   /**
-   * Whether or not the MiniStock component of the
-   * extension should be enabled.
-   */
-  enabled: boolean;
-
-  /**
    * The style that should be applied to new items from
    * the previous page refresh.
    */
@@ -36,8 +30,6 @@ export interface MiniStockConfig {
  */
 export function defaultMiniStockConfig(): MiniStockConfig {
   return {
-    enabled: true,
-
     enableFresh: true,
     freshStyle: 1,
 

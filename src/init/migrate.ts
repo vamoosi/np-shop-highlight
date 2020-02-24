@@ -16,13 +16,13 @@ const migrations: Array<Migration> = [
       if (c.itemMatch.order.length == 0)
         c.itemMatch.order.push(1);
       c.general.features = {
-        miniStock: c.miniStock.enabled,
-        itemMatch: c.itemMatch.enabled
+        miniStock: (<any> c.miniStock).enabled || true,
+        itemMatch: (<any> c.itemMatch).enabled || false,
       };
       c.itemMatch.groups["1"].enabled = true;
 
-      delete c.miniStock["enabled"];
-      delete c.itemMatch["enabled"];
+      delete (<any> c.miniStock)["enabled"];
+      delete (<any> c.itemMatch)["enabled"];
     },
   },
 ];
