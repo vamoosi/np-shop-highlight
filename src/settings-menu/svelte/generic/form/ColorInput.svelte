@@ -9,8 +9,6 @@
 </script>
 
 <style>
-  @import '../../../css/global.sass';
-
   span {
     display:       block;
     margin-bottom: 20px;

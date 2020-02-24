@@ -1,6 +1,4 @@
 <style>
-  @import '../../../css/global.sass';
-
   legend {
     font-size: 1.4em;
     color:     var(--text-color);
