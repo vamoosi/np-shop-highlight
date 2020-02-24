@@ -13,7 +13,8 @@ const migrations: Array<Migration> = [
   {
     version: "1.4.2",
     apply: c => {
-      c.itemMatch.order.push(1);
+      if (c.itemMatch.order.length == 0)
+        c.itemMatch.order.push(1);
       c.general.features = {
         miniStock: c.miniStock.enabled,
         itemMatch: c.itemMatch.enabled
