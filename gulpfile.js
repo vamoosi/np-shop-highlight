@@ -18,7 +18,7 @@ const dirs = {
 
 G.task('clean-workspace', (cb) => {
   new Promise(g => fs.rmdir(dirs.work, {recursive: true}, g))
-    .then(_ => fs.mkdir(dirs.work, cb));
+    .then(_ => fs.mkdir(dirs.work, {recursive: true}, cb));
 });
 
 G.task('compile-sass', () => G.src('./src/**/*.sass')
