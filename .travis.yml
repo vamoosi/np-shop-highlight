@@ -10,7 +10,7 @@ node_js:
   - node
 
 script:
-  - make dist
+  - ./node_modules/.bin/gulp package
 
 deploy:
   provider: releases
