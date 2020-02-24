@@ -7,12 +7,10 @@ import Text from './text';
 
 export default async function(links: NodeListOf<HTMLAnchorElement>): Promise<void> {
   const config = getConfig();
-  console.log(links);
 
   for (const id of config.itemMatch.order) {
     const group = config.itemMatch.groups[id.toString()];
 
-    console.log(group);
 
     if (!group.enabled)
       continue;

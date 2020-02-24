@@ -1,6 +1,7 @@
 import Storage from "../lib/store/static-store";
 import { APP_CONFIG_KEY } from "../config/Constants";
 import { AppConfig, defaultAppConfig } from "../config/types/app-config";
+import { arrayUniq } from "../lib/util";
 
 interface Migration {
   readonly version: string;
@@ -25,6 +26,10 @@ const migrations: Array<Migration> = [
       delete (<any> c.itemMatch)["enabled"];
     },
   },
+  {
+    version: "1.5.3",
+    apply: c => {c.itemMatch.order = arrayUniq(c.itemMatch.order)}
+  }
 ];
 
 function applyMigrations(appConf: AppConfig): AppConfig {
