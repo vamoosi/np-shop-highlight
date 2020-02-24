@@ -9,8 +9,6 @@
 </script>
 
 <style>
-  @import '../../../css/global.css';
-
   span {
     display:       block;
     margin-bottom: 20px;

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Neopets Shop Highlighter",
   "description": "Highlights items in Neopets shops that appear on page refresh",
-  "version": "666",
+  "version": "__VERSION__",
 
   "permissions": [
     "storage",

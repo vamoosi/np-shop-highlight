@@ -1,6 +1,4 @@
 <style>
-  @import url('../../../css/global.css');
-
   li {
     margin:       15px 0;
     display:      block;
@@ -40,10 +38,7 @@
     border-radius: 10px;
     box-sizing:    border-box;
     font-weight:   normal;
-    transition:    border-color var(--tab-fade) ease,
-                   background-color var(--tab-fade) ease,
-                   box-shadow var(--tab-fade) ease,
-                   color var(--tab-fade) ease;
+    transition:    border-color var(--tab-fade) ease, background-color var(--tab-fade) ease, box-shadow var(--tab-fade) ease, color var(--tab-fade) ease;
   }
 
   h2:hover, h2:focus {

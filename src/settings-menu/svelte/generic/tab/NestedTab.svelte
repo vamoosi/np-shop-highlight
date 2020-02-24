@@ -33,8 +33,7 @@
     border-style:    solid;
     border-collapse: collapse;
     box-sizing:      border-box;
-    transition:      border-color var(--tab-fade) ease,
-                     background-color var(--tab-fade) ease;
+    transition:      border-color var(--tab-fade) ease, background-color var(--tab-fade) ease;
     text-overflow:   ellipsis;
     overflow:        hidden;
     white-space:     nowrap;

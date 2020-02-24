@@ -5,8 +5,6 @@
 </script>
 
 <style>
-  @import url('../../../css/global.css');
-
   label span:first-child {
     padding:   10px 0;
     display:   inline-block;
