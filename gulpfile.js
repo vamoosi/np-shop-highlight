@@ -10,11 +10,9 @@ const packageJson  = require('./package.json');
 const zip          = require('gulp-zip');
 const terser       = require('gulp-terser');
 const {util, conf} = require('./gulp/config');
+const U            = require("./gulp/util");
 
-G.task('clean-workspace', (cb) => {
-  new Promise(g => fs.rmdir(conf.out.dir.work, {recursive: true}, g))
-    .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
-});
+G.task('clean-workspace', U.cleanup);
 
 G.task('compile-sass', () => G.src(conf.in.entry.sass)
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))

@@ -1,12 +1,3 @@
-<style>
-  div {
-    position: absolute;
-    right:    30px;
-    top:      30px;
-    z-index:  10;
-  }
-</style>
-
 <script>
   import ItemManagementButton from '../../generic/ItemManagementButton.svelte';
   import { newHighlightStyle } from '../../../../config/types/highlight-style';
@@ -59,7 +50,7 @@
   }
 </script>
 
-<div>
+<div class="ntab-control">
   <ItemManagementButton bgImg="--plus-svg"
                         title="Adds new style"
                         text="Create Style"

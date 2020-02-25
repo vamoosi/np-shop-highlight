@@ -20,7 +20,7 @@
 </style>
 
 <script>
-  import InputLabel from './input-label.svelte';
+  import InputLabel from './InputLabel.svelte';
 
   /**
    * Form control label text

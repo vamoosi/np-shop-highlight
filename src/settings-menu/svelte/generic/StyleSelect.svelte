@@ -15,8 +15,8 @@
 </style>
 
 <script>
-  import InputLabel from './form/input-label.svelte';
-  import ExampleItem from './example-item.svelte';
+  import InputLabel from './form/InputLabel.svelte';
+  import ExampleItem from './ExampleItem.svelte';
   import { SvelteStore } from '../../../lib/store/svelte';
 
   export let label;

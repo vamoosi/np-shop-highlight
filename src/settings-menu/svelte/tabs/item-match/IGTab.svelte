@@ -18,5 +18,4 @@
            name="{group.name}"
            tabId={groupId}>
   <ItemGroupConfig bind:group={group} groupId="{groupId}" />
-  <ItemGroupControl bind:selection={selection} />
 </NestedTab>

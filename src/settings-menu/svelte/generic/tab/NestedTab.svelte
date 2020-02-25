@@ -1,27 +1,4 @@
 <style>
-  li {
-    width:      220px;
-    box-sizing: border-box;
-  }
-
-  li > div {
-    transition:       opacity var(--tab-fade) ease;
-    position:         absolute;
-    top:              0;
-    bottom:           0;
-    left:             220px;
-    right:            0;
-    padding:          50px 20px;
-    pointer-events:   none;
-    opacity:          0;
-    background-color: #f0f2f5;
-  }
-
-  li.selected > div {
-    pointer-events: auto;
-    opacity:        1.0;
-  }
-
   h3 {
     cursor:          pointer;
     color:           #f0f2f5;
@@ -89,7 +66,7 @@
 
 </script>
 
-<li class:selected={selection === tabId} on:click={selectTab}>
+<li class="nested-tab" class:selected={selection === tabId} on:click={selectTab}>
   <h3 bind:this={header} title="{name}">{name}</h3>
   <div bind:this={body}>
     <!--suppress CheckTagEmptyBody -->

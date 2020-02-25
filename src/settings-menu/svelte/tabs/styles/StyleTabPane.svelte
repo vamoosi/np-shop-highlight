@@ -1,7 +1,8 @@
 <script>
-  import NestedTabPane from '../../generic/tab/NestedTabPane.svelte'
+  import NestedTabPane from '../../generic/tab/NestedTabPane.svelte';
   import StyleTab from './StyleTab.svelte';
   import { SvelteStore } from '../../../../lib/store/svelte';
+  import StyleControl from './StyleControl.svelte';
 
   /** @type {Writable<AppConfig> | AppConfig} */
   const config = SvelteStore.writableStore();
@@ -14,6 +15,8 @@
     }
   }
 </script>
+
+<StyleControl bind:selected={selection}/>
 
 <NestedTabPane>
   {#each $config.styles.order as id}

@@ -1,0 +1,77 @@
+@import "config.sass"
+
+.tab-pane
+  list-style: none
+  padding: 5vh 0
+  margin: 0
+  position: relative
+  background-color: #f5f5f5
+  background-image: var(--bg-light-paper)
+  height: 100vh
+  box-sizing: border-box
+  width: 300px
+
+.tab
+  margin: 15px 0
+  display: block
+  box-sizing: border-box
+
+  > div
+    transition: opacity $tab-fade ease
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 300px
+    right: 0
+    opacity: 0
+    box-shadow: -5px 0 10px 0 #aaa
+    overflow: auto
+
+    &::-webkit-scrollbar
+      display: none
+
+.nested-tab-bottom
+  position: fixed
+  bottom: 0
+  height: $nTabPadding
+  width: $nTabWidth
+  left: $pTabWidth
+  background-image: linear-gradient(180deg, rgba(64,65,70,0) 0%, rgba(64,65,70,1) 75%)
+  pointer-events: none
+
+.nested-tab-pane
+  list-style: none
+  padding: 80px 0 0 0
+  margin: 0
+  width: $nTabWidth
+  position: relative
+  background-size: 250px
+  background-color: $nTabBg
+  height: 100%
+  box-sizing: border-box
+
+.nested-tab
+  box-sizing: border-box
+  background-color: $nTabBg
+
+  > div
+    transition: opacity $tab-fade ease
+    position: fixed
+    top: 0
+    bottom: 0
+    left: $nTabWidth + $pTabWidth
+    right: 0
+    padding: 50px 20px
+    opacity: 0
+    background-color: #f0f2f5
+    overflow: auto
+
+  &.selected > div
+    pointer-events: auto
+    opacity: 1.0
+
+  &:last-child:after
+    content: '.'
+    visibility: hidden
+    display: block
+    height: $nTabPadding

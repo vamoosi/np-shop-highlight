@@ -1,12 +1,3 @@
-<style>
-  div {
-    position: absolute;
-    right:    30px;
-    top:      30px;
-    z-index:  10;
-  }
-</style>
-
 <script>
   import ItemManagementButton from '../../generic/ItemManagementButton.svelte';
   import { SvelteStore } from '../../../../lib/store/svelte';
@@ -57,7 +48,7 @@
   }
 </script>
 
-<div>
+<div class="ntab-control">
   <ItemManagementButton bgImg="--plus-svg"
                         title="Adds a new item group"
                         text="Create Item Group"

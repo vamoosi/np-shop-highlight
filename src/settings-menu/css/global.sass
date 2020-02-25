@@ -1,22 +1,21 @@
-$general-font: Cantarell, Arial, sans-serif
-$input-font:   $general-font
+@import "config.sass"
 
 \:root
-  --text-color: #555
-  --tab-fade: 300ms
+  --text-color: $text-color
+  --tab-fade: $tab-fade
 
-  --plus-svg: url("../../../res/plus.svg")
-  --trash-svg: url("../../../res/trash-alt.svg")
-  --up-svg: url("../../../res/angle-double-up.svg")
-  --down-svg: url("../../../res/angle-double-down.svg")
+  --plus-svg: url("../../../res/plus.svg#path")
+  --trash-svg: url("../../../res/trash-alt.svg#path")
+  --up-svg: url("../../../res/angle-double-up.svg#path")
+  --down-svg: url("../../../res/angle-double-down.svg#path")
 
   --bg-light-paper: url("../../../res/groovepaper.png")
 
-  --input-line-height: 1.6em
-  --input-font-size: 1.4em
+  --input-line-height: $input-line-height
+  --input-font-size: $input-font-size
   --input-font-family: $general-font
-  --input-border-off: 1px #aaaaaa solid
-  --input-border-on: 1px #6db5ff solid
+  --input-border-off: $input-border-off
+  --input-border-on: $input-border-on
 
 body
   font-family: $general-font
@@ -29,7 +28,7 @@ select,
 input[type=text],
 input[type=number],
 input[type=color]
-  border: var(--input-border-off)
+  border: $input-border-off
   border-radius: 5px
   background-color: #f5f5f5
 
@@ -38,7 +37,7 @@ select:focus,
 input[type=text]:focus,
 input[type=number]:focus,
 input[type=color]:focus
-  border: var(--input-border-on)
+  border: $input-border-on
   outline: none
 
 select
@@ -61,9 +60,9 @@ textarea,
 input[type=text],
 input[type=number]
   padding: 0 10px
-  color: var(--text-color)
-  line-height: var(--input-line-height)
-  font-size: var(--input-font-size)
+  color: $text-color
+  line-height: $input-line-height
+  font-size: $input-font-size
   font-family: $input-font
 
 label
@@ -74,17 +73,16 @@ label
 
 .item-mgmt
   display: block
-  width: 50px
-  opacity: 0.3
+  width: 42px
+  height: 42px
+  opacity: 0.6
   cursor: pointer
-  height: 50px
   background-size: 100% 100%
   background-position: center
   background-repeat: no-repeat
-  transition: opacity 300ms ease
-  background-color: white
+  transition: opacity $tab-fade ease
+  background-color: rgba(0, 0, 0, 0)
   border: none
-  margin-bottom: 2em
   text-indent: 120%
   white-space: nowrap
   overflow: hidden
@@ -93,4 +91,4 @@ label
   outline: none
 
 .item-mgmt:hover
-  opacity: 0.5
+  opacity: 0.8

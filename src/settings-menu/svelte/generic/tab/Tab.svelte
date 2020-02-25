@@ -1,25 +1,4 @@
 <style>
-  li {
-    margin:       15px 0;
-    display:      block;
-    width:        260px;
-    box-sizing:   border-box;
-    padding-left: 40px;
-  }
-
-  div {
-    transition:     opacity var(--tab-fade) ease;
-    position:       absolute;
-    top:            0;
-    bottom:         0;
-    left:           300px;
-    right:          0;
-    pointer-events: none;
-    opacity:        0;
-    background:     #f0f2f5;
-    box-shadow:     -5px 0 10px 0 #aaa;
-  }
-
   li.selected > div {
     display:        block;
     pointer-events: auto;
@@ -99,7 +78,7 @@
 
 </script>
 
-<li class:selected={selected===id} on:click={selectTab} bind:this={self}>
+<li class="tab" class:selected={selected===id} on:click={selectTab} bind:this={self}>
   <h2 bind:this={header} title="{title}">{title}</h2>
   <div bind:this={body}>
     <!--suppress CheckTagEmptyBody -->

@@ -1,6 +1,6 @@
 import Storage from "../../lib/store/static-store";
 
-import App from "../svelte/app.svelte";
+import App from "../svelte/App.svelte";
 import { AppConfig, defaultAppConfig } from "../../config/types/app-config";
 import { APP_CONFIG_KEY } from "../../config/Constants";
 import { initConfigState } from "../../lib/store/svelte/SvelteStoreImpl";
