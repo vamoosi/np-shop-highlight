@@ -1,10 +1,63 @@
-const fs = require('fs');
+const fs     = require('fs');
+const {conf} = require('./config');
+const U      = require('util');
 
-exports.copyDir = (cb) => {
+/**
+ * @param {function(*, *=)} cb
+ */
+exports.copyRes = (cb) => {
+  new Promise(g => readRecursive(conf.in.dir.res, g))
+    .then(v => copyFiles(v, conf.in.dir.res, conf.out.dir.res, cb));
+};
 
+exports.copyTpl = (cb) => {
+  new Promise(g => readRecursive(conf.in.dir.tpl, g))
+    .then(v => copyFiles(v, conf.in.dir.tpl, conf.out.dir.stage, cb));
 };
 
 exports.cleanup = (cb) => {
   new Promise(g => fs.rmdir(conf.out.dir.work, {recursive: true}, g))
     .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
 };
+
+function copyFiles(entries, from, to, cb) {
+  const m = {};
+  for (const entry of entries) {
+    if (!m.hasOwnProperty(entry.path)) {
+      m[entry.path] = join(to, entry.path.substring(from.length + 1));
+      fs.mkdirSync(m[entry.path], {recursive: true});
+    }
+    fs.copyFileSync(join(entry.path, entry.name), join(m[entry.path], entry.name));
+  }
+  cb();
+}
+
+function join(a, b) {
+  if (!b || b.length === 0)
+    return a;
+  return a.endsWith('/') ? a + b : a + '/' + b;
+}
+
+function readRecursive(path, cb) {
+  const options = {withFileTypes: true};
+  const queue = [path];
+  const out = [];
+
+  while (queue.length > 0) {
+    const next = queue.shift();
+
+    const files = fs.readdirSync(next, options);
+
+    for (const file of files) {
+      if (file.isFile())
+        out.push(fileEntry(file.name, next));
+      else if (file.isDirectory())
+        queue.push(next + '/' + file.name);
+    }
+  }
+  cb(out);
+}
+
+function fileEntry(name, path) {
+  return {name, path};
+}
