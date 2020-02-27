@@ -1,31 +1,3 @@
-<style>
-  h3 {
-    cursor:          pointer;
-    color:           #f0f2f5;
-    padding:         20px 15px;
-    margin:          0;
-    text-align:      right;
-    border-width:    0 0 1px 0;
-    border-color:    #cdcdcd;
-    border-style:    solid;
-    border-collapse: collapse;
-    box-sizing:      border-box;
-    transition:      border-color var(--tab-fade) ease, background-color var(--tab-fade) ease;
-    text-overflow:   ellipsis;
-    overflow:        hidden;
-    white-space:     nowrap;
-  }
-
-  li:first-child > h3 {
-    border-top-width: 1px;
-  }
-
-  li.selected > h3 {
-    color:            var(--text-color);
-    background-color: #f0f2f5;
-  }
-</style>
-
 <script>
   import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 

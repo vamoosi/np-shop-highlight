@@ -1,10 +1,3 @@
-<!--suppress CssUnresolvedCustomProperty -->
-<style>
-  button {
-    background-image: var(--bg-image);
-  }
-</style>
-
 <script>
   /**
    * Title attribute text
@@ -39,5 +32,5 @@
 
 <button title="{title}"
         on:click={click}
-        style="--bg-image: var({bgImg})"
+        style="background-image: var({bgImg})"
         class="item-mgmt">{text}</button>

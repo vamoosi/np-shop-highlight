@@ -1,9 +1,4 @@
-<style>
-  div {
-    padding: 50px 20px;
-  }
-</style>
-
-<div>
+<div class="padding-box">
+  <!--suppress CheckTagEmptyBody -->
   <slot></slot>
 </div>

@@ -1,36 +1,3 @@
-<style>
-  li.selected > div {
-    display:        block;
-    pointer-events: auto;
-    opacity:        1.0;
-  }
-
-  h2 {
-    cursor:        pointer;
-    color:         #999;
-    padding:       20px 15px;
-    margin:        0;
-    text-align:    center;
-    border-color:  rgba(220, 220, 220, 0);
-    border-style:  solid;
-    border-width:  1px 0 1px 1px;
-    border-radius: 10px;
-    box-sizing:    border-box;
-    font-weight:   normal;
-    transition:    border-color var(--tab-fade) ease, background-color var(--tab-fade) ease, box-shadow var(--tab-fade) ease, color var(--tab-fade) ease;
-  }
-
-  h2:hover, h2:focus {
-    color:        #666;
-    border-color: #ddd;
-    box-shadow:   inset 0 5px 10px -10px #878787;
-  }
-
-  li.selected > h2 {
-    color: #555;
-  }
-</style>
-
 <script>
   import { onDestroy, onMount } from 'svelte';
 

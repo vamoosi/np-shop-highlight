@@ -1,8 +1,8 @@
 @import "config.sass"
 
 \:root
-  --text-color: $text-color
-  --tab-fade: $tab-fade
+  --text-color: $textColor
+  --tab-fade: $tabFade
 
   --plus-svg: url("../../../res/plus.svg#path")
   --trash-svg: url("../../../res/trash-alt.svg#path")
@@ -60,7 +60,7 @@ textarea,
 input[type=text],
 input[type=number]
   padding: 0 10px
-  color: $text-color
+  color: $textColor
   line-height: $input-line-height
   font-size: $input-font-size
   font-family: $input-font
@@ -80,7 +80,7 @@ label
   background-size: 100% 100%
   background-position: center
   background-repeat: no-repeat
-  transition: opacity $tab-fade ease
+  transition: opacity $tabFade ease
   background-color: rgba(0, 0, 0, 0)
   border: none
   text-indent: 120%
@@ -92,3 +92,6 @@ label
 
 .item-mgmt:hover
   opacity: 0.8
+
+.padding-box
+  padding: 50px 20px

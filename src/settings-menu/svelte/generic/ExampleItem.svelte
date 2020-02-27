@@ -1,30 +1,3 @@
-<style>
-  div.box {
-    width:          120px;
-    vertical-align: middle;
-    text-align:     center;
-    font-family:    Verdana, Arial, Helvetica, sans-serif;
-    font-size:      9pt;
-    padding:        4px;
-    box-sizing:     border-box;
-  }
-
-  div.img {
-    background-image: url("../../../../res/x.svg");
-    background-color: white;
-    position:         relative;
-    margin-left:      56px;
-    left:             -40px;
-    width:            80px;
-    height:           80px;
-    border:           1px solid blue;
-  }
-
-  h4 {
-    margin-top: 10px;
-  }
-</style>
-
 <script>
   import { applyStyle } from '../../../lib/style';
 
@@ -38,7 +11,7 @@
   }
 </script>
 
-<div>
+<div class="example-item">
   <h4>Example Item</h4>
   <div bind:this={self} class="box">
     <div class="img"></div>
