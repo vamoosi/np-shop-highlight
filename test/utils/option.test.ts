@@ -93,4 +93,30 @@ describe("Option", () => {
     expect(tst.isSome()).toStrictEqual(true);
     expect(tst.unwrap()).toStrictEqual("");
   });
+
+  test("rename me 7", () => {
+    const tst = O.objectGet({}, "foo");
+    expect(tst.isNone()).toStrictEqual(true);
+    expect(tst.isSome()).toStrictEqual(false);
+  });
+
+  test("rename me 8", () => {
+    const tst = O.objectGet({foo: "nope"}, "foo");
+    expect(tst.isNone()).toStrictEqual(false);
+    expect(tst.isSome()).toStrictEqual(true);
+    expect(tst.unwrap()).toStrictEqual("nope");
+  });
+
+  test("rename me 9", () => {
+    const tst = O.maybe().flatMap((_) => O.some(3));
+    expect(tst.isNone()).toStrictEqual(true);
+    expect(tst.isSome()).toStrictEqual(false);
+  });
+
+  test("rename me 10", () => {
+    const tst = O.maybe("apple").flatMap((_) => O.some(3));
+    expect(tst.isNone()).toStrictEqual(false);
+    expect(tst.isSome()).toStrictEqual(true);
+    expect(tst.unwrap()).toStrictEqual(3);
+  });
 });
