@@ -18,7 +18,8 @@
       "lodash",
       "node",
       "chrome",
-      "svelte"
+      "svelte",
+      "jest"
     ]
   },
   "exclude": [
