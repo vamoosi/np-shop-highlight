@@ -1,7 +1,7 @@
 import strings from './strings'
 
-function splitFragment(): {[key: string]: string} {
-  const hash = strings.trimLeft(window.location.hash || '', '#');
+function splitFragment(hash: string): {[key: string]: string} {
+  hash = strings.trimLeft(hash, '#');
   const out: {[key: string]: string} = {};
   if (hash.length === 0)
     return {};

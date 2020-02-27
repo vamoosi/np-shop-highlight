@@ -23,12 +23,6 @@ export class Option<T> {
     return !this.none;
   }
 
-  public with(fn: (t: T) => void): Option<T> {
-    if (this.isSome())
-      fn(this.value);
-    return this;
-  }
-
   public unwrap(): T {
     if (this.isNone())
       throw new Error("Cannot unwrap an option of none");
@@ -64,11 +58,10 @@ export class Option<T> {
   }
 
   public orElseGet(fn: () => T): T {
+    if (typeof fn !== "function")
+      throw new Error("Passed callback was not a function");
     if (this.isNone())
-      if (typeof fn !== "function")
-        throw new Error("Passed callback was not a function");
-      else
-        return fn();
+      return fn();
 
     return this.value;
   }
