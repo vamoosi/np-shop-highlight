@@ -119,4 +119,10 @@ describe("Option", () => {
     expect(tst.isSome()).toStrictEqual(true);
     expect(tst.unwrap()).toStrictEqual(3);
   });
+
+  test("rename me 11", () => {
+    const tst = O.objectGet({}, "foo");
+    expect(tst.isNone()).toStrictEqual(true);
+    expect(tst.isSome()).toStrictEqual(false);
+  });
 });

@@ -83,6 +83,8 @@ export class Option<T> {
   }
 
   public static objectGet<T>(obj: { [key: string]: T }, key: string): Option<T> {
-    return isNone(obj) ? Option.none() : Option.maybe(obj[key]);
+    return isNone(obj[key])
+      ? Option.none()
+      : Option.maybe(obj[key]);
   }
 }

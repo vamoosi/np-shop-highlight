@@ -1,3 +1,5 @@
+import { exists } from "../../lib/util";
+
 export const NAME_KEY = "name";
 export const ID_KEY = "id";
 export const BG_COLOR_KEY = "bgColor";
@@ -13,30 +15,39 @@ export interface HighlightStyle {
    * highlighted element.  Represented as a decimal value
    * from 0 to 100.
    */
-  opacity: number;
+  opacity?: string;
 
   /**
    * Background color that should be applied to the
    * highlighted element in hex string format with the
    * leading '#' character.
    */
-  bgColor: string;
+  bgColor?: string;
 
   /**
    * Text color that should be applied to the highlighted
    * element in hex string format with the leading '#'
    * character.
    */
-  textColor: string;
+  textColor?: string;
 }
 
 
 export function newHighlightStyle(
   id: number,
   name: string,
-  bgColor: string = "#ffffff",
-  textColor: string = "#000000",
-  opacity: number = 100,
+  bgColor?: string,
+  textColor?: string,
+  opacity?: number,
 ): HighlightStyle {
-  return { name, id, bgColor, textColor, opacity };
+  const out: HighlightStyle = { name, id };
+  if (exists(bgColor))
+    out.bgColor = bgColor;
+  if (exists(textColor))
+    out.textColor = textColor;
+  if (exists(opacity)) {
+      // @ts-ignore
+      out.opacity = (opacity / 100).toString()
+  }
+  return out;
 }

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES2016",
-    "sourceMap": false,
+    "sourceMap": true,
     "removeComments": true,
     "noUnusedParameters": true,
     "noImplicitThis": true,
