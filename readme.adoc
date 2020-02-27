@@ -3,7 +3,6 @@
 image:https://img.shields.io/github/license/Foxcapades/np-shop-highlight?style=flat-square[GitHub]
 image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/Foxcapades/np-shop-highlight/releases/latest]
 image:https://img.shields.io/travis/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.org/Foxcapades/np-shop-highlight]
-image:https://badges.greenkeeper.io/Foxcapades/np-shop-highlight.svg[link="https://greenkeeper.io/"]
 
 A simple chrome extension that adds highlighting to item shops in Neopets.
 
