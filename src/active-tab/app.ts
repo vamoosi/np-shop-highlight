@@ -25,13 +25,21 @@ const recognizedPaths: RouteMap = {
 
 // Load Configuration then start the handler
 Storage.loadLocal<AppConfig>(APP_CONFIG_KEY)
-  .then(o => o.orElseGet(defaultAppConfig))
+  .then(orDefault)
   .then(setConfig)
-  .then(() => {
-    Option.objectGet(recognizedPaths, window.location.pathname)
-      .orElse(() => {})();
-  })
-  .catch(e => {
-    throw new Error("Failed to load configuration: " + e);
-  });
+  .then(callRoute)
+  .catch(configErr);
+
+function orDefault(o: Option<AppConfig>) {
+  return o.orElseGet(defaultAppConfig);
+}
+
+function callRoute(_: any): void {
+  Option.objectGet(recognizedPaths, window.location.pathname)
+    .orElse(() => {})();
+}
+
+function configErr(e: Error): void {
+  throw new Error("Failed to load configuration: " + e);
+}
 
