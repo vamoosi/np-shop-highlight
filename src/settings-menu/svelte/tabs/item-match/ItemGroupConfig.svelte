@@ -16,12 +16,13 @@
   import TextArea from '../../generic/form/TextArea.svelte';
   import StyleSelect from '../../generic/StyleSelect.svelte';
   import Lib from '../../../ts/lib/item-match'
+  import { arrayUniq } from '../../../../lib/util';
 
   export let group;
 
 
   function type(value) {
-    group.items = Lib.toItemArray(Lib.cleanItemString(value));
+    group.items = arrayUniq(Lib.toItemArray(Lib.cleanItemString(value)));
   }
 
   let value;

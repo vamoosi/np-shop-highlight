@@ -76,7 +76,7 @@
   let textBox;
 
   onMount(() => {
-    textBox.addEventListener('keyup', debouncer);
+    textBox.addEventListener('input', debouncer);
   });
 </script>
 
