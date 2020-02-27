@@ -21,14 +21,14 @@ export function applyHighlight(snap: ShopData, cur: PageData) {
   for (let i = 0; i < stale.length; i++) {
     if (curMap.has(stale[i].itemInfoId)) {
       Option.maybe(curMap.get(stale[i].itemInfoId))
-        .with(i => highlightStale(i.tag));
+        .ifSome(i => highlightStale(i.tag));
       curMap.delete(stale[i].itemInfoId);
     }
   }
 
   // Highlight fresh items
   for (const key of curMap.keys())
-    Option.maybe(curMap.get(key)).with(i => highlightFresh(i.tag));
+    Option.maybe(curMap.get(key)).ifSome(i => highlightFresh(i.tag));
 
   return {
     time: new Date().getTime(),
