@@ -4,7 +4,7 @@ import { lossyClone } from "../../util";
 import Storage from "../static-store";
 import { APP_CONFIG_KEY } from "../../../config/Constants";
 import { Option } from "../../option";
-import ISvelteStore from "./ISvelteStore";
+import ISvelteStore, { SvelteSubscriber } from "./ISvelteStore";
 
 const ERR_READ = "Attempted to load readable store before it was initialized";
 const ERR_WRITE = "Attempted to load writable store before it was initialized";
@@ -13,10 +13,15 @@ const ERR_REINIT = "Configuration store already initialized";
 const confWrite: Writable<AppConfig> = writable(<AppConfig>{});
 const confRead:  Writable<AppConfig> = writable(<AppConfig>{});
 
+const subscriberMap = new Map<number, SvelteSubscriber>();
+
+let subscriberId = 0;
 let liveConf:  AppConfig;
 let lastState: string = "";
 
 const isInit = () => lastState !== "";
+
+confRead.subscribe(handleSubscribers);
 
 const out: ISvelteStore = {
   writableStore(): Writable<AppConfig> {
@@ -44,6 +49,17 @@ const out: ISvelteStore = {
     }
 
     return Option.maybe(current);
+  },
+
+  // TODO: this is likely called asynchronously.  That may
+  //       be an issue.  Introduce a lock here at some point
+  subscribe(cb: SvelteSubscriber): number {
+    subscriberMap.set(++subscriberId, cb);
+    return subscriberId;
+  },
+
+  unsubscribe(handle: number): void {
+    subscriberMap.delete(handle);
   }
 };
 
@@ -80,4 +96,10 @@ function stateChanged(value: AppConfig): boolean {
 
   lastState = tmp;
   return true;
+}
+
+function handleSubscribers(a: AppConfig) {
+  for (const cb of subscriberMap.values())
+    // (async () => {cb(a)})();
+    cb(a);
 }

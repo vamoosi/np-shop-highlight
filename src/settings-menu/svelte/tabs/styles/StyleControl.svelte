@@ -14,13 +14,17 @@
   /** @type {Writable<AppConfig> | AppConfig} */
   const config = SvelteStore.writableStore();
 
+  /** @type{HTMLDivElement} */
+  let container;
+
   function newStyle() {
     const max = HConf.nextHighlightId($config.styles);
+
+    // TODO: Look at the IGControl... why all this?
     $config.styles = HConf.appendHighlight(
       $config.styles,
       newHighlightStyle(max, 'New Style'),
     );
-
     selected = max;
   }
 
@@ -50,7 +54,7 @@
   }
 </script>
 
-<div class="ntab-control">
+<div class="ntab-control" bind:this={container}>
   <ItemManagementButton bgImg="--plus-svg"
                         title="Adds new style"
                         text="Create Style"

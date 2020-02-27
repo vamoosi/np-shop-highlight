@@ -16,6 +16,8 @@
   /** @type {Writable<AppConfig> | AppConfig} */
   const write = SvelteStore.writableStore();
 
+  let container;
+
   function newGroup() {
     $write.itemMatch = appendGroup($write);
     selection = $write.itemMatch.order[$write.itemMatch.order.length - 1];
@@ -48,7 +50,7 @@
   }
 </script>
 
-<div class="ntab-control">
+<div class="ntab-control" bind:this={container}>
   <ItemManagementButton bgImg="--plus-svg"
                         title="Adds a new item group"
                         text="Create Item Group"

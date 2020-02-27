@@ -13,7 +13,8 @@ const {util, conf} = require('./gulp/config');
 const U            = require("./gulp/util");
 
 G.task('clean-workspace', U.cleanup);
-G.task('copy-test', U.copyRes);
+G.task('copy-tpl', U.copyTpl);
+G.task('copy-res', U.copyRes);
 
 G.task('compile-sass', () => G.src(conf.in.entry.sass)
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -43,9 +44,6 @@ G.task('migrate-js', () => G.src(conf.in.entry.backgroundJs)
   .pipe(webpack(util.webConfig(conf.out.target.background)))
   .pipe(terser())
   .pipe(G.dest(conf.out.dir.stage)));
-
-G.task('copy-tpl', U.copyTpl);
-G.task('copy-res', U.copyRes);
 
 G.task('merge-css', () => G.src(conf.in.entry.stylesheets)
   .pipe(concat(conf.out.target.styles))

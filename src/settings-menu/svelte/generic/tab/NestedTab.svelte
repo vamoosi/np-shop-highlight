@@ -27,11 +27,13 @@
 </style>
 
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
   export let tabId;
   export let selection;
   export let name;
+
+  const dispatch = createEventDispatcher();
 
   let header;
   let body;
@@ -54,6 +56,7 @@
   }
 
   onMount(() => {
+    body.dispatchEvent(new Event('tab-mount', {bubbles: true}));
     body.addEventListener('transitionend', showHide);
     body.addEventListener('webkitTransitionEnd', showHide);
     showHide();

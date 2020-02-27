@@ -5,22 +5,22 @@
   import StyleControl from './StyleControl.svelte';
 
   /** @type {Writable<AppConfig> | AppConfig} */
-  const config = SvelteStore.writableStore();
+  const conf = SvelteStore.writableStore();
 
-  let selection = $config.styles.order[0];
+  let selection = $conf.styles.order[0];
 
   $: {
-    if (!$config.styles.values.hasOwnProperty(selection.toString())) {
-      selection = $config.styles.order[0];
+    if (!$conf.styles.values.hasOwnProperty(selection.toString())) {
+      selection = $conf.styles.order[0];
     }
   }
 </script>
 
-<StyleControl bind:selected={selection}/>
-
 <NestedTabPane>
-  {#each $config.styles.order as id}
-    <StyleTab bind:style={$config.styles.values[id]}
-            bind:selection={selection}/>
+  <div slot="buttons">
+    <StyleControl bind:selected={selection}/>
+  </div>
+  {#each $conf.styles.order as id}
+    <StyleTab bind:style={$conf.styles.values[id]} bind:selection={selection}/>
   {/each}
 </NestedTabPane>
