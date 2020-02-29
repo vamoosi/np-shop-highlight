@@ -72,7 +72,7 @@ Treasure*
 WARNING: For performance reasons (since this is all done in
          your browser) only full word matches are considered
          when matching titles.  For example the pattern
-         `*Cake*` _will_ match `Acara Cabbage Cake` but will
+         `\*Cake*` _will_ match `Acara Cabbage Cake` but will
          not match `Hot Cakes`
 
 Item lists are applied in order, meaning an item that
