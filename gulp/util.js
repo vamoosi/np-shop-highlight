@@ -1,6 +1,7 @@
 const fs     = require('fs');
 const {conf} = require('./config');
 const U      = require('util');
+const P      = require('child_process');
 
 /**
  * @param {function(*, *=)} cb
@@ -20,6 +21,14 @@ exports.cleanup = (cb) => {
     .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
 };
 
+exports.gitPackage = (version) => {
+  P.execSync('git add package.json');
+  P.execSync('git commit -m \'version bump\'');
+  P.execSync(`git tag v${version}`);
+  P.execSync(`git push`);
+  P.execSync(`git push --tag`);
+};
+
 /**
  * @param {string} vs
  * @return {{patch: number, major: number, minor: number}}
@@ -30,7 +39,7 @@ const parse = vs => {
     major: parseInt(parts[0]),
     minor: parseInt(parts[1]),
     patch: parseInt(parts[2]),
-  }
+  };
 };
 
 /**
@@ -64,8 +73,8 @@ function join(a, b) {
 
 function readRecursive(path, cb) {
   const options = {withFileTypes: true};
-  const queue = [path];
-  const out = [];
+  const queue   = [ path ];
+  const out     = [];
 
   while (queue.length > 0) {
     const next = queue.shift();

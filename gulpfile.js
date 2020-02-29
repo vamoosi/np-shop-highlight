@@ -11,7 +11,6 @@ const zip          = require('gulp-zip');
 const terser       = require('gulp-terser');
 const {util, conf} = require('./gulp/config');
 const U            = require("./gulp/util");
-const P            = require("child_process");
 
 G.task('compile-sass', () => G.src(conf.in.entry.sass)
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -60,11 +59,7 @@ G.task('git-patch', (cb) => {
   inVersion.patch++;
   packageJson.version = U.version.toString(inVersion);
   fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
-  P.execSync("git add package.json");
-  P.execSync("git commit -m 'version bump'");
-  P.execSync(`git tag v${packageJson.version}`);
-  P.execSync(`git push`);
-  P.execSync(`git push --tag`);
+  U.gitPackage(packageJson.version);
   cb();
 });
 
@@ -74,11 +69,7 @@ G.task('git-feature', (cb) => {
   inVersion.patch = 0;
   packageJson.version = U.version.toString(inVersion);
   fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
-  P.execSync("git add package.json");
-  P.execSync("git commit -m 'version bump'");
-  P.execSync(`git tag v${packageJson.version}`);
-  P.execSync(`git push`);
-  P.execSync(`git push --tag`);
+  U.gitPackage(packageJson.version);
   cb();
 });
 
