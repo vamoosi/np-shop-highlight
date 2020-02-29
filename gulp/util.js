@@ -1,6 +1,5 @@
 const fs     = require('fs');
 const {conf} = require('./config');
-const U      = require('util');
 const P      = require('child_process');
 
 /**
@@ -11,14 +10,11 @@ exports.copyRes = cb => {
     .then(v => copyFiles(v, conf.in.dir.res, conf.out.dir.res, cb));
 };
 
-exports.copyTpl = (cb) => {
-  new Promise(g => readRecursive(conf.in.dir.tpl, g))
-    .then(v => copyFiles(v, conf.in.dir.tpl, conf.out.dir.stage, cb));
-};
-
 exports.cleanup = (cb) => {
   new Promise(g => fs.rmdir(conf.out.dir.work, {recursive: true}, g))
-    .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
+    .then(_ => new Promise(g => fs.mkdir(conf.out.dir.work, {recursive: true}, g)))
+    .then(_ => new Promise(g => fs.rmdir(conf.out.dir.stage, {recursive: true}, g)))
+    .then(_ => fs.mkdir(conf.out.dir.stage, {recursive: true}, cb));
 };
 
 exports.gitPackage = (version) => {

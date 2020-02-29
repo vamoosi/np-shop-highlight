@@ -1,50 +1,22 @@
 const fs           = require('fs');
-const svelte       = require('gulp-svelte');
-const sass         = require('gulp-sass');
-const ts           = require('gulp-typescript').createProject('tsconfig.json');
-const webpack      = require('gulp-webpack');
 const G            = require('gulp');
 const replace      = require('gulp-replace');
-const concat       = require('gulp-concat');
 const packageJson  = require('./package.json');
 const zip          = require('gulp-zip');
-const terser       = require('gulp-terser');
-const {util, conf} = require('./gulp/config');
+const C            = require('./gulp/config');
 const U            = require("./gulp/util");
 
-G.task('compile-sass', () => G.src(conf.in.entry.sass)
-  .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-  .pipe(G.dest(conf.out.dir.work)));
+const {util, conf} = C;
 
-G.task('compile-ts', () => G.src(conf.in.entry.typescript)
-  .pipe(ts())
-  .pipe(replace('.svelte"', '"'))
-  .pipe(G.dest(conf.out.dir.work)));
+require('./gulp/action-menu');
+require('./gulp/settings-menu');
+require('./gulp/injected-script');
+require('./gulp/background');
+require('./gulp/libs');
 
-G.task('compile-svelte', () => G.src(conf.in.entry.svelte)
-  .pipe(svelte({css: false, format: 'cjs'}))
-  .pipe(replace('.svelte"', '"'))
-  .pipe(G.dest(conf.out.dir.work)));
-
-G.task('stage-settings-js', () => G.src(conf.in.entry.settingsJs)
-  .pipe(webpack(util.webConfig(conf.out.target.settings)))
-  .pipe(terser())
-  .pipe(G.dest(conf.out.dir.stage)));
-
-G.task('active-tab-js', () => G.src(conf.in.entry.injectJs)
-  .pipe(webpack(util.webConfig(conf.out.target.inject)))
-  .pipe(terser())
-  .pipe(G.dest(conf.out.dir.stage)));
-
-G.task('migrate-js', () => G.src(conf.in.entry.backgroundJs)
-  .pipe(webpack(util.webConfig(conf.out.target.background)))
-  .pipe(terser())
-  .pipe(G.dest(conf.out.dir.stage)));
-
-G.task('merge-css', () => G.src(conf.in.entry.stylesheets)
-  .pipe(concat(conf.out.target.styles))
-  .pipe(replace(/(\.\.\/)+res/g, './res'))
-  .pipe(G.dest(conf.out.dir.stage)));
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+// Distribution Scripts
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 G.task('manifest', () => G.src(conf.in.entry.manifest)
   .pipe(replace('__VERSION__', packageJson.version))
@@ -73,18 +45,25 @@ G.task('git-feature', (cb) => {
   cb();
 });
 
-exports.default = G.series(
-  U.cleanup,
-  G.parallel('compile-sass', 'compile-ts', 'compile-svelte'),
-  G.parallel(
-    'stage-settings-js',
-    'migrate-js',
-    U.copyTpl,
-    'active-tab-js',
-    U.copyRes,
-    'merge-css',
-    'manifest',
-  ),
-);
 
-exports.package = G.series(exports.default, 'zip');
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//
+// Exported Tasks
+//
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+
+exports.default = G.series(
+    U.cleanup,
+    'libs',
+    G.parallel(
+      'settings-menu',
+      'action-menu',
+      'background',
+      'active-tab',
+      U.copyRes,
+      'manifest',
+    ),
+  );
+
+exports.dist = G.series(exports.default, 'zip');

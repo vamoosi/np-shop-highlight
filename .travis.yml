@@ -11,7 +11,7 @@ node_js:
   - node
 
 script:
-  - ./node_modules/.bin/gulp package
+  - ./node_modules/.bin/gulp dist
 
 deploy:
   provider: releases
