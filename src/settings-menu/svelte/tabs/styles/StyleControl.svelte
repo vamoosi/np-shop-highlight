@@ -49,8 +49,18 @@
 
   function inUse() {
     const style = $config.styles.values[selected.toString()];
-    return style.id === $config.miniStock.freshStyle
-      || style.id === $config.miniStock.staleStyle;
+    if (
+      style.id === $config.miniStock.freshStyle
+      || style.id === $config.miniStock.staleStyle
+    ) { return true; }
+
+    for (const k in $config.itemMatch.groups) {
+      if (!$config.itemMatch.groups.hasOwnProperty(k))
+        continue;
+      for (const s of $config.itemMatch.groups[k].styles)
+        if (style.id === s)
+          return true;
+    }
   }
 </script>
 
