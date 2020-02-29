@@ -1,4 +1,5 @@
 = NP Shop Highlighter
+:icons: font
 
 image:https://img.shields.io/github/license/Foxcapades/np-shop-highlight?style=flat-square[GitHub]
 image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/Foxcapades/np-shop-highlight/releases/latest]
@@ -13,4 +14,62 @@ Items can be applied a customizable highlight by:
 
 Mostly just a silly tool with which to try out Svelte.
 
-// TODO: What's wrong with the text color input... why start at undefined?
+== Features
+
+=== Mini Stock Highlighting
+
+Highlights items items added to shops by mini stocks using
+configurable styles.
+
+On first refresh after the items appear they will be
+highlighted with an initial style.  On second refresh after
+their appearance, the items will be given a secondary style.
+
+
+=== Item Match Highlighting
+
+Allows users to create one or more custom lists of items
+to highlight whenever they appear in a shop.  Items can be
+matched by either full name or by wildcard on one or more
+full words using a `*` character.
+
+.Valid Item Entries
+----
+Treasure Map Negg <1>
+*Map Negg <2>
+*Negg
+Treasure Map* <3>
+Treasure*
+*Treasure Map* <4>
+*Map Negg*
+*Negg*
+*Treasure*
+*Map*
+----
+<1> Will only match items with the exact title
+    `Treasure Map Negg`
+<2> Will match any item with a title ending with `Map Negg`
+<3> Will match any item with a title starting with
+    `Treasure Map`
+<4> Will match any item with `Treasure Map` appearing
+    anywhere in the title.
+
+WARNING: For performance reasons (since this is all done in
+         your browser) only full word matches are considered
+         when matching titles.  For example the pattern
+         `*Cake*` _will_ match `Acara Cabbage Cake` but will
+         not match `Hot Cakes`
+
+Item lists are applied in order, meaning an item that
+appears in multiple lists wil only have the style from the
+last of those lists applied.  This allows for the creation
+of lists with priority or exclusion lists.
+
+== Known Issues
+
+. For the mini stock feature, if the shop does a full
+  restock between refreshes within a 20 minute window, the
+  extension will consider any items that were not in the
+  previous shop stock as new.  Meaning most if not all items
+  will be highlighted.  The shop item cache clears out after
+  20 minutes or whenever the page is hit during a restock.

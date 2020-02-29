@@ -88,6 +88,7 @@ function matches(text: string, maps: WakaWaka): Array<HTMLTableDataCellElement> 
   if (text === "")
     return [];
 
+  text = text.toLowerCase();
   const wcl = Text.hasWildcardLeft(text);
   const wcr = Text.hasWildcardRight(text);
   const trm = wcl || wcr ? Text.trimWildCard(text) : text;
