@@ -31,7 +31,6 @@
     margin:        0;
     line-height:   1.6em;
     color:         var(--text-color);
-    border-radius: 5px;
     font-size:     1.1em;
     position:      relative;
     bottom:        -.3em;

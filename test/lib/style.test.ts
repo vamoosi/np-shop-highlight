@@ -24,8 +24,8 @@ describe("applyStyle", () => {
     const s = newHighlightStyle(1, "", undefined, undefined, 40);
     applyStyle(s, e);
 
-    expect(e.style.backgroundColor).toStrictEqual("");
-    expect(e.style.color).toStrictEqual("");
+    expect(e.style.backgroundColor).toStrictEqual("rgb(255, 255, 255)");
+    expect(e.style.color).toStrictEqual("rgb(0, 0, 0)");
     expect(e.style.opacity).toStrictEqual("0.4");
   });
 
@@ -36,7 +36,7 @@ describe("applyStyle", () => {
     applyStyle(s, e);
 
     expect(e.style.backgroundColor).toStrictEqual("red");
-    expect(e.style.color).toStrictEqual("");
-    expect(e.style.opacity).toStrictEqual("");
+    expect(e.style.color).toStrictEqual("rgb(0, 0, 0)");
+    expect(e.style.opacity).toStrictEqual("1");
   });
 });

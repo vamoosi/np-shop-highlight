@@ -1,0 +1,69 @@
+@import "./config"
+
+textarea,
+select,
+input[type=text],
+input[type=number],
+input[type=color]
+  border: $input-border-off
+  border-radius: 5px
+  background-color: #f5f5f5
+
+textarea:focus,
+select:focus,
+input[type=text]:focus,
+input[type=number]:focus,
+input[type=color]:focus
+  border: $input-border-on
+  outline: none
+
+select
+  max-width: 300px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+textarea,
+input[type=text]
+  width: 350px
+  display: block
+
+textarea
+  padding: 10px
+  border-radius: 5px
+
+select,
+textarea,
+input[type=text],
+input[type=number]
+  padding: 0 10px
+  color: $textColor
+  line-height: $input-line-height
+  font-size: $input-font-size
+  font-family: $input-font
+
+input[type=checkbox]
+  height: 1.4em
+  width: 1.4em
+  margin: 0 0.5em
+  vertical-align: bottom
+
+
+label
+  display: block
+
+.slider
+  font-size: $input-font-size
+  display: flex
+  align-content: center
+
+  > input
+    padding: 0
+
+    &[type=range]
+      width: 350px
+
+    &[type=number]
+      font-size: 1em
+      text-align: right
+      width: 2.7em

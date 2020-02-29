@@ -12,3 +12,5 @@ Items can be applied a customizable highlight by:
 - Custom user item lists with wildcard support
 
 Mostly just a silly tool with which to try out Svelte.
+
+// TODO: What's wrong with the text color input... why start at undefined?

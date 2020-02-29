@@ -4,23 +4,23 @@ function isNone<T>(val: T): boolean {
 
 export class Option<T> {
   private readonly value: T = <T>{};
-  private readonly none: boolean;
+  private readonly isnt: boolean;
 
   private constructor(val?: T) {
     if (val !== undefined && val !== null) {
       this.value = val;
-      this.none = false;
+      this.isnt = false;
     } else {
-      this.none = true;
+      this.isnt = true;
     }
   }
 
   public isNone(): boolean {
-    return this.none;
+    return this.isnt;
   }
 
   public isSome(): boolean {
-    return !this.none;
+    return !this.isnt;
   }
 
   public unwrap(): T {

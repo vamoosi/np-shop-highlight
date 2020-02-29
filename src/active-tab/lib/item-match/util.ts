@@ -5,7 +5,9 @@ function textContent(e: Element): Option<string> {
 }
 
 function getTitle(td: HTMLElement): Option<string> {
-  return Option.maybe(td.children[1]).flatMap(textContent);
+  return Option.maybe(td.children[1])
+    .flatMap(textContent)
+    .map(v => v.trim());
 }
 
 export default { textContent, getTitle };

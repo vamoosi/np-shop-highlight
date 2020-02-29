@@ -5,7 +5,7 @@ const U      = require('util');
 /**
  * @param {function(*, *=)} cb
  */
-exports.copyRes = (cb) => {
+exports.copyRes = cb => {
   new Promise(g => readRecursive(conf.in.dir.res, g))
     .then(v => copyFiles(v, conf.in.dir.res, conf.out.dir.res, cb));
 };
@@ -18,6 +18,30 @@ exports.copyTpl = (cb) => {
 exports.cleanup = (cb) => {
   new Promise(g => fs.rmdir(conf.out.dir.work, {recursive: true}, g))
     .then(_ => fs.mkdir(conf.out.dir.work, {recursive: true}, cb));
+};
+
+/**
+ * @param {string} vs
+ * @return {{patch: number, major: number, minor: number}}
+ */
+const parse = vs => {
+  const parts = vs.split('.');
+  return {
+    major: parseInt(parts[0]),
+    minor: parseInt(parts[1]),
+    patch: parseInt(parts[2]),
+  }
+};
+
+/**
+ * @param {{major: number, minor: number, patch:number}} vs
+ * @return {string}
+ */
+const toString = vs => `${vs.major}.${vs.minor}.${vs.patch}`;
+
+exports.version = {
+  parse,
+  toString,
 };
 
 function copyFiles(entries, from, to, cb) {

@@ -11,10 +11,7 @@ const zip          = require('gulp-zip');
 const terser       = require('gulp-terser');
 const {util, conf} = require('./gulp/config');
 const U            = require("./gulp/util");
-
-G.task('clean-workspace', U.cleanup);
-G.task('copy-tpl', U.copyTpl);
-G.task('copy-res', U.copyRes);
+const P            = require("child_process");
 
 G.task('compile-sass', () => G.src(conf.in.entry.sass)
   .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
@@ -58,15 +55,28 @@ G.task('zip', () => G.src(conf.in.entry.outputs)
   .pipe(zip(util.zipName()))
   .pipe(G.dest(conf.out.dir.dist)));
 
+G.task('git-patch', (cb) => {
+  const inVersion = U.version.parse(packageJson.version);
+  inVersion.patch++;
+  packageJson.version = U.version.toString(inVersion);
+  fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+  P.execSync("git add package.json");
+  P.execSync("git commit -m 'version bump'");
+  P.execSync(`git tag v${packageJson.version}`);
+  P.execSync(`git push`);
+  P.execSync(`git push --tag`);
+  cb();
+});
+
 exports.default = G.series(
-  'clean-workspace',
+  U.cleanup,
   G.parallel('compile-sass', 'compile-ts', 'compile-svelte'),
   G.parallel(
     'stage-settings-js',
     'migrate-js',
-    'copy-tpl',
+    U.copyTpl,
     'active-tab-js',
-    'copy-res',
+    U.copyRes,
     'merge-css',
     'manifest',
   ),

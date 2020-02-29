@@ -1,24 +1,3 @@
-<style>
-  span {
-    display:   block;
-    font-size: var(--input-font-size);
-  }
-
-  input[type=range] {
-    width:    350px;
-    padding:  0;
-    position: relative;
-    bottom:   -5px;
-  }
-
-  input[type=number] {
-    font-size:  1em;
-    text-align: right;
-    width:      2.5em;
-    padding:    0;
-  }
-</style>
-
 <script>
   import InputLabel from './InputLabel.svelte';
 
@@ -59,8 +38,10 @@
 </script>
 
 <InputLabel label="{label}" title="{title}">
-  <span>
-    <input type="range" min="{min}" max="{max}" bind:value={value}/>
-    <input type="number" min="{min}" max="{max}" bind:value={value}/>%
-  </span>
+  <div class="slider">
+    <!--suppress HtmlFormInputWithoutLabel -->
+    <input type="range" min="{min}" max="{max}" bind:value={value} step="0.01"/>
+    <!--suppress HtmlFormInputWithoutLabel -->
+    <input type="number" min="{min}" max="{max}" bind:value={value}/>
+  </div>
 </InputLabel>

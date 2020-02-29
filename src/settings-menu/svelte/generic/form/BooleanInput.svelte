@@ -59,13 +59,6 @@
 </script>
 
 <style>
-  input {
-    height:         1.4em;
-    width:          1.4em;
-    margin:         0 0.5em;
-    vertical-align: bottom;
-  }
-
   span {
     display:       flex;
     margin-bottom: 25px;
