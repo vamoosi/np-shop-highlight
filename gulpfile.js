@@ -68,6 +68,20 @@ G.task('git-patch', (cb) => {
   cb();
 });
 
+G.task('git-feature', (cb) => {
+  const inVersion = U.version.parse(packageJson.version);
+  inVersion.minor++;
+  inVersion.patch = 0;
+  packageJson.version = U.version.toString(inVersion);
+  fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, 2));
+  P.execSync("git add package.json");
+  P.execSync("git commit -m 'version bump'");
+  P.execSync(`git tag v${packageJson.version}`);
+  P.execSync(`git push`);
+  P.execSync(`git push --tag`);
+  cb();
+});
+
 exports.default = G.series(
   U.cleanup,
   G.parallel('compile-sass', 'compile-ts', 'compile-svelte'),
