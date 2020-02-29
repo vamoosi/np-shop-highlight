@@ -1,5 +1,5 @@
 const G          = require('gulp');
-const typescript = require('gulp-typescript').createProject('tsconfig.json');
+const typescript = require('gulp-typescript').createProject('.build-config/tsconfig.json');
 const replace    = require('gulp-replace');
 const webpack    = require('gulp-webpack');
 const terser     = require('gulp-terser');

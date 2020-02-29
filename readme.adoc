@@ -28,7 +28,7 @@ will automatically filter shops based on the entered text.
 Pressing `enter` in the text box will open the first search
 result and the `tab` key can be used to navigate the results.
 
-image:{github-raw}/readme/shop-search.gif[width=300]
+image:{github-raw}/.readme/shop-search.gif[width=300]
 
 === Mini Stock Highlighting
 
@@ -39,7 +39,7 @@ On first refresh after the items appear they will be
 highlighted with an initial style.  On second refresh after
 their appearance, the items will be given a secondary style.
 
-image:{github-raw}/readme/mini-stock.png[width=300]
+image:{github-raw}/.readme/mini-stock.png[width=300]
 
 === Item Match Highlighting
 
@@ -80,7 +80,7 @@ appears in multiple lists wil only have the style from the
 last of those lists applied.  This allows for the creation
 of lists with priority or exclusion lists.
 
-image:{github-raw}/readme/item-match.gif[width=300]
+image:{github-raw}/.readme/item-match.gif[width=300]
 
 == Known Issues
 

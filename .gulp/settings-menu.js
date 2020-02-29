@@ -1,6 +1,6 @@
 const fs         = require('fs');
 const G          = require('gulp');
-const typescript = require('gulp-typescript').createProject('tsconfig.json');
+const typescript = require('gulp-typescript').createProject('.build-config/tsconfig.json');
 const replace    = require('gulp-replace');
 const svelte     = require('gulp-svelte');
 const sass       = require('gulp-sass');

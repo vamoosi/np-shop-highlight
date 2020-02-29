@@ -3,16 +3,16 @@ const G            = require('gulp');
 const replace      = require('gulp-replace');
 const packageJson  = require('./package.json');
 const zip          = require('gulp-zip');
-const C            = require('./gulp/config');
-const U            = require("./gulp/util");
+const C            = require('./.gulp/config');
+const U            = require("./.gulp/util");
 
 const {util, conf} = C;
 
-require('./gulp/action-menu');
-require('./gulp/settings-menu');
-require('./gulp/injected-script');
-require('./gulp/background');
-require('./gulp/libs');
+require('./.gulp/action-menu');
+require('./.gulp/settings-menu');
+require('./.gulp/injected-script');
+require('./.gulp/background');
+require('./.gulp/libs');
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 // Distribution Scripts
