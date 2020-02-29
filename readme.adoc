@@ -1,11 +1,13 @@
 = NP Shop Highlighter
 :icons: font
+:github-raw: https://raw.githubusercontent.com/Foxcapades/np-shop-highlight/master
 
 image:https://img.shields.io/github/license/Foxcapades/np-shop-highlight?style=flat-square[GitHub]
 image:https://img.shields.io/github/release/Foxcapades/np-shop-highlight.svg?style=flat-square[GitHub tag,link=https://github.com/Foxcapades/np-shop-highlight/releases/latest]
 image:https://img.shields.io/travis/Foxcapades/np-shop-highlight/master.svg?style=flat-square[Travis (.org) branch,link=https://travis-ci.org/Foxcapades/np-shop-highlight]
 
-A simple chrome extension that adds highlighting to item shops in Neopets.
+A simple chrome extension that adds shop search and item
+highlighting to shops in Neopets.
 
 Items can be applied a customizable highlight by:
 
@@ -16,6 +18,18 @@ Mostly just a silly tool with which to try out Svelte.
 
 == Features
 
+=== Shop Search
+
+The shop search feature can be activated by clicking the
+extension icon at the top right of your browser window or by
+using the keyboard shortcut `Alt+M`.  Typing in the text box
+will automatically filter shops based on the entered text.
+
+Pressing `enter` in the text box will open the first search
+result and the `tab` key can be used to navigate the results.
+
+image:{github-raw}/readme/shop-search.gif[width=300]
+
 === Mini Stock Highlighting
 
 Highlights items items added to shops by mini stocks using
@@ -25,6 +39,7 @@ On first refresh after the items appear they will be
 highlighted with an initial style.  On second refresh after
 their appearance, the items will be given a secondary style.
 
+image:{github-raw}/readme/mini-stock.png[width=300]
 
 === Item Match Highlighting
 
@@ -64,6 +79,8 @@ Item lists are applied in order, meaning an item that
 appears in multiple lists wil only have the style from the
 last of those lists applied.  This allows for the creation
 of lists with priority or exclusion lists.
+
+image:{github-raw}/readme/item-match.gif[width=300]
 
 == Known Issues
 
