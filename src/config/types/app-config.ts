@@ -4,10 +4,10 @@ import { defaultGeneralConfig, GeneralConfig } from "./GeneralConfig";
 import { defaultHighlightConfig, HighlightConfig } from "./highlight-config";
 
 export interface AppConfig {
-  readonly general: GeneralConfig;
-  readonly itemMatch: ItemMatchConfig;
-  readonly miniStock: MiniStockConfig;
-  readonly styles: HighlightConfig;
+  general: GeneralConfig;
+  itemMatch: ItemMatchConfig;
+  miniStock: MiniStockConfig;
+  styles: HighlightConfig;
 }
 
 /**

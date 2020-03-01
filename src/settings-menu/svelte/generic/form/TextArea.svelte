@@ -1,10 +1,3 @@
-<!--suppress CssUnresolvedCustomProperty -->
-<style>
-  textarea {
-    height: var(--height);
-  }
-</style>
-
 <script>
   import InputLabel from './InputLabel.svelte';
   import { newDebouncer } from '../../../ts/lib/debouncer';
@@ -84,5 +77,5 @@
   <!--suppress HtmlFormInputWithoutLabel -->
   <textarea bind:this={textBox}
             class="{styleClass}"
-            style="--height: {height}">{initialValue || ""}</textarea>
+            style="height: var({height})">{initialValue || ""}</textarea>
 </InputLabel>

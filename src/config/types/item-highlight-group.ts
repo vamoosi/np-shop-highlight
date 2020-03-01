@@ -1,5 +1,7 @@
+export type ItemGroupId = number;
+
 export interface ItemHighlightGroup {
-  id: number;
+  id: ItemGroupId;
   name: string;
   enabled: boolean;
 
@@ -64,7 +66,7 @@ export interface ItemHighlightGroup {
  * input params.
  */
 export function newItemHighlightGroup(
-  id: number,
+  id: ItemGroupId,
   name: string,
   stores: Array<number> = [],
   items: Array<string> = [],

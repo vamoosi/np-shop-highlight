@@ -1,60 +1,30 @@
 <script>
   import ItemManagementButton from '../../generic/ItemManagementButton.svelte';
-  import { SvelteStore } from '../../../../lib/store/svelte';
   import {
-    appendGroup,
-    removeGroup, shiftGroup,
+    newGroup, deleteGroup,
+    shiftGroup,
   } from '../../../ts/controllers/tabs/ItemGroupControl';
 
   /**
-   * Current style id
+   * Currently selected style id
    *
-   * @type {number}
+   * @type {ItemGroupId}
    */
   export let selection;
 
-  /** @type {Writable<AppConfig> | AppConfig} */
-  const write = SvelteStore.writableStore();
-
   let container;
 
-  function newGroup() {
-    $write.itemMatch = appendGroup($write);
-    selection = $write.itemMatch.order[$write.itemMatch.order.length - 1];
-  }
-
-  function del() {
-    if ($write.itemMatch.order.length === 1) {
-      alert("There must be at least one item group.");
-      return;
-    }
-
-    // Current selection (since we are gonna change it)
-    const prev = selection;
-
-    if ($write.itemMatch.order[0] === selection)
-      selection = $write.itemMatch.order[1];
-    else
-      selection = $write.itemMatch
-        .order[$write.itemMatch.order.indexOf(selection) - 1];
-
-    $write.itemMatch = removeGroup($write.itemMatch, prev);
-  }
-
-  function up() {
-    $write.itemMatch = shiftGroup($write.itemMatch, selection, true);
-  }
-
-  function dn() {
-    $write.itemMatch = shiftGroup($write.itemMatch, selection, false);
-  }
+  const add = _ => {selection = newGroup()};
+  const del = _ => {selection = deleteGroup(selection)};
+  const up  = _ => {shiftGroup(selection, true)};
+  const dn  = _ => {shiftGroup(selection, false)};
 </script>
 
 <div class="ntab-control" bind:this={container}>
   <ItemManagementButton bgImg="--plus-svg"
                         title="Adds a new item group"
                         text="Create Item Group"
-                        click={newGroup}/>
+                        click={add}/>
 
   <ItemManagementButton bgImg="--trash-svg"
                         title="Deletes the current item group"

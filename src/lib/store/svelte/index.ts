@@ -1,1 +1,1 @@
-export { default as SvelteStore } from './SvelteStoreImpl';
+export { default as SvelteStore } from './SvelteStore';

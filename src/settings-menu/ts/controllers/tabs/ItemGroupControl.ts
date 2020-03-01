@@ -1,79 +1,79 @@
-import {
-  GroupMap,
-  ItemMatchConfig, newItemMatchConfig,
-} from "../../../../config/types/item-match-config";
 import { arrayOmit } from "../../../../lib/util";
 import {
-  ItemHighlightGroup,
+  ItemGroupId,
   newItemHighlightGroup,
 } from "../../../../config/types/item-highlight-group";
-import { AppConfig } from "../../../../config/types/app-config";
+import Store from '../../../../lib/store/svelte/SvelteStore'
 
-export function removeGroup(conf: ItemMatchConfig, id: number): ItemMatchConfig {
-  return {
-    byShop: conf.byShop,
-    groups: omitGroup(conf.groups, id),
-    order: arrayOmit(conf.order, id),
+export function deleteGroup(id: number): number {
+  const conf = Store.get();
+  const im   = conf.itemMatch;
+
+  let out = id;
+
+  if (im.order.length === 1) {
+    alert("There must be at least one item group.");
+    return out;
   }
+
+  if (im.order[0] === id)
+    out = im.order[1];
+  else
+    out = im.order[im.order.indexOf(id) - 1];
+
+  delete im.groups[id.toString()];
+  im.order = arrayOmit(im.order, id);
+
+  Store.put(conf);
+
+  return out;
 }
 
-export function appendGroup(app: AppConfig): ItemMatchConfig {
-  const conf = app.itemMatch;
-  const group = newItemHighlightGroup(
-    nextId(conf.order),
+export function newGroup(): ItemGroupId {
+  const conf  = Store.get();
+  const im    = conf.itemMatch;
+  const id    = nextId(im.order);
+
+  im.groups[id.toString()] = newItemHighlightGroup(
+    id,
     "New Group",
     [],
     [],
-    [app.styles.order[0]],
+    [conf.styles.order[0]],
   );
-  return newItemMatchConfig(
-    [...conf.order, group.id],
-    addGroup(conf.groups, group),
-    conf.byShop,
-  );
+
+  im.order.push(id);
+  Store.put(conf);
+
+  return id;
 }
 
-export function shiftGroup(conf: ItemMatchConfig, id: number, up: boolean): ItemMatchConfig {
-  if (up && conf.order[0] === id)
-    return conf;
-  if (!up && conf.order[conf.order.length - 1] === id)
-    return conf;
+export function shiftGroup(id: number, up: boolean) {
+  const conf = Store.get();
+  const im   = conf.itemMatch;
 
-  for (let i = 0; i < conf.order.length; i++) {
-    if (conf.order[i] === id) {
-      const here = conf.order[i];
+  if (up && im.order[0] === id)
+    return;
+  if (!up && im.order[im.order.length - 1] === id)
+    return;
+
+  for (let i = 0; i < im.order.length; i++) {
+    if (im.order[i] === id) {
+      const here = im.order[i];
       const swap = up ? i - 1 : i + 1;
-      conf.order[i] = conf.order[swap];
-      conf.order[swap] = here;
+      im.order[i] = im.order[swap];
+      im.order[swap] = here;
       break;
     }
   }
 
-  return newItemMatchConfig(conf.order, conf.groups, conf.byShop);
+  Store.put(conf);
 }
 
-function nextId(a: Array<number>): number {
+function nextId(a: Array<number>): ItemGroupId {
   let out = 0;
   for (const i of a)
     if (i > out)
       out = i;
   return ++out;
-}
-
-function omitGroup(g: GroupMap, id: number): GroupMap {
-  const out: GroupMap = {};
-  const sid = id.toString();
-  for (const key in g)
-    if (g.hasOwnProperty(key) && key !== sid)
-      out[key] = g[key];
-  return out;
-}
-
-function addGroup(conf: GroupMap, group: ItemHighlightGroup): GroupMap {
-  const out: GroupMap = {};
-  for (const k in conf)
-    if (conf.hasOwnProperty(k))
-      out[k] = conf[k];
-  out[group.id.toString()] = group;
-  return out;
 }

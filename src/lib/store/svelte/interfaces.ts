@@ -6,12 +6,16 @@ export interface SvelteSubscriber {
   (c: AppConfig): void;
 }
 
-export default interface ISvelteStore {
+export default interface SvelteStore {
   writableStore(): Writable<AppConfig>;
 
   readableStore(): Readable<AppConfig>;
 
-  get(...path: Array<string>): Option<any>;
+  get(): AppConfig;
+
+  put(c: AppConfig): void;
+
+  getPath(...path: Array<string>): Option<any>;
 
   subscribe(cb: SvelteSubscriber): number;
 

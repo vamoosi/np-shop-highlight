@@ -4,7 +4,7 @@ import { lossyClone } from "../../util";
 import Storage from "../static-store";
 import { APP_CONFIG_KEY } from "../../../config/Constants";
 import { Option } from "../../option";
-import ISvelteStore, { SvelteSubscriber } from "./ISvelteStore";
+import SvelteStore, { SvelteSubscriber } from "./interfaces";
 
 const ERR_READ = "Attempted to load readable store before it was initialized";
 const ERR_WRITE = "Attempted to load writable store before it was initialized";
@@ -23,7 +23,7 @@ const isInit = () => lastState !== "";
 
 confRead.subscribe(handleSubscribers);
 
-const out: ISvelteStore = {
+const out: SvelteStore = {
   writableStore(): Writable<AppConfig> {
     if (!isInit())
       throw new Error(ERR_WRITE);
@@ -38,7 +38,15 @@ const out: ISvelteStore = {
     return confRead;
   },
 
-  get(...path: Array<string>): Option<any> {
+  put(c: AppConfig): void {
+    confWrite.set(c);
+  },
+
+  get(): AppConfig {
+    return liveConf;
+  },
+
+  getPath(...path: Array<string>): Option<any> {
     let current: any = liveConf;
 
     for (const i of path) {
@@ -99,6 +107,7 @@ function stateChanged(value: AppConfig): boolean {
 }
 
 function handleSubscribers(a: AppConfig) {
+  // @ts-ignore (not actually an issue, PHPStorm thinks I'm compiling to ES5)
   for (const cb of subscriberMap.values())
     // (async () => {cb(a)})();
     cb(a);
