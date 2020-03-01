@@ -2,7 +2,7 @@
   import Stores from '../../lib/neo/shop-list'
   import { onMount } from 'svelte';
 
-  const href = "http://neopets.com/objects.phtml?type=shop&obj_type=";
+  const href = i => `http://www.neopets.com/objects.phtml?type=shop&obj_type=${i}`;
 
   let filter = "";
   let results;
@@ -27,7 +27,7 @@
    */
   function doTheThing(a) {
     chrome.tabs.create({
-      url: href + a.attributes.getNamedItem("data-id").value
+      url: href(a.attributes.getNamedItem("data-id").value)
     });
   }
 
