@@ -2,8 +2,10 @@ export const BG_COLOR_KEY = "bgColor";
 export const TXT_COLOR_KEY = "textColor";
 export const OPACITY_KEY = "opacity";
 
+export type StyleId = number;
+
 export interface HighlightStyle {
-  id: number;
+  id: StyleId;
   name: string;
 
   /**
@@ -30,7 +32,7 @@ export interface HighlightStyle {
 
 
 export function newHighlightStyle(
-  id: number,
+  id: StyleId,
   name: string,
   bgColor = "#ffffff",
   textColor = "#000000",

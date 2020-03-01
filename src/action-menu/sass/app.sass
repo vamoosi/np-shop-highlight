@@ -1,3 +1,7 @@
+@font-face
+  font-family: "FA-Solid"
+  src: url("../../../res/fa-solid-900.woff2") format("woff2")
+
 div, ul, li, input
   width: 250px
   box-sizing: border-box
@@ -35,16 +39,17 @@ input
 
 $buttonSize: 36px
 button
+  font-family: "FA-Solid"
+  font-size: 28px
+  color: #444
   margin: 0 0 0 auto
   box-sizing: border-box
   height: $buttonSize
   width: $buttonSize
-  background-image: url("../../../res/cog.svg")
   background-color: rgba(0,0,0,0)
   background-repeat: no-repeat
   background-position: center
   background-size: ($buttonSize - 6) ($buttonSize - 6)
-  text-indent: 200%
   white-space: nowrap
   overflow: hidden
   border: none

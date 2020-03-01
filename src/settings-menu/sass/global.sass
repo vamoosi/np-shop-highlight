@@ -4,11 +4,6 @@
   --text-color: $textColor
   --tab-fade: $tabFade
 
-  --plus-svg: url("../../../res/plus.svg#path")
-  --trash-svg: url("../../../res/trash-alt.svg#path")
-  --up-svg: url("../../../res/angle-double-up.svg#path")
-  --down-svg: url("../../../res/angle-double-down.svg#path")
-
   --bg-light-paper: url("../../../res/groovepaper.png")
 
   --input-line-height: $input-line-height
@@ -27,6 +22,8 @@ body
   display: flex
 
 .item-mgmt
+  font-family: $iconSolidFont
+  font-size: 2em
   display: block
   width: 42px
   height: 42px
@@ -38,7 +35,8 @@ body
   transition: opacity $tabFade ease
   background-color: rgba(0, 0, 0, 0)
   border: none
-  text-indent: 120%
+  //text-indent: 120%
+  color: white
   white-space: nowrap
   overflow: hidden
 

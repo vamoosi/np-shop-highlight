@@ -58,7 +58,7 @@
 
 <div class="action-menu">
   <div class="top-nav">
-    <button>Settings</button>
+    <button title="Open settings">&#xf013;</button>
   </div>
   <!--suppress HtmlFormInputWithoutLabel -->
   <input tabindex="1"
