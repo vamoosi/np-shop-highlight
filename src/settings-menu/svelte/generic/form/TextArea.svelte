@@ -77,5 +77,5 @@
   <!--suppress HtmlFormInputWithoutLabel -->
   <textarea bind:this={textBox}
             class="{styleClass}"
-            style="height: var({height})">{initialValue || ""}</textarea>
+            style="height: {height}">{initialValue || ""}</textarea>
 </InputLabel>

@@ -41,7 +41,7 @@ G.task('active-tab-ts', () => G.src(SRC_DIR + '/**/*.ts')
 
 G.task('active-tab-js', () => G.src(COMPILE_DIR + '/app.js')
   .pipe(webpack(util.webConfig('active-tab.js')))
-  .pipe(terser())
+  // .pipe(terser())
   .pipe(G.dest(STAGE_DIR)));
 
 
