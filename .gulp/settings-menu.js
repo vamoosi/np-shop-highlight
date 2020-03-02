@@ -54,7 +54,7 @@ G.task('settings-menu-sass', () => G.src(SRC_DIR + '/**/*.sass')
 
 G.task('settings-menu-js', () => G.src(COMPILE_DIR + '/ts/app.js')
   .pipe(webpack(util.webConfig('settings-menu.js')))
-  // .pipe(terser())
+  .pipe(terser())
   .pipe(G.dest(STAGE_DIR)));
 
 G.task('settings-menu-html', (cb) => {
