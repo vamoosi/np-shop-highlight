@@ -1,5 +1,5 @@
 const G          = require('gulp');
-const typescript = require('gulp-typescript').createProject('.build-config/tsconfig.json');
+const typescript = require('gulp-typescript').createProject('tsconfig.json');
 
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
