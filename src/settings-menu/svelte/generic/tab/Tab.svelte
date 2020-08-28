@@ -26,10 +26,11 @@
   }
 
   function showHide(e) {
-    if (selected !== id)
+    if (selected !== id) {
       body.style.zIndex = '0';
-    else
+    } else {
       body.style.zIndex = '10';
+    }
   }
 
   onMount(() => {
@@ -45,8 +46,8 @@
 
 </script>
 
-<li class="tab" class:selected={selected===id} on:click={selectTab} bind:this={self}>
-  <h2 bind:this={header} title="{title}">{title}</h2>
+<li class="tab" class:selected="{selected === id}" bind:this={self}>
+  <h2 bind:this={header} title="{title}" on:click="{() => selected = id}">{title}</h2>
   <div bind:this={body}>
     <!--suppress CheckTagEmptyBody -->
     <slot></slot>

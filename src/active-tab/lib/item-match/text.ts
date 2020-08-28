@@ -5,6 +5,10 @@ const matchWildcardRight = (x: string, t: string) => x.length > 0 && x.startsWit
 const hasWildcardRight = (x: string) => x[x.length - 1] === WILDCARD;
 const hasWildcardLeft = (x: string) => x[0] === WILDCARD;
 
+function expandWildcard(text: string): string {
+  return text.replace("*", ".*");
+}
+
 function trimWildCard(text: string): string {
   let left = 0;
   let right = text.length;
@@ -25,6 +29,7 @@ function trimWildCard(text: string): string {
 }
 
 export default {
+  expandWildcard,
   matchWildcardRight,
   matchWildCardLeft,
   hasWildcardRight,

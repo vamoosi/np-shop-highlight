@@ -1,7 +1,7 @@
 import { ItemDetails, newItemDetails } from "./item-details";
 
 export interface ElementData {
-  readonly tag: HTMLAnchorElement;
+  readonly tag: HTMLDivElement;
   readonly val: ItemDetails;
 }
 
@@ -10,7 +10,7 @@ export interface ElementData {
  * given input params.
  */
 export function newElementData(
-  tag: HTMLAnchorElement,
+  tag: HTMLDivElement,
   stockId: number,
   itemInfoId: number,
 ): ElementData {

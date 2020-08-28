@@ -1,71 +1,31 @@
 import { getConfig } from "../../../config/Configuration";
 import { applyStyle } from "../../../lib/style";
 
-import Util from './util';
 import Text from './text';
+import { Option } from "../../../lib/option";
 
-type Waka = Map<string, Array<HTMLTableDataCellElement>>;
-type WakaWaka = {front: Waka, back: Waka, middle: Waka, whole: Waka};
+type DivMap = Map<string, HTMLDivElement>;
 
-function buildMaps(links: NodeListOf<HTMLAnchorElement>): WakaWaka
+function buildMap(links: NodeListOf<HTMLDivElement>): DivMap
 {
-  const front  = new Map<string, Array<HTMLTableDataCellElement>>();
-  const back   = new Map<string, Array<HTMLTableDataCellElement>>();
-  const middle = new Map<string, Array<HTMLTableDataCellElement>>();
-  const whole  = new Map<string, Array<HTMLTableDataCellElement>>();
+  // Map of whole titles to elements.
+  const whole  = new Map<string, HTMLDivElement>();
 
   for (let i = 0; i < links.length; i++) {
-    const a = links[i];
-
-    // @ts-ignore
-    const td: HTMLTableDataCellElement = a.parentElement;
-    const title = Util.getTitle(td).unwrap();
-
-    pushArray(whole, title, td);
-
-    let f = title.length;
-    let b = 0;
-    const pos = new Set([b, f-1]);
-
-    while (f > -1) {
-      f = title.lastIndexOf(' ', f - 1);
-      b = title.indexOf(' ', b + 1);
-      if (f > -1) {
-        pos.add(f);
-        pos.add(b);
-      }
-
-      pushArray(front, title.substring(0, f), td);
-      pushArray(back, title.substring(b + 1), td);
-    }
-
-    if (pos.size === 2)
-      continue;
-
-    for (const start of pos.values())
-      for (const end of pos.values())
-        if (start < end)
-          pushArray(middle, title.substring(start, end + 1).trim(), td);
+    const item = links[i];
+    const title = Option.maybe(item.querySelector<HTMLParagraphElement>(".item-name"))
+      .map(v => v.innerText)
+      .map(s => s.toLowerCase());
+    if (title.isSome())
+      whole.set(title.unwrap(), item);
   }
 
-  return {front, back, middle, whole};
+  return whole;
 }
 
-function pushArray(w: Waka, t: string, a: HTMLTableDataCellElement) {
-  if (t.length === 0)
-    return;
-  if (w.has(t)) {
-    // @ts-ignore
-    w.get(t).push(a);
-  } else {
-    w.set(t, [a]);
-  }
-}
-
-
-export default async function(links: NodeListOf<HTMLAnchorElement>): Promise<void> {
+export default async function(links: NodeListOf<HTMLDivElement>): Promise<void> {
   const config = getConfig();
-  const maps = buildMaps(links);
+  const map = buildMap(links);
 
   for (const id of config.itemMatch.order) {
     const group = config.itemMatch.groups[id.toString()];
@@ -76,48 +36,28 @@ export default async function(links: NodeListOf<HTMLAnchorElement>): Promise<voi
     const style = config.styles.values[group.styles[0].toString()];
 
     for (const item of group.items)
-      for (const td of matches(item, maps))
-        applyStyle(style, td);
+      for (const div of matches(item, map))
+        applyStyle(style, div);
   }
 }
 
 /**
  * Matches the given text against the given node.
+ *
+ * @param text User defined pattern to match against.
+ * @param maps
  */
-function matches(text: string, maps: WakaWaka): Array<HTMLTableDataCellElement> {
+function matches(text: string, maps: Map<string, HTMLDivElement>): Array<HTMLDivElement> {
   if (text === "")
     return [];
 
-  text = text.toLowerCase();
-  const wcl = Text.hasWildcardLeft(text);
-  const wcr = Text.hasWildcardRight(text);
-  const trm = wcl || wcr ? Text.trimWildCard(text) : text;
+  text = Text.expandWildcard(text.toLowerCase());
 
-  let out: Array<HTMLTableDataCellElement> = [];
+  let out: Array<HTMLDivElement> = [];
 
-  if (wcl && wcr) {
-    if (maps.middle.has(trm))
-      // @ts-ignore
-      out = maps.middle.get(trm);
-    else if (maps.front.has(trm))
-      // @ts-ignore
-      out = maps.front.get(trm);
-    else if (maps.back.has(trm))
-      // @ts-ignore
-      out = maps.back.get(trm);
-   } else if (wcr) {
-    if (maps.front.has(trm)) {
-      // @ts-ignore
-      out = maps.front.get(trm);
-    }
-   } else if (wcl) {
-    if (maps.back.has(trm))
-      // @ts-ignore
-      out = maps.back.get(trm);
-  }
-  if (out.length === 0 && maps.whole.has(trm))
-    // @ts-ignore
-    out = maps.whole.get(trm);
+  for (const title of maps.keys())
+    if (text == title || new RegExp(text).test(title))
+      out.push(<HTMLDivElement> maps.get(title));
 
   return out;
 }

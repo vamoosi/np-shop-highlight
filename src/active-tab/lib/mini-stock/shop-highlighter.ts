@@ -6,11 +6,23 @@ import { Option } from "../../../lib/option";
 
 
 /**
+ * Constructs a new ShopData snapshot based on the items currently on the store
+ * page.
+ *
+ * @param snap The previous snapshot of the "new" items on the current store
+ * page.
+ * @param cur  The current store item list.
+ *
  * @return {ShopData}
  */
 export function applyHighlight(snap: ShopData, cur: PageData) {
+  // Items currently displayed on the page.
   const curMap = cur.elems;
+
+  // Items that were on the page 2 refreshes ago.
   const dead = snap.stale;
+
+  // Items that were on the page 1 refresh ago.
   const stale = snap.fresh;
 
   // Remove the snapshot stale data from further processing
@@ -41,7 +53,7 @@ export function applyHighlight(snap: ShopData, cur: PageData) {
  * Applies any mutations to dom required to highlight a
  * stale shop item.
  */
-function highlightStale(a: HTMLAnchorElement) {
+function highlightStale(item: HTMLDivElement) {
   const conf = getConfig();
   const mini = conf.miniStock;
   const sMap = conf.styles.values;
@@ -49,14 +61,14 @@ function highlightStale(a: HTMLAnchorElement) {
   if (!conf.miniStock.enableStale)
     return;
 
-  applyStyle(sMap[mini.staleStyle.toString()], a.parentElement);
+  applyStyle(sMap[mini.staleStyle.toString()], item);
 }
 
 /**
  * Applies any mutations to dom required to highlight a
  * new shop item.
  */
-function highlightFresh(a: HTMLAnchorElement) {
+function highlightFresh(item: HTMLDivElement) {
   const conf = getConfig();
   const mini = conf.miniStock;
   const sMap = conf.styles.values;
@@ -64,5 +76,5 @@ function highlightFresh(a: HTMLAnchorElement) {
   if (!conf.miniStock.enableFresh)
     return;
 
-  applyStyle(sMap[mini.freshStyle.toString()], a.parentElement);
+  applyStyle(sMap[mini.freshStyle.toString()], item.parentElement);
 }

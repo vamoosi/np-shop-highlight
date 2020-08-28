@@ -2,24 +2,24 @@
 
 import { getConfig } from "../../../../config/Configuration";
 import { findAll } from "../../../../lib/dom/query";
-import IM from "../../../lib/item-match";
-import * as MS from "../../../lib/mini-stock/handler";
+import ItemMatch from "../../../lib/item-match";
+import * as MiniStock from "../../../lib/mini-stock/handler";
 import { ObjectDetails } from "../types";
 
 /**
  * Shop item link document query.
  *
- * Used to locate links that may be relevant as shop items.
+ * Used to locate shop item div elements.
  */
-const ANCHOR_QUERY = "a[onclick]";
+const ITEM_QUERY = "div.shop-item";
 
 export async function shopHandler(params: ObjectDetails): Promise<void> {
   const config = getConfig();
-  const nodes = findAll<HTMLAnchorElement>(ANCHOR_QUERY);
+  const nodes = findAll<HTMLDivElement>(ITEM_QUERY);
 
   if (config.general.features.miniStock)
-    await MS.handler(nodes, params.id).catch(console.log);
+    await MiniStock.handler(nodes, params.id).catch(console.log);
 
   if (config.general.features.itemMatch)
-    IM(nodes).catch(console.log);
+    ItemMatch(nodes).catch(console.log);
 }

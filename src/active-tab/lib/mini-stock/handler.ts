@@ -30,7 +30,7 @@ const OBJECT_TYPE_KEY = "shop";
 const TIMEOUT = 20 * 60 * 1000;
 
 export async function handler(
-  nodes: NodeListOf<HTMLAnchorElement>,
+  nodes: NodeListOf<HTMLDivElement>,
   shopId: number,
 ): Promise<void> {
   const key = genKey(shopId);
@@ -61,27 +61,46 @@ function buildPageData(data: Array<ElementData>): PageData {
   return out;
 }
 
-function linkData(nodeList: NodeListOf<HTMLAnchorElement>): Array<ElementData> {
+/**
+ * Constructs an array of ElementData populated by the shop item's link details.
+ *
+ * @param nodeList A list of shop item Div elements.
+ *
+ * @return an array of ElementData objects that will have a length that is equal
+ * to or less than the input node list.
+ */
+function linkData(nodeList: NodeListOf<HTMLDivElement>): Array<ElementData> {
   const out = [];
 
-  for (const anchor of nodeList) {
-    // noinspection JSUnresolvedVariable
-    const ref = anchor.href.split("?");
+  for (const div of nodeList) {
+    const img = (<HTMLDivElement> div).querySelector<HTMLDivElement>(".item-img");
 
-    if (ref.length < 2)
+    if (img === null)
       continue;
 
-    const params = new URLSearchParams(ref[1]);
+    // noinspection JSUnresolvedVariable
+    const dataLink = img.getAttribute("data-link");
+
+    // If there was no data-link element, attribute do nothing?
+    if (dataLink === null)
+      continue;
+
+    const query = (<string> dataLink).split("?");
+
+    // If there was no query on the dataLink attribute, also do nothing?
+    if (query.length < 2)
+      continue;
+
+    const params = new URLSearchParams(query[1]);
 
     if (!params.has(STOCK_ID_KEY) || !params.has(OBJ_INFO_ID))
       continue;
 
     out.push(newElementData(
-      anchor,
+      div,
       parseInt(params.get(STOCK_ID_KEY) || "0"),
       parseInt(params.get(OBJ_INFO_ID) || "0"),
     ));
-
   }
 
   return out;
