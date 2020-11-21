@@ -16,6 +16,8 @@ Items can be applied a customizable highlight by:
 
 Mostly just a silly tool with which to try out Svelte.
 
+WARNING: This plugin will not work for Neopets Premium users unless the beta UI is enabled.
+
 == Features
 
 === Shop Search
@@ -84,6 +86,7 @@ image:{github-raw}/.readme/item-match.gif[width=300]
 
 == Known Issues
 
+. For Neopets Premium users, the beta UI must be enabled for this plugin to work.
 . For the mini stock feature, if the shop does a full
   restock between refreshes within a 20 minute window, the
   extension will consider any items that were not in the
