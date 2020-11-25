@@ -1,8 +1,8 @@
-import { ItemDetails } from "./item-details";
+import { StorableRefMap } from "../../../lib/dom/item-ref";
 
 export interface ShopData {
-  fresh: Array<ItemDetails>;
-  stale: Array<ItemDetails>;
+  fresh: StorableRefMap;
+  stale: StorableRefMap;
   time: number;
 }
 
@@ -12,17 +12,12 @@ export interface ShopData {
  * @return {ShopData}
  */
 export function defaultShopData() {
-  return newShopData([], [], 0);
+  return newShopData({}, {}, 0);
 }
 
 /**
- * Creates a new {@link ShopData} instance using the given
- * input params.
+ * Creates a new {@link ShopData} instance using the given input params.
  */
-export function newShopData(
-  fresh: Array<ItemDetails>,
-  stale: Array<ItemDetails>,
-  time: number,
-): ShopData {
+export function newShopData(fresh: StorableRefMap, stale: StorableRefMap, time: number): ShopData {
   return { fresh, stale, time };
 }

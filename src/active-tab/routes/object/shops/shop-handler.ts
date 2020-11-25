@@ -11,11 +11,11 @@ import { ObjectDetails } from "../types";
  *
  * Used to locate shop item div elements.
  */
-const ITEM_QUERY = "div.shop-item";
+const ItemQueries = ["div.shop-item", "a[onclick]"];
 
 export async function shopHandler(params: ObjectDetails): Promise<void> {
   const config = getConfig();
-  const nodes = findAll<HTMLDivElement>(ITEM_QUERY);
+  const nodes = findAll(ItemQueries);
 
   if (config.general.features.miniStock)
     await MiniStock.handler(nodes, params.id).catch(console.log);

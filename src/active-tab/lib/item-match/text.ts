@@ -6,7 +6,7 @@ const hasWildcardRight = (x: string) => x[x.length - 1] === WILDCARD;
 const hasWildcardLeft = (x: string) => x[0] === WILDCARD;
 
 function expandWildcard(text: string): string {
-  return text.replace("*", ".*");
+  return text.replace(/\*/g, ".*");
 }
 
 function trimWildCard(text: string): string {

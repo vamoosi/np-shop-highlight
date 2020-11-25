@@ -1,5 +1,9 @@
+/**
+ * Chrome specific BrowserStore implementation.
+ */
 import {
-  BrowserStore, BrowserStoreCB,
+  BrowserStore,
+  BrowserStoreCB,
   SubscriberMap,
 } from "./browser-store";
 import { Option } from "../option";

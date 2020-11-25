@@ -5,6 +5,9 @@ export interface GeneralConfig {
    */
   enabled: boolean;
 
+  /**
+   * Currently known plugin version.
+   */
   version: string;
 
   features: {

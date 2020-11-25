@@ -1,29 +1,25 @@
 import { getConfig } from "../../../config/Configuration";
-import { applyStyle } from "../../../lib/style";
 
 import Text from './text';
-import { Option } from "../../../lib/option";
+import { ItemRef, ItemRefMap } from "../../../lib/dom/item-ref";
 
-type DivMap = Map<string, HTMLDivElement>;
+type RefMap = Map<string, ItemRef>;
 
-function buildMap(links: NodeListOf<HTMLDivElement>): DivMap
+function buildMap(links: ItemRefMap): RefMap
 {
   // Map of whole titles to elements.
-  const whole  = new Map<string, HTMLDivElement>();
+  const whole  = new Map<string, ItemRef>();
 
-  for (let i = 0; i < links.length; i++) {
-    const item = links[i];
-    const title = Option.maybe(item.querySelector<HTMLParagraphElement>(".item-name"))
-      .map(v => v.innerText)
-      .map(s => s.toLowerCase());
-    if (title.isSome())
-      whole.set(title.unwrap(), item);
+  for (const key of Object.keys(links)) {
+    if (links.hasOwnProperty(key)) {
+      whole.set(links[key].name.toLowerCase(), links[key]);
+    }
   }
 
   return whole;
 }
 
-export default async function(links: NodeListOf<HTMLDivElement>): Promise<void> {
+export default async function(links: ItemRefMap): Promise<void> {
   const config = getConfig();
   const map = buildMap(links);
 
@@ -36,8 +32,8 @@ export default async function(links: NodeListOf<HTMLDivElement>): Promise<void> 
     const style = config.styles.values[group.styles[0].toString()];
 
     for (const item of group.items)
-      for (const div of matches(item, map))
-        applyStyle(style, div);
+      for (const ref of matches(item, map))
+        ref.applyStyle(style);
   }
 }
 
@@ -47,17 +43,19 @@ export default async function(links: NodeListOf<HTMLDivElement>): Promise<void> 
  * @param text User defined pattern to match against.
  * @param maps
  */
-function matches(text: string, maps: Map<string, HTMLDivElement>): Array<HTMLDivElement> {
+function matches(text: string, maps: RefMap): Array<ItemRef> {
   if (text === "")
     return [];
 
   text = Text.expandWildcard(text.toLowerCase());
+  console.log(text);
 
-  let out: Array<HTMLDivElement> = [];
+  let out: Array<ItemRef> = [];
 
-  for (const title of maps.keys())
+  for (const title of maps.keys()) {
     if (text == title || new RegExp(text).test(title))
-      out.push(<HTMLDivElement> maps.get(title));
+      out.push(<ItemRef>maps.get(title));
+  }
 
   return out;
 }

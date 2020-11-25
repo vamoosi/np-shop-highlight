@@ -1,8 +1,6 @@
 import { getConfig } from "../../../config/Configuration";
-import { applyStyle } from "../../../lib/style";
 import { ShopData } from "./shop-data";
-import { PageData } from "./page-data";
-import { Option } from "../../../lib/option";
+import { ItemRef, ItemRefMap, StorableRefMap } from "../../../lib/dom/item-ref";
 
 
 /**
@@ -15,36 +13,48 @@ import { Option } from "../../../lib/option";
  *
  * @return {ShopData}
  */
-export function applyHighlight(snap: ShopData, cur: PageData) {
-  // Items currently displayed on the page.
-  const curMap = cur.elems;
+export function applyHighlight(snap: ShopData, cur: ItemRefMap): ShopData {
+  const stale: StorableRefMap = {};
+  const fresh: StorableRefMap = {};
+  cur = JSON.parse(JSON.stringify(cur))
 
-  // Items that were on the page 2 refreshes ago.
-  const dead = snap.stale;
-
-  // Items that were on the page 1 refresh ago.
-  const stale = snap.fresh;
-
-  // Remove the snapshot stale data from further processing
-  for (let i = 0; i < dead.length; i++)
-    curMap.delete(dead[i].itemInfoId);
-
-  // Highlight new stale items (snapshot fresh)
-  for (let i = 0; i < stale.length; i++) {
-    if (curMap.has(stale[i].itemInfoId)) {
-      Option.maybe(curMap.get(stale[i].itemInfoId))
-        .ifSome(i => highlightStale(i.tag));
-      curMap.delete(stale[i].itemInfoId);
+  // Iterate through the items that are marked as stale and remove them from the
+  // list of elements we care about.
+  for (const key of Object.keys(snap.stale)) {
+    if (cur[key]) {
+      stale[key] = cur[key].toStorable();
+      delete cur[key];
     }
   }
 
-  // Highlight fresh items
-  for (const key of curMap.keys())
-    Option.maybe(curMap.get(key)).ifSome(i => highlightFresh(i.tag));
+  // Iterate through the items that were marked as "new" in the last refresh.
+  // If they are still on the page, highlight them as "stale" and move them to
+  // the stale list.
+  for (const key of Object.keys(snap.fresh)) {
+    if (snap.fresh.hasOwnProperty(key)) {
+
+      const tmp = cur[key];
+
+      if (tmp) {
+        highlightStale(tmp)
+        stale[tmp.infoId] = tmp.toStorable()
+        delete cur[key]
+      }
+    }
+  }
+
+  // Iterate through the remaining items on the page and mark them as new
+  for (const key of Object.keys(cur)) {
+    if (cur.hasOwnProperty(key)) {
+
+      highlightFresh(cur[key])
+      fresh[key] = cur[key].toStorable();
+    }
+  }
 
   return {
     time: new Date().getTime(),
-    fresh: cur.items,
+    fresh: fresh,
     stale: stale,
   };
 }
@@ -53,7 +63,7 @@ export function applyHighlight(snap: ShopData, cur: PageData) {
  * Applies any mutations to dom required to highlight a
  * stale shop item.
  */
-function highlightStale(item: HTMLDivElement) {
+function highlightStale(item: ItemRef) {
   const conf = getConfig();
   const mini = conf.miniStock;
   const sMap = conf.styles.values;
@@ -61,14 +71,14 @@ function highlightStale(item: HTMLDivElement) {
   if (!conf.miniStock.enableStale)
     return;
 
-  applyStyle(sMap[mini.staleStyle.toString()], item);
+  item.applyStyle(sMap[mini.staleStyle.toString()]);
 }
 
 /**
  * Applies any mutations to dom required to highlight a
  * new shop item.
  */
-function highlightFresh(item: HTMLDivElement) {
+function highlightFresh(item: ItemRef) {
   const conf = getConfig();
   const mini = conf.miniStock;
   const sMap = conf.styles.values;
@@ -76,5 +86,5 @@ function highlightFresh(item: HTMLDivElement) {
   if (!conf.miniStock.enableFresh)
     return;
 
-  applyStyle(sMap[mini.freshStyle.toString()], item.parentElement);
+  item.applyStyle(sMap[mini.freshStyle.toString()]);
 }

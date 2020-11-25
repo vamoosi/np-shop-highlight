@@ -4,6 +4,9 @@ export interface BrowserStoreCB {
   (data: any): void;
 }
 
+/**
+ * Generic abstraction over browser storage APIs.
+ */
 export interface BrowserStore {
   readonly name: string;
 

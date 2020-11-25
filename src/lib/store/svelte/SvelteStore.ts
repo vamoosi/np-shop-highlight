@@ -10,7 +10,16 @@ const ERR_READ = "Attempted to load readable store before it was initialized";
 const ERR_WRITE = "Attempted to load writable store before it was initialized";
 const ERR_REINIT = "Configuration store already initialized";
 
+/**
+ * confWrite is the copy of the application config that
+ * is written to by the plugin config menu.
+ */
 const confWrite: Writable<AppConfig> = writable(<AppConfig>{});
+
+/**
+ * confRead is the copy of the application config that the
+ * plugin config menu UI reads from.
+ */
 const confRead:  Writable<AppConfig> = writable(<AppConfig>{});
 
 const subscriberMap = new Map<number, SvelteSubscriber>();
@@ -90,12 +99,20 @@ function browserCB(value: AppConfig): void {
   confRead.set(value);
 }
 
+/**
+ * Base callback to write the updated plugin configuration
+ * to the browser store on change.
+ */
 function confCB(value: AppConfig): void {
   if (stateChanged(value))
     Storage.saveLocal(APP_CONFIG_KEY, value)
       .catch(console.log);
 }
 
+/**
+ * Ugly check to verify that the plugin configuration was
+ * actually changed by a write event.
+ */
 function stateChanged(value: AppConfig): boolean {
   const tmp = JSON.stringify(value);
 
@@ -106,6 +123,12 @@ function stateChanged(value: AppConfig): boolean {
   return true;
 }
 
+/**
+ * Applies all subscriber callbacks that are listening for
+ * changes to the plugin configuration.
+ *
+ * @param {AppConfig} a updated plugin config
+ */
 function handleSubscribers(a: AppConfig) {
   // @ts-ignore (not actually an issue, PHPStorm thinks I'm compiling to ES5)
   for (const cb of subscriberMap.values())
