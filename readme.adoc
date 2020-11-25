@@ -14,9 +14,6 @@ Items can be applied a customizable highlight by:
 - Mini stock shop addition highlighting
 - Custom user item lists with wildcard support
 
-Mostly just a silly tool with which to try out Svelte.
-
-WARNING: This plugin will not work for Neopets Premium users unless the beta UI is enabled.
 
 == Features
 
@@ -71,11 +68,6 @@ Treasure*
 <4> Will match any item with `Treasure Map` appearing
     anywhere in the title.
 
-WARNING: For performance reasons (since this is all done in
-         your browser) only full word matches are considered
-         when matching titles.  For example the pattern
-         `\*Cake*` _will_ match `Acara Cabbage Cake` but will
-         not match `Hot Cakes`
 
 Item lists are applied in order, meaning an item that
 appears in multiple lists wil only have the style from the
@@ -83,13 +75,3 @@ last of those lists applied.  This allows for the creation
 of lists with priority or exclusion lists.
 
 image:{github-raw}/.readme/item-match.gif[width=300]
-
-== Known Issues
-
-. For Neopets Premium users, the beta UI must be enabled for this plugin to work.
-. For the mini stock feature, if the shop does a full
-  restock between refreshes within a 20 minute window, the
-  extension will consider any items that were not in the
-  previous shop stock as new.  Meaning most if not all items
-  will be highlighted.  The shop item cache clears out after
-  20 minutes or whenever the page is hit during a restock.
