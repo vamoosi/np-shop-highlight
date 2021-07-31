@@ -1,3 +1,5 @@
-= NP Shop Highlighter ... for 'firefox'
+= NP Shop Highlighter for firefox ... kind of
+
 This is foxcapades' np shop highlight extension but finagled to kinda work in firefox. it's not great. i'm not an expert. 
+
 use by downloading the release, going to about:debugging in firefox's url bar, selecting This Firefox, and then uploading the zip as a temporary add-on. fortunately it will remember lists you feed it, but you WILL have to do this every time you close firefox lol
